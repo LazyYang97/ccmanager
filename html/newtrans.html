@@ -1,6 +1,10 @@
 <ons-navigator swipeable var="myNavigator">
-<ons-page ons-show="updateTitle('Add Transaction')" ng-init="tabButton='expenseTab'">
-
+<ons-page ng-init="tabButton='expenseTab'">
+    <ons-toolbar>
+        <div class="center">
+        Add Transaction
+        </div>
+    </ons-toolbar>
 <!--Transactions Tabs-->
     <section class="segment segment--material" style="width:100%; margin: 0 auto">
         <div class="segment__item segment--material__item">

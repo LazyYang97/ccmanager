@@ -1,4 +1,10 @@
-<ons-page ons-show="updateTitle('Suggest Accounts')">
+<ons-page>
+    <ons-toolbar>
+        <div class="left">
+            <ons-back-button onclick="myNavigator.popPage()"></ons-back-button>
+        </div>
+        <div class="center">Suggest Accounts</div>
+    </ons-toolbar>
     <ons-list>
         <ons-list-item>
             <div class="center">
@@ -10,5 +16,4 @@
             </div>
         </ons-list-item>
     </ons-list>
-    <ons-button onclick="myNavigator.popPage()" style="width:90%;position:absolute;bottom:0;left:0;margin:5%;text-align:center">Go Back</ons-button>
 </ons-page>
