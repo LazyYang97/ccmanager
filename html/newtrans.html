@@ -1,0 +1,106 @@
+<ons-page ons-show="updateTitle('Add Transaction')" ng-init="tabButton='expenseTab'">
+
+<!--Transactions Tabs-->
+    <section class="segment segment--material" style="width:100%; margin: 0 auto">
+        <div class="segment__item segment--material__item">
+            <input type="radio" class="segment__input segment--material__input" name="segment-b" ng-model="tabButton" value="expenseTab">
+            <div class="segment__button segment--material__button">Expense</div>
+        </div>
+        <div class="segment__item segment--material__item">
+            <input type="radio" class="segment__input segment--material__input" name="segment-b" ng-model="tabButton" value="incomeTab">
+            <div class="segment__button segment--material__button">Income</div>
+        </div>
+        <div class="segment__item segment--material__item">
+            <input type="radio" class="segment__input segment--material__input" name="segment-b" ng-model="tabButton" value="transferTab">
+            <div class="segment__button segment--material__button">Transfer</div>
+        </div>
+    </section> 
+
+<!--Expense Contents-->
+<section ng-show="tabButton == 'expenseTab'" style="width:90%;margin:0 auto;">
+       <p> 
+        <label for="date">Date</label><br/> 
+        <ons-input input-id="date" modifier="underbar" type="date" style="width:100%"></ons-input>
+       </p>
+       <p>
+        <label for="account">Account</label><br/>
+        <ons-select id="account" modifier="underbar" style="width:55%">
+            <option>Card 1</option> 
+        </ons-select>
+       <ons-button style="width:40%;text-align:center">Suggest</ons-button>
+       </p>
+       <p> 
+        <label for="category">Category</label><br/>
+        <ons-select id="category" modifier="underbar" style="width:100%">
+            <option>Category 1</option> 
+        </ons-select>
+       </p>
+       <p>
+        <label for="amount">Amount</label><br/>
+        <ons-input input-id="amount" modifier="underbar" type="number" style="width:100%"></ons-input>
+       </p>
+       <p>
+        <label for="desc">Description</label>
+        <ons-input input-id="desc" modifier="underbar" type="text" style="width:100%"></ons-input>
+       </p>
+       <ons-button style="width:90%;position:absolute;bottom:0;left:0;margin:5%;text-align:center">Add</ons-button>
+    </section> 
+
+<!--Income Contents-->
+    <section ng-show="tabButton == 'incomeTab'" style="width:90%;margin:0 auto;">
+       <p> 
+        <label for="date">Date</label><br/> 
+        <ons-input input-id="date" modifier="underbar" type="date" style="width:100%"></ons-input>
+       </p>
+       <p>
+        <label for="account">Account</label><br/>
+        <ons-select id="account" modifier="underbar" style="width:100%">
+            <option>Card 1</option> 
+        </ons-select>
+       </p>
+       <p> 
+        <label for="category">Category</label><br/>
+        <ons-select id="category" modifier="underbar" style="width:100%">
+            <option>Category 1</option> 
+        </ons-select>
+       </p>
+       <p>
+        <label for="amount">Amount</label><br/>
+        <ons-input input-id="amount" modifier="underbar" type="number" style="width:100%"></ons-input>
+       </p>
+       <p>
+        <label for="desc">Description</label>
+        <ons-input input-id="desc" modifier="underbar" type="text" style="width:100%"></ons-input>
+       </p>
+       <ons-button style="width:90%;position:absolute;bottom:0;left:0;margin:5%;text-align:center">Add</ons-button>
+   </section>
+
+<!--Transfer Contents-->
+   <section ng-show="tabButton == 'transferTab'" style="width:90%;margin:0 auto;display:block">
+       <p> 
+        <label for="date">Date</label><br/> 
+        <ons-input input-id="date" modifier="underbar" type="date" style="width:100%"></ons-input>
+       </p>
+       <p>
+        <label for="fromaccount">From</label><br/>
+        <ons-select id="fromaccount" modifier="underbar" style="width:100%">
+            <option>Card 1</option> 
+        </ons-select>
+       </p>
+       <p> 
+        <label for="toaccount">To</label><br/>
+        <ons-select id="toaccount" modifier="underbar" style="width:100%">
+            <option>Card 2</option> 
+        </ons-select>
+       </p>
+       <p>
+        <label for="amount">Amount</label><br/>
+        <ons-input input-id="amount" modifier="underbar" type="number" style="width:100%"></ons-input>
+       </p>
+       <p>
+        <label for="desc">Description</label>
+        <ons-input input-id="desc" modifier="underbar" type="text" style="width:100%"></ons-input>
+       </p>
+       <ons-button style="width:90%;position:absolute;bottom:0;left:0;margin:5%;text-align:center">Add</ons-button>
+   </section> 
+</ons-page>
