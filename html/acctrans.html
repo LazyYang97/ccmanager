@@ -1,0 +1,14 @@
+<ons-navigator swipeable var="acctransNavigator">
+    <ons-page ng-init="acctransTitle='Accounts'">
+        <ons-toolbar>
+            <div class="center">
+                {{acctransTitle}}
+            </div>      
+        </ons-toolbar> 
+<!--Transactions Tabs-->
+        <ons-tabbar position="top">
+            <ons-tab page="html/accounts.html" label="Accounts" active></ons-tab>
+            <ons-tab page="html/trans.html" label="Transactions"></ons-tab>
+        </ons-tabbar>
+    </ons-page>
+</ons-navigator>

@@ -1,37 +1,15 @@
 <ons-navigator swipeable var="myNavigator">
-<ons-page ng-init="tabButton='expenseTab'">
+    <ons-page>
     <ons-toolbar>
-        <div class="center">
-        Add Transaction
+        <div class="center" style="text-align:center">
+            Add Transactions
         </div>
     </ons-toolbar>
 <!--Transactions Tabs-->
-    <section class="segment segment--material" style="width:100%; margin: 0 auto">
-        <div class="segment__item segment--material__item">
-            <input type="radio" class="segment__input segment--material__input" name="segment-b" ng-model="tabButton" value="expenseTab">
-            <div class="segment__button segment--material__button">Expense</div>
-        </div>
-        <div class="segment__item segment--material__item">
-            <input type="radio" class="segment__input segment--material__input" name="segment-b" ng-model="tabButton" value="incomeTab">
-            <div class="segment__button segment--material__button">Income</div>
-        </div>
-        <div class="segment__item segment--material__item">
-            <input type="radio" class="segment__input segment--material__input" name="segment-b" ng-model="tabButton" value="transferTab">
-            <div class="segment__button segment--material__button">Transfer</div>
-        </div>
-    </section> 
-
-<!--Contents-->
-<section ng-switch="tabButton" style="width:90%;margin:0 auto;">
-    <div ng-switch-when="expenseTab">
-        <div ng-include="'html/expense.html'"></div>
-    </div>
-    <div ng-switch-when="incomeTab">
-        <div ng-include="'html/income.html'"></div>
-    </div>
-    <div ng-switch-when="transferTab">
-        <div ng-include="'html/transfer.html'"></div>
-    </div>
-</section> 
+    <ons-tabbar position="top">
+        <ons-tab page="html/expense.html" label="Expense" active></ons-tab>
+        <ons-tab page="html/income.html" label="Income"></ons-tab>
+        <ons-tab page="html/transfer.html" label="Transfer"></ons-tab>
+    </ons-tabbar>
 </ons-page>
 </ons-navigator>
