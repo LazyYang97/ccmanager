@@ -22,12 +22,16 @@
                         expiry<br/>
                         balance
                     </span>
+                    <span ng-if="type=='cash'"class="list-item__title">
+                        balance
+                    </span>
                 </div>
                 <div class="right">
                     <ons-icon icon="md-card"></ons-icon>
                 </div>
             </ons-list-item>
         </ons-list> 
-        <div class="center" ng-include="'html/creditcarddetails.html'"></div>
+        <div class="center" ng-if="type=='creditcard'" ng-include="'html/creditcarddetails.html'"></div>
+        <div ng-include="'html/transcontents.html'"></div>
    </div>
 </ons-page>
