@@ -1,5 +1,5 @@
 <ons-page>
-<section style="width:90%;margin:0 auto">
+<div class="content" style="width:90%;margin:0 auto">
 <p> 
  <label for="date">Date</label><br/> 
  <ons-input input-id="date" modifier="underbar" type="date" style="width:100%"></ons-input>
@@ -9,7 +9,7 @@
  <ons-select id="account" modifier="underbar" style="width:55%">
      <option>Card 1</option> 
  </ons-select>
- <ons-button onclick="myNavigator.pushPage('html/suggest.html',{animation:'slide'})" style="width:40%;text-align:center">Suggest</ons-button>
+ <ons-button onclick="myNavigator.pushPage('html/suggest.html',{animation:'slide'})" style="width:42%;text-align:center">Suggest</ons-button>
 </p>
 <p> 
  <label for="category">Category</label><br/>
@@ -25,6 +25,6 @@
  <label for="desc">Description</label>
  <ons-input input-id="desc" modifier="underbar" type="text" style="width:100%"></ons-input>
 </p>
-<ons-button style="width:90%;position:absolute;bottom:0;left:0;margin:5%;text-align:center">Add</ons-button>
-</section>
+<ons-button style="width:100%;position:sticky;bottom:0;left:0;text-align:center">Add</ons-button>
+</div>
 </ons-page>

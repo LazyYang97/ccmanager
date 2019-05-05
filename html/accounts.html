@@ -1,6 +1,6 @@
 <ons-page>
-    <ons-fab position="bottom right">
-        <ons-icon icon="md-plus"></ons-icon>
+    <ons-fab position="bottom right" >
+        <ons-icon icon="md-plus" onclick="acctransNavigator.pushPage('html/newacc.html',{animation:'slide'})"></ons-icon>
     </ons-fab>
     <ons-list>
     <ons-list-item style="background:#eeeeee">
@@ -14,9 +14,9 @@
             </ons-row>
         </div>
     </ons-list-item> 
-    <ons-list-item>
+    <ons-list-item onclick="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide'})">
         <div class="center">
-        Credit Card
+        Card 1
         </div>
         <div class="right">
             <ons-row style="width:150px;text-align:center">

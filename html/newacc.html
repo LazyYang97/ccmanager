@@ -1,0 +1,150 @@
+<ons-page>
+
+<ons-toolbar>
+    <div class="left">
+    <ons-back-button onclick="acctransNavigator.popPage()"></ons-back-button>
+    </div>
+    <div class="center">Add Account</div>
+    <div class="right">
+        <ons-toolbar-button icon="md-camera"></ons-toolbar-button>      
+    </div>
+</ons-toolbar>
+
+<!--New Account Contents-->
+<div class="content" style="width:90%;margin:0 auto">
+<p>
+ <label for="group">Group</label><br/>
+ <ons-select id="group" ng-model="selectedgroup" modifier="underbar" style="width:100%">
+     <option value="creditcard">Credit Card</option> 
+     <option value="debitcard">Debit Card</option> 
+     <option value="cash">Cash</option> 
+ </ons-select>
+</p>
+
+<!--Credit Card Fields-->
+<div ng-if="selectedgroup=='creditcard'">
+<p> 
+<ons-row>
+    <ons-col>
+        <label for="cardnumb">Last 4 Digits</label><br/>
+        <ons-input input-id="cardnumb" modifier="underbar" type="number" style="width:90%"></ons-input>
+    </ons-col>
+    <ons-col>
+        <label for="expiry">Expiry</label><br/>
+        <ons-input input-id="expiry" modifier="underbar" type="number" style="width:90%"></ons-input> 
+    </ons-col>
+</ons-row>
+</p>
+<p>
+    <label for="accname">Card Name</label><br/>
+    <ons-input input-id="accname" modifier="underbar" type="number" style="width:100%"></ons-input>
+</p>
+<p> 
+<ons-row>
+    <ons-col>
+        <label for="type">Type</label><br/>
+        <ons-select id="type" modifier="underbar" style="width:90%">
+            <option>Visa</option>
+        </ons-select>
+    </ons-col>
+    <ons-col>
+        <label for="bank">Bank</label><br/>
+        <ons-select id="bank" modifier="underbar" style="width:90%">
+            <option>CIMB</option> 
+        </ons-select>
+    </ons-col>
+</ons-row>
+</p>
+<p> 
+<ons-row>
+    <ons-col>
+        <label for="sdate">Statement Date</label><br/>
+        <ons-input input-id="sdate" type="date" modifier="underbar" style="width:90%">
+        </ons-input>
+    </ons-col>
+    <ons-col>
+        <label for="paymentdd">Payment Due Date</label><br/>
+        <ons-input input-id="paymentdd" type="date" modifier="underbar" style="width:90%">
+        </ons-input>
+    </ons-col>
+</ons-row>
+</p>
+<p>
+    <label for="obalance">Outstanding Balance</label>
+    <ons-input input-id="obalance" modifier="underbar" type="number" style="width:100%"></ons-input>
+</p>
+<p>
+    <label for="annualfee">Annual Fee</label>
+    <ons-input input-id="annualfee" modifier="underbar" type="number" style="width:100%"></ons-input>
+</p>
+<p>
+    <label for="desc">Description</label>
+    <ons-input input-id="desc" modifier="underbar" type="text" style="width:100%"></ons-input>
+</p>
+<ons-button style="width:100%;position:sticky;bottom:10px;left:0;text-align:center">Add</ons-button>
+</div>
+
+<!--Debit Card Fields-->
+<div ng-if="selectedgroup=='debitcard'">
+<p> 
+<ons-row>
+    <ons-col>
+        <label for="cardnumb">Last 4 Digits</label><br/>
+        <ons-input input-id="cardnumb" modifier="underbar" type="number" style="width:90%"></ons-input>
+    </ons-col>
+    <ons-col>
+        <label for="expiry">Expiry</label><br/>
+        <ons-input input-id="expiry" modifier="underbar" type="number" style="width:90%"></ons-input> 
+    </ons-col>
+</ons-row>
+</p>
+<p>
+    <label for="accname">Card Name</label><br/>
+    <ons-input input-id="accname" modifier="underbar" type="number" style="width:100%"></ons-input>
+</p>
+<p> 
+<ons-row>
+    <ons-col>
+        <label for="type">Type</label><br/>
+        <ons-select id="type" modifier="underbar" style="width:90%">
+            <option>Visa</option>
+        </ons-select>
+    </ons-col>
+    <ons-col>
+        <label for="bank">Bank</label><br/>
+        <ons-select id="bank" modifier="underbar" style="width:90%">
+            <option>CIMB</option> 
+        </ons-select>
+    </ons-col>
+</ons-row>
+</p>
+<p>
+    <label for="balance">Balance</label>
+    <ons-input input-id="balance" modifier="underbar" type="number" style="width:100%"></ons-input>
+</p>
+<p>
+    <label for="desc">Description</label>
+    <ons-input input-id="desc" modifier="underbar" type="text" style="width:100%"></ons-input>
+</p>
+<ons-button style="width:100%;position:sticky;bottom:10px;left:0;text-align:center">Add</ons-button>
+</div>
+
+<!--Cash Fields-->
+<div ng-if="selectedgroup=='cash'">
+<p>
+    <label for="accname">Account Name</label><br/>
+    <ons-input input-id="accname" modifier="underbar" type="number" style="width:100%"></ons-input>
+</p>
+<p>
+    <label for="balance">Balance</label>
+    <ons-input input-id="balance" modifier="underbar" type="number" style="width:100%"></ons-input>
+</p>
+<p>
+    <label for="desc">Description</label>
+    <ons-input input-id="desc" modifier="underbar" type="text" style="width:100%"></ons-input>
+</p>
+<ons-button style="width:100%;position:sticky;bottom:10px;left:0;text-align:center">Add</ons-button>
+</div>
+</div>
+</ons-page>
+
