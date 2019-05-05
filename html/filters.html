@@ -1,0 +1,37 @@
+<ons-page>
+    <ons-toolbar>
+        <div class="left">
+            <ons-back-button onclick="acctransNavigator.popPage()"></ons-back-button>
+        </div> 
+        <div class="center">
+            <ons-icon icon="md-filter-list">
+            </ons-icon>
+            Filters
+        </div>
+    </ons-toolbar>
+    <div class="content" style="width:90%;margin:0 auto">
+        <p>
+        <label for="category">Category</label><br/>
+        <ons-select id="category" modifier="underbar" style="width:100%">
+            <option>Any Category</option>
+        </ons-select>
+        </p>
+        <p>
+        <label for="account">Account</label><br/>
+        <ons-select id="account" modifier="underbar" style="width:100%">
+            <option>Any Account</option>
+        </ons-select>
+        </p>
+        <ons-row>
+            <ons-col>
+        
+        <label for="sdate">Start Date</label><br/>
+        <ons-input type="date"></ons-input>
+            </ons-col>
+            <ons-col>
+        <label for="edate">End Date</label><br/>
+        <ons-input type="date"></ons-input>
+            </ons-col>
+        </ons-row>
+    </div>
+</ons-page>

@@ -5,7 +5,7 @@
                 {{acctransTitle}}
             </div>      
             <div class="right">
-                <ons-toolbar-button icon="md-filter-list"></ons-toolbar-button>
+                <ons-toolbar-button icon="md-filter-list" onclick="acctransNavigator.pushPage('html/filters.html',{animation:'fade'})"></ons-toolbar-button>
             </div>
         </ons-toolbar> 
 <!--Transactions Tabs-->
@@ -14,4 +14,6 @@
             <ons-tab page="html/trans.html" label="Transactions"></ons-tab>
         </ons-tabbar>
     </ons-page>
-</ons-navigator>
+
+</ons-navigator>  
+
