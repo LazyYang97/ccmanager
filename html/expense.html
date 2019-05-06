@@ -4,13 +4,17 @@
  <label for="date">Date</label><br/> 
  <ons-input input-id="date" modifier="underbar" type="date" style="width:100%"></ons-input>
 </p>
-<p>
+<ons-row>
+    <ons-col>
  <label for="account">Account</label><br/>
- <ons-select id="account" modifier="underbar" style="width:55%">
+ <ons-select id="account" modifier="underbar" style="width:100%">
      <option>Card 1</option> 
  </ons-select>
- <ons-button onclick="myNavigator.pushPage('html/suggest.html',{animation:'slide'})" style="width:42%;text-align:center">Suggest</ons-button>
-</p>
+    </ons-col>
+    <ons-col width="33%">
+ <ons-button onclick="myNavigator.pushPage('html/suggest.html',{animation:'slide'})" style="width:100%;text-align:center">Suggest</ons-button>
+    </ons-col>
+</ons-row>
 <p> 
  <label for="category">Category</label><br/>
  <ons-select id="category" modifier="underbar" style="width:100%">
