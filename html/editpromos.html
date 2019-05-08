@@ -1,0 +1,98 @@
+<ons-page>
+    <ons-toolbar>
+        <div class="left">
+            <ons-back-button onclick="promosNavigator.popPage()"></ons-back-button>
+        </div>
+        <div class="center">
+            Edit Promotion
+        </div> 
+    </ons-toolbar>
+    <div class="content" style="width:90%;margin:0 auto">
+        <p>
+            <label for="promotitle">
+                Title
+            </label><br/>
+            <ons-input input-id="promotitle" type="Text" modifier="underbar" style="width:100%"></ons-input>
+        </p>
+        <p>
+        <label for="relatedacc">
+            Related Accounts
+        </label>
+        <ons-button ng-click="toggle=!toggle" modifier="quiet large">Choose related accounts</ons-button>
+        <ons-list ng-show="toggle">
+            <ons-list-item tappable>
+                <label class="left">
+                    <ons-checkbox></ons-checkbox>
+                </label>
+                <label class="center">
+                    Card 1
+                </label>
+            </ons-list-item>
+        </ons-list>
+        </p>
+        <ons-list>
+            <ons-list-header>
+                Requirements
+            </ons-list-header>
+            <ons-list-item tappable>
+                <label class="left">
+                    <ons-checkbox></ons-checkbox>
+                </label>
+                <label class="center">
+                    Minimum spends:
+                    <ons-input modifier="underbar" type="number"</ons-input>
+                </label>
+            </ons-list-item>
+            <ons-list-item tappable>
+                <label class="left">
+                    <ons-checkbox></ons-checkbox>
+                </label>
+                <label class="center">
+                    Start Date:
+                    <ons-input modifier="underbar" type="Date"></ons-input>
+                    End Date:
+                    <ons-input modifier="underbar" type="Date"></ons-input>
+                </label>
+            </ons-list-item>
+            <ons-list-item tappable>
+                <label class="left">
+                    <ons-checkbox></ons-checkbox>
+                </label>
+                <label class="center">
+                    Ongoing
+                </label>
+            </ons-list-item>
+        </ons-list>
+        <p>
+        <label for="relatedcat">
+            Related Categories
+        </label>
+        <ons-button ng-click="cattoggle=!cattoggle" modifier="quiet large">Choose related expense categories</ons-button>
+        <ons-list ng-show="cattoggle">
+            <ons-list-item tappable>
+                <label class="left">
+                    <ons-checkbox></ons-checkbox>
+                </label>
+                <label class="center">
+                    Movies
+                </label>
+            </ons-list-item>
+        </ons-list>
+        </p>
+        <ons-list>
+            <ons-list-header>
+                Rewards
+            </ons-list-header>
+            <ons-list-item tappable>
+                <label class="left">
+                    <ons-checkbox></ons-checkbox>
+                </label>
+                <label class="center">
+                    <ons-button>Choose Reward Category</ons-button>
+                    <ons-input modifier="underbar" type="number"</ons-input>
+                </label>
+            </ons-list-item>
+        </ons-list>
+        <ons-button modifier="large">Add</ons-button>
+    </div>
+</ons-page>
