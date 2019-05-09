@@ -1,11 +1,11 @@
-<ons-page>
+<ons-page ons-show="updateToolbar('Accounts')">
     <ons-fab position="bottom right" >
         <ons-icon icon="md-plus" onclick="acctransNavigator.pushPage('html/newacc.html',{animation:'slide'})"></ons-icon>
     </ons-fab>
     <ons-list>
     <ons-list-item style="background:#eeeeee">
         <div class="center">
-        Credit Card
+            Credit Cards
         </div>
         <div class="right">
             <ons-row style="width:150px;text-align:center">
@@ -14,13 +14,35 @@
             </ons-row>
         </div>
     </ons-list-item> 
-    <ons-list-item onclick="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide'})">
+    <ons-list-item onclick="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide',data:{type:'creditcard'}})">
         <div class="center">
-        Card 1
+            XXX Credit Card
         </div>
         <div class="right">
             <ons-row style="width:150px;text-align:center">
                 <ons-col>RM100</ons-col>
+                <ons-col>RM200</ons-col>
+            </ons-row>
+        </div>
+    </ons-list-item>
+    <ons-list-item style="background:#eeeeee">
+        <div class="center">
+        Debit Card
+        </div>
+        <div class="right">
+            <ons-row style="width:150px;text-align:center">
+                <ons-col></ons-col>
+                <ons-col>RM200</ons-col>
+            </ons-row>
+        </div>
+    </ons-list-item> 
+    <ons-list-item onclick="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide'})">
+        <div class="center">
+            YYY Debit Card
+        </div>
+        <div class="right">
+            <ons-row style="width:150px;text-align:center">
+                <ons-col></ons-col>
                 <ons-col>RM200</ons-col>
             </ons-row>
         </div>

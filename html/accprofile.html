@@ -31,7 +31,7 @@
                 </div>
             </ons-list-item>
         </ons-list> 
-        <div class="center" ng-if="type=='creditcard'" ng-include="'html/creditcarddetails.html'"></div>
-        <div ng-include="'html/transcontents.html'"></div>
+        <div class="center" ng-if="acctransNavigator.topPage.data.type=='creditcard'" ng-include="'html/creditcarddetails.html'"></div>
+        <div  ng-if="acctransNavigator.topPage.data.type!='creditcard'" ng-include="'html/transcontents.html'"></div>
    </div>
 </ons-page>

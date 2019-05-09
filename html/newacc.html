@@ -5,16 +5,18 @@
     <ons-back-button onclick="acctransNavigator.popPage()"></ons-back-button>
     </div>
     <div class="center">Add Account</div>
-    <div class="right">
+    <div class="right" ng-if="selectedgroup=='creditcard'||selectedgroup=='debitcard'">
         <ons-toolbar-button icon="md-camera"></ons-toolbar-button>      
     </div>
 </ons-toolbar>
 
 <!--New Account Contents-->
 <div class="content" style="width:90%;margin:0 auto">
+
 <p>
  <label for="group">Group</label><br/>
  <ons-select id="group" ng-model="selectedgroup" modifier="underbar" style="width:100%">
+     <option value=""></option>
      <option value="creditcard">Credit Card</option> 
      <option value="debitcard">Debit Card</option> 
      <option value="cash">Cash</option> 
@@ -23,33 +25,49 @@
 
 <!--Credit Card Fields-->
 <div ng-if="selectedgroup=='creditcard'">
+    <form name="creditcardForm">
 <p> 
 <ons-row>
     <ons-col>
-        <label for="cardnumb">Last 4 Digits</label><br/>
-        <ons-input input-id="cardnumb" modifier="underbar" type="number" style="width:90%"></ons-input>
+        <label for="cardnumb">
+            Last 4 Digits
+            <span ng-show="creditcardForm.cardnumb.$error.required" style="color:red">*</span>
+        </label><br/>
+        <ons-input input-id="cardnumb" ng-model="cardnumb" name="cardnumb" modifier="underbar" type="number" min="0" max="9999" style="width:90%" required></ons-input>
     </ons-col>
     <ons-col>
-        <label for="expiry">Expiry</label><br/>
-        <ons-input input-id="expiry" modifier="underbar" type="number" style="width:90%"></ons-input> 
+        <label for="expiry">
+            Expiry
+            <span ng-show="creditcardForm.expiry.$error.required" style="color:red">*</span>
+        </label><br/>
+        <ons-input input-id="expiry" modifier="underbar" type="month" ng-model="expiry" name="expiry" style="width:90%" required></ons-input> 
     </ons-col>
 </ons-row>
 </p>
 <p>
-    <label for="accname">Card Name</label><br/>
-    <ons-input input-id="accname" modifier="underbar" type="number" style="width:100%"></ons-input>
+    <label for="accname">
+        Card Name
+            <span ng-show="creditcardForm.accname.$error.required" style="color:red">*</span>
+    </label><br/>
+    <ons-input input-id="accname" ng-model="accname" name="accname" modifier="underbar" type="number" style="width:100%" required></ons-input>
 </p>
 <p> 
 <ons-row>
     <ons-col>
-        <label for="type">Type</label><br/>
-        <ons-select id="type" modifier="underbar" style="width:90%">
+        <label for="type">
+            Type
+            <span ng-show="creditcardForm.type.$error.required" style="color:red">*</span>
+        </label><br/>
+        <ons-select id="type" ng-model="type" name="type" modifier="underbar" style="width:90%" required>
             <option>Visa</option>
         </ons-select>
     </ons-col>
     <ons-col>
-        <label for="bank">Bank</label><br/>
-        <ons-select id="bank" modifier="underbar" style="width:90%">
+        <label for="bank">
+            Bank
+            <span ng-show="creditcardForm.bank.$error.required" style="color:red">*</span>
+        </label><br/>
+        <ons-select id="bank" modifier="underbar" ng-model="bank" name="bank" style="width:90%" required>
             <option>CIMB</option> 
         </ons-select>
     </ons-col>
@@ -58,92 +76,116 @@
 <p> 
 <ons-row>
     <ons-col>
-        <label for="sdate">Statement Date</label><br/>
-        <ons-input input-id="sdate" type="date" modifier="underbar" style="width:90%">
+        <label for="sdate">
+            Statement Date
+            <span ng-show="creditcardForm.sdate.$error.required" style="color:red">*</span>
+        </label><br/>
+        <ons-input ng-model="sdate" name="sdate" input-id="sdate" type="date" modifier="underbar" style="width:90%" required>
         </ons-input>
     </ons-col>
     <ons-col>
-        <label for="paymentdd">Payment Due Date</label><br/>
-        <ons-input input-id="paymentdd" type="date" modifier="underbar" style="width:90%">
+        <label for="paymentdd">
+            Payment Due Date
+            <span ng-show="creditcardForm.paymentdd.$error.required" style="color:red">*</span>
+        </label><br/>
+        <ons-input ng-model="paymentdd" name="paymentdd" input-id="paymentdd" type="date" modifier="underbar" style="width:90%" required>
         </ons-input>
     </ons-col>
 </ons-row>
 </p>
 <p>
-    <label for="obalance">Outstanding Balance</label>
-    <ons-input input-id="obalance" modifier="underbar" type="number" style="width:100%"></ons-input>
+    <label for="obalance">
+        Outstanding Balance
+            <span ng-show="creditcardForm.obalance.$error.required" style="color:red">*</span>
+    </label>
+    <ons-input input-id="obalance" ng-model="obalance" name="obalance" min="0" modifier="underbar" type="number" style="width:100%" required></ons-input>
 </p>
 <p>
     <label for="annualfee">Annual Fee</label>
-    <ons-input input-id="annualfee" modifier="underbar" type="number" style="width:100%"></ons-input>
+    <ons-input ng-model="annualfee" name="annualfee" input-id="annualfee" min="0" modifier="underbar" type="number" style="width:100%"></ons-input>
 </p>
-<p>
-    <label for="desc">Description</label>
-    <ons-input input-id="desc" modifier="underbar" type="text" style="width:100%"></ons-input>
-</p>
-<ons-button modifier="large">Add</ons-button>
+<ons-button modifier="large" ng-disabled="creditcardForm.$invalid" style="margin-bottom:20px">Add</ons-button>
+    </form>
 </div>
 
 <!--Debit Card Fields-->
 <div ng-if="selectedgroup=='debitcard'">
+<form name="debitcardForm">
 <p> 
 <ons-row>
     <ons-col>
-        <label for="cardnumb">Last 4 Digits</label><br/>
-        <ons-input input-id="cardnumb" modifier="underbar" type="number" style="width:90%"></ons-input>
+        <label for="cardnumb">
+            Last 4 Digits
+            <span ng-show="debitcardForm.cardnumb.$error.required" style="color:red">*</span>
+        </label><br/>
+        <ons-input ng-model="cardnumb" name="cardnumb" input-id="cardnumb" modifier="underbar" type="number" min="0" max="9999" style="width:90%" required></ons-input>
     </ons-col>
     <ons-col>
-        <label for="expiry">Expiry</label><br/>
-        <ons-input input-id="expiry" modifier="underbar" type="number" style="width:90%"></ons-input> 
+        <label for="expiry">
+            Expiry
+            <span ng-show="debitcardForm.expiry.$error.required" style="color:red">*</span>
+        </label><br/>
+        <ons-input ng-model="expiry" name="expiry" input-id="expiry" modifier="underbar" type="month" style="width:90%" required></ons-input> 
     </ons-col>
 </ons-row>
 </p>
 <p>
-    <label for="accname">Card Name</label><br/>
-    <ons-input input-id="accname" modifier="underbar" type="number" style="width:100%"></ons-input>
+    <label for="accname">
+        Card Name
+            <span ng-show="debitcardForm.accname.$error.required" style="color:red">*</span>
+    </label><br/>
+    <ons-input ng-model="accname" name="accname" input-id="accname" modifier="underbar" type="text" style="width:100%" required></ons-input>
 </p>
 <p> 
 <ons-row>
     <ons-col>
-        <label for="type">Type</label><br/>
-        <ons-select id="type" modifier="underbar" style="width:90%">
+        <label for="type">
+            Type
+            <span ng-show="debitcardForm.type.$error.required" style="color:red">*</span>
+        </label><br/>
+        <ons-select ng-model="type" name="type" id="type" modifier="underbar" style="width:90%" required>
+            <option value=""></option>
             <option>Visa</option>
         </ons-select>
     </ons-col>
     <ons-col>
-        <label for="bank">Bank</label><br/>
-        <ons-select id="bank" modifier="underbar" style="width:90%">
+        <label for="bank">
+            Bank
+            <span ng-show="debitcardForm.bank.$error.required" style="color:red">*</span>
+        </label><br/>
+        <ons-select ng-model="bank" name="bank" id="bank" modifier="underbar" style="width:90%" required>
+            <option value=""></option>
             <option>CIMB</option> 
         </ons-select>
     </ons-col>
 </ons-row>
 </p>
 <p>
-    <label for="balance">Balance</label>
-    <ons-input input-id="balance" modifier="underbar" type="number" style="width:100%"></ons-input>
+    <label for="balance">
+        Balance
+    </label>
+    <ons-input ng-model="balance" name="balance" input-id="balance" modifier="underbar" type="number" min="0" style="width:100%" required></ons-input>
 </p>
-<p>
-    <label for="desc">Description</label>
-    <ons-input input-id="desc" modifier="underbar" type="text" style="width:100%"></ons-input>
-</p>
-<ons-button modifier="large">Add</ons-button>
+<ons-button modifier="large" ng-disabled="debitcardForm.$invalid">Add</ons-button>
+</form>
 </div>
 
 <!--Cash Fields-->
 <div ng-if="selectedgroup=='cash'">
+    <form name="cashForm">
 <p>
-    <label for="accname">Account Name</label><br/>
-    <ons-input input-id="accname" modifier="underbar" type="number" style="width:100%"></ons-input>
+    <label for="accname">
+        Account Name
+            <span ng-show="cashForm.accname.$error.required" style="color:red">*</span>
+    </label><br/>
+    <ons-input ng-model="accname" name="accname" input-id="accname" modifier="underbar" type="number" style="width:100%" required></ons-input>
 </p>
 <p>
     <label for="balance">Balance</label>
-    <ons-input input-id="balance" modifier="underbar" type="number" style="width:100%"></ons-input>
+    <ons-input ng-model="balance" name="name" input-id="balance" modifier="underbar" type="number" style="width:100%" required></ons-input>
 </p>
-<p>
-    <label for="desc">Description</label>
-    <ons-input input-id="desc" modifier="underbar" type="text" style="width:100%"></ons-input>
-</p>
-<ons-button modifier="large">Add</ons-button>
+<ons-button modifier="large" ng-disabled="cashForm.$invalid">Add</ons-button>
+    </form>
 </div>
 </div>
 </ons-page>

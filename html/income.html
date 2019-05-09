@@ -1,29 +1,45 @@
 <ons-page>
 <div class="content" style="width:90%;margin:0 auto">
+    <form name="incForm">
+
 <p> 
  <label for="date">Date</label><br/> 
- <ons-input input-id="date" modifier="underbar" type="date" style="width:100%"></ons-input>
+ <ons-input input-id="date" modifier="underbar" ng-model="date" name="date" type="date" style="width:100%"></ons-input>
 </p>
+
 <p>
- <label for="account">Account</label><br/>
- <ons-select id="account" modifier="underbar" style="width:100%">
+ <label for="account">Account
+     <span ng-show="incForm.incaccount.$error.required" style="color:red">*</span>
+ </label><br/>
+ <ons-select id="incaccount" ng-model="incaccount" name="incaccount" modifier="underbar" style="width:100%" required>
+     <option></option>
      <option>Card 1</option> 
  </ons-select>
 </p>
+
 <p> 
- <label for="category">Category</label><br/>
- <ons-select id="category" modifier="underbar" style="width:100%">
+ <label for="inccategory">
+     Category
+     <span ng-show="incForm.inccategory.$error.required" style="color:red">*</span>
+ </label><br/>
+ <ons-select id="inccategory" ng-model="inccategory" name="inccategory" modifier="underbar" style="width:100%" required>
+     <option value=""></option>
      <option>Category 1</option> 
  </ons-select>
 </p>
+
 <p>
- <label for="amount">Amount</label><br/>
- <ons-input input-id="amount" modifier="underbar" type="number" style="width:100%"></ons-input>
+ <label for="incamount">Amount</label><br/>
+ <ons-input input-id="incamount" type="number" min="0" pattern="\d" modifier="underbar" style="width:100%" ng-model="incamount" name="incamount" placeholder="enter amount" required></ons-input>
 </p>
+
 <p>
  <label for="desc">Description</label>
- <ons-input input-id="desc" modifier="underbar" type="text" style="width:100%"></ons-input>
+ <ons-input input-id="desc" type="text" modifier="underbar" style="width:100%" ng-model="desc" name="desc" placeholder="enter description"></ons-input>
 </p>
-<ons-button style="width:100%;position:sticky;bottom:0;left:0;text-align:center">Add</ons-button>
+
+<ons-button modifier="large" ng-disabled="incForm.$invalid">Add</ons-button>
+
+    </form>
 </div>
 </ons-page>

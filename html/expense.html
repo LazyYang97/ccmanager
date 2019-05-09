@@ -1,13 +1,46 @@
 <ons-page>
 <div class="content" style="width:90%;margin:0 auto">
+<form name="expForm">
+
 <p> 
- <label for="date">Date</label><br/> 
- <ons-input input-id="date" modifier="underbar" type="date" style="width:100%"></ons-input>
+ <label for="date">
+     Date
+ </label><br/> 
+ <ons-input input-id="date" modifier="underbar" ng-model="date" name="date" type="date" style="width:100%"></ons-input>
 </p>
+
+<p> 
+ <label for="expcategory">
+     Category
+     <span ng-show="expForm.expcategory.$error.required" style="color:red">*</span>
+ </label><br/>
+ <ons-select id="expcategory" ng-model="expcategory" name="expcategory" modifier="underbar" style="width:100%" required>
+     <option value=""></option>
+     <option>Category 1</option> 
+ </ons-select>
+</p>
+
+<p>
+ <label for="expamount">
+     Amount(RM)
+ </label><br/>
+ <ons-input input-id="expamount" type="number" min="0" modifier="underbar" style="width:100%" ng-model="expamount" name="expamount" placeholder="enter amount" required></ons-input>
+</p>
+
+<p>
+ <label for="desc">Description</label>
+ <ons-input input-id="desc" type="text" modifier="underbar" style="width:100%" ng-model="desc" name="desc" placeholder="enter description"></ons-input>
+</p>
+
+<p>
 <ons-row>
     <ons-col>
- <label for="account">Account</label><br/>
- <ons-select id="account" modifier="underbar" style="width:100%">
+ <label for="expaccount">
+     Account     
+     <span ng-show="expForm.expaccount.$error.required" style="color:red">*</span>
+ </label><br/>
+ <ons-select id="expaccount" ng-model="expaccount" name="expaccount" modifier="underbar" style="width:100%" required>
+     <option value=""></option>
      <option>Card 1</option> 
  </ons-select>
     </ons-col>
@@ -15,20 +48,10 @@
  <ons-button onclick="myNavigator.pushPage('html/suggest.html',{animation:'slide'})" style="width:100%;text-align:center">Suggest</ons-button>
     </ons-col>
 </ons-row>
-<p> 
- <label for="category">Category</label><br/>
- <ons-select id="category" modifier="underbar" style="width:100%">
-     <option>Category 1</option> 
- </ons-select>
 </p>
-<p>
- <label for="amount">Amount</label><br/>
- <ons-input input-id="amount" modifier="underbar" type="number" style="width:100%"></ons-input>
-</p>
-<p>
- <label for="desc">Description</label>
- <ons-input input-id="desc" modifier="underbar" type="text" style="width:100%"></ons-input>
-</p>
-<ons-button style="width:100%;position:sticky;bottom:0;left:0;text-align:center">Add</ons-button>
+
+<ons-button modifier="large" ng-disabled="expForm.$invalid">Add</ons-button>
+
+</form>
 </div>
 </ons-page>

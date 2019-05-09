@@ -1,10 +1,10 @@
 <ons-navigator swipeable var="acctransNavigator">
-    <ons-page ng-init="acctransTitle='Accounts'">
+    <ons-page>
         <ons-toolbar>
             <div class="center">
                 {{acctransTitle}}
             </div>      
-            <div class="right">
+            <div class="right" ng-if="acctransTitle=='Transactions'">
                 <ons-toolbar-button icon="md-filter-list" onclick="acctransNavigator.pushPage('html/transfilters.html',{animation:'fade'})"></ons-toolbar-button>
             </div>
         </ons-toolbar> 
