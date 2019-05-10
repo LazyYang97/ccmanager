@@ -2,6 +2,20 @@
     <ons-fab position="bottom right" >
         <ons-icon icon="md-plus" onclick="acctransNavigator.pushPage('html/newacc.html',{animation:'slide'})"></ons-icon>
     </ons-fab>
+    <ons-row style="padding:10px;text-align:center;background:#ffffff">
+        <ons-col width="33%">
+            <span>Balance</span><br/>
+            <span style="color:blue">0</span>
+        </ons-col> 
+        <ons-col width="33%">
+            <span>Debt</span><br/>
+            <span style="color:red">10</span>
+        </ons-col>
+        <ons-col width="33%">
+            <span>Total</span><br/>
+            <span>-10</span>
+        </ons-col>
+    </ons-row>
     <ons-list>
     <ons-list-item style="background:#eeeeee">
         <div class="center">
@@ -9,8 +23,14 @@
         </div>
         <div class="right">
             <ons-row style="width:150px;text-align:center">
-                <ons-col>RM100</ons-col>
-                <ons-col>RM200</ons-col>
+                <ons-col>
+                    <span>Payable</span><br/>
+                    <span style="color:blue">RM100</span>
+                </ons-col>
+                <ons-col>
+                    <span>Outstd.</span><br/>
+                    <span style="color:red">RM200</span>
+                </ons-col>
             </ons-row>
         </div>
     </ons-list-item> 
@@ -20,19 +40,19 @@
         </div>
         <div class="right">
             <ons-row style="width:150px;text-align:center">
-                <ons-col>RM100</ons-col>
-                <ons-col>RM200</ons-col>
+                <ons-col style="color:blue">RM100</ons-col>
+                <ons-col style="color:red">RM200</ons-col>
             </ons-row>
         </div>
     </ons-list-item>
     <ons-list-item style="background:#eeeeee">
         <div class="center">
-        Debit Card
+        Debit Cards
         </div>
         <div class="right">
             <ons-row style="width:150px;text-align:center">
                 <ons-col></ons-col>
-                <ons-col>RM200</ons-col>
+                <ons-col style="color:blue">RM200</ons-col>
             </ons-row>
         </div>
     </ons-list-item> 
@@ -43,7 +63,7 @@
         <div class="right">
             <ons-row style="width:150px;text-align:center">
                 <ons-col></ons-col>
-                <ons-col>RM200</ons-col>
+                <ons-col style="color:blue">RM200</ons-col>
             </ons-row>
         </div>
     </ons-list-item>

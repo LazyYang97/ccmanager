@@ -67,9 +67,8 @@
             Bank
             <span ng-show="creditcardForm.bank.$error.required" style="color:red">*</span>
         </label><br/>
-        <ons-select id="bank" modifier="underbar" ng-model="bank" name="bank" style="width:90%" required>
-            <option>CIMB</option> 
-        </ons-select>
+        <ons-input type="text" ng-model="bank" name="bank" id="bank" modifier="underbar" style="width:90%" required>
+        </ons-input>
     </ons-col>
 </ons-row>
 </p>
@@ -153,10 +152,8 @@
             Bank
             <span ng-show="debitcardForm.bank.$error.required" style="color:red">*</span>
         </label><br/>
-        <ons-select ng-model="bank" name="bank" id="bank" modifier="underbar" style="width:90%" required>
-            <option value=""></option>
-            <option>CIMB</option> 
-        </ons-select>
+        <ons-input type="text" ng-model="bank" name="bank" id="bank" modifier="underbar" style="width:90%" required>
+        </ons-input>
     </ons-col>
 </ons-row>
 </p>
