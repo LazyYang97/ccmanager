@@ -1,6 +1,6 @@
-<ons-page ons-show="updateToolbar('Accounts')">
+<ons-page ng-init="accountslistinit()" ons-show="updateToolbar('Accounts')">
     <ons-fab position="bottom right" >
-        <ons-icon icon="md-plus" onclick="acctransNavigator.pushPage('html/newacc.html',{animation:'slide'})"></ons-icon>
+        <ons-icon icon="md-plus" ng-click="acctransNavigator.pushPage('html/newacc.html',{animation:'slide'})"></ons-icon>
     </ons-fab>
     <ons-row style="padding:10px;text-align:center;background:#ffffff">
         <ons-col width="33%">
@@ -16,13 +16,15 @@
             <span>-10</span>
         </ons-col>
     </ons-row>
-    <ons-list>
-    <ons-list-item style="background:#eeeeee">
+    <ons-list style="margin-bottom:70px;">
+
+    <!--Credit Card-->
+    <ons-list-item ng-show="countCreditCardAcc!=0" style="background:#eeeeee">
         <div class="center">
             Credit Cards
         </div>
         <div class="right">
-            <ons-row style="width:150px;text-align:center">
+            <ons-row style="width:150px;text-align:right">
                 <ons-col>
                     <span>Payable</span><br/>
                     <span style="color:blue">RM100</span>
@@ -34,38 +36,34 @@
             </ons-row>
         </div>
     </ons-list-item> 
-    <ons-list-item onclick="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide',data:{type:'creditcard'}})">
-        <div class="center">
-            XXX Credit Card
-        </div>
-        <div class="right">
-            <ons-row style="width:150px;text-align:center">
-                <ons-col style="color:blue">RM100</ons-col>
-                <ons-col style="color:red">RM200</ons-col>
-            </ons-row>
-        </div>
-    </ons-list-item>
-    <ons-list-item style="background:#eeeeee">
+    <account-list-item ng-repeat="account in accountslist" data="account" ng-click="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide'})" ng-if="account.accgroup=='creditcard'"></account-list-item>
+
+    <!--Debit Card-->
+    <ons-list-item ng-if="countDebitCardAcc!=0" style="background:#eeeeee">
         <div class="center">
         Debit Cards
         </div>
         <div class="right">
-            <ons-row style="width:150px;text-align:center">
+            <ons-row style="width:150px;text-align:right">
                 <ons-col></ons-col>
-                <ons-col style="color:blue">RM200</ons-col>
+                <ons-col style="color:blue">RM 200</ons-col>
             </ons-row>
         </div>
     </ons-list-item> 
-    <ons-list-item onclick="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide'})">
+    <account-list-item ng-repeat="account in accountslist" data="account" ng-click="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide'})" ng-if="account.accgroup=='debitcard'"></account-list-item>
+
+    <!--Cash-->
+    <ons-list-item ng-if="countCashAcc!=0" style="background:#eeeeee">
         <div class="center">
-            YYY Debit Card
+            Cash
         </div>
         <div class="right">
-            <ons-row style="width:150px;text-align:center">
+            <ons-row style="width:150px;text-align:right">
                 <ons-col></ons-col>
-                <ons-col style="color:blue">RM200</ons-col>
+                <ons-col style="color:blue">RM 200</ons-col>
             </ons-row>
         </div>
-    </ons-list-item>
+    </ons-list-item> 
+    <account-list-item ng-repeat="account in accountslist" data="account" ng-click="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide'})" ng-if="account.accgroup=='cash'"></account-list-item>
     </ons-list>
 </ons-page>
