@@ -1,21 +1,7 @@
-<ons-page ng-init="accountslistinit()" ons-show="updateToolbar('Accounts')">
+<ons-page ng-init="selectAllAccounts()" ons-show="updateToolbar('Accounts')">
     <ons-fab position="bottom right" >
         <ons-icon icon="md-plus" ng-click="acctransNavigator.pushPage('html/newacc.html',{animation:'slide'})"></ons-icon>
     </ons-fab>
-    <ons-row style="padding:10px;text-align:center;background:#ffffff">
-        <ons-col width="33%">
-            <span>Assets</span><br/>
-            <span style="color:blue">{{getTotalAsset()}}</span>
-        </ons-col> 
-        <ons-col width="33%">
-            <span>Debt</span><br/>
-            <span style="color:red">{{getTotalDebt()}}</span>
-        </ons-col>
-        <ons-col width="33%">
-            <span>Total</span><br/>
-            <span>{{getTotalBalance()}}</span>
-        </ons-col>
-    </ons-row>
     <ons-list style="margin-bottom:70px;">
 
     <!--Credit Card-->
@@ -46,7 +32,7 @@
         <div class="right">
             <ons-row style="width:150px;text-align:right">
                 <ons-col></ons-col>
-                <ons-col style="color:blue">RM {{getDebitCardTotalBalance()}}</ons-col>
+                <ons-col style="color:blue">$ {{getDebitCardTotalBalance()}}</ons-col>
             </ons-row>
         </div>
     </ons-list-item> 
@@ -60,7 +46,7 @@
         <div class="right">
             <ons-row style="width:150px;text-align:right">
                 <ons-col></ons-col>
-                <ons-col style="color:blue">RM {{getCashTotalBalance()}}</ons-col>
+                <ons-col style="color:blue">$ {{getCashTotalBalance()}}</ons-col>
             </ons-row>
         </div>
     </ons-list-item> 

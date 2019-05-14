@@ -1,36 +1,30 @@
-<ons-page>
-<div class="content" style="width:90%;margin:0 auto">
-    <form name="incForm">
-
+<div class="content" ng-init="transgroup='income'" style="width:90%;margin:0 auto">
+<form name="incForm">
 <p> 
- <label for="date">Date</label><br/> 
- <ons-input input-id="date" modifier="underbar" ng-model="date" name="date" type="date" style="width:100%"></ons-input>
+ <label for="transdate">Date</label><br/> 
+ <ons-input input-id="transdate" modifier="underbar" ng-model="transdate" name="transdate" type="date" style="width:100%"></ons-input>
 </p>
 
 <p>
  <label for="account">Account
-     <span ng-show="incForm.incaccount.$error.required" style="color:red">*</span>
+     <span ng-show="incForm.accid.$error.required" style="color:red">*</span>
  </label><br/>
- <ons-select id="incaccount" ng-model="incaccount" name="incaccount" modifier="underbar" style="width:100%" required>
-     <option></option>
-     <option>Card 1</option> 
- </ons-select>
+ <select class="select-input select-input--underbar" id="accid" ng-model="accid" name="accid" modifier="underbar" style="width:100%" ng-options="x.accid as x.accname for x in accountslist" ng-change="selectOneAccount(accid)" required>
+ </select>
 </p>
 
 <p> 
- <label for="inccategory">
+ <label for="transcategory">
      Category
-     <span ng-show="incForm.inccategory.$error.required" style="color:red">*</span>
+     <span ng-show="incForm.transcategory.$error.required" style="color:red">*</span>
  </label><br/>
- <ons-select id="inccategory" ng-model="inccategory" name="inccategory" modifier="underbar" style="width:100%" required>
-     <option value=""></option>
-     <option>Category 1</option> 
- </ons-select>
+ <select id="transcategory" class="select-input select-input--underbar" ng-model="transcategory" name="transcategory" modifier="underbar" style="width:100%" ng-options="x for x in expensecategories" required>
+ </select>
 </p>
 
 <p>
- <label for="incamount">Amount</label><br/>
- <ons-input input-id="incamount" type="number" min="0" pattern="\d" modifier="underbar" style="width:100%" ng-model="incamount" name="incamount" placeholder="enter amount" required></ons-input>
+ <label for="amount">Amount $</label><br/>
+ <ons-input input-id="amount" type="number" min="0" modifier="underbar" style="width:100%" ng-model="amount" name="amount" placeholder="enter amount" required></ons-input>
 </p>
 
 <p>
@@ -38,8 +32,6 @@
  <ons-input input-id="desc" type="text" modifier="underbar" style="width:100%" ng-model="desc" name="desc" placeholder="enter description"></ons-input>
 </p>
 
-<ons-button modifier="large" ng-disabled="incForm.$invalid">Add</ons-button>
-
+<ons-button modifier="large" ng-click="addNewTransaction(transgroup,transcategory,transdate,accid,from_accid,to_accid,amount,desc)" ng-disabled="incForm.$invalid">Add</ons-button>
     </form>
 </div>
-</ons-page>

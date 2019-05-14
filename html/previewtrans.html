@@ -1,0 +1,14 @@
+<ons-page>
+    
+    <ons-fab position="bottom right">
+        <ons-icon icon="md-plus" ng-click="mainTab.setActiveTab(0,{animation:'slide'})"></ons-icon> 
+    </ons-fab>
+    <ons-toolbar>
+        <div class="left">
+            <ons-back-button ng-click="myNavigator.popPage()"></ons-back-button>
+        </div>
+        <div class="center">Transactions</div>
+    </ons-toolbar>
+    <div ng-include="'html/transcontents.html'"> 
+    </div>
+</ons-page>

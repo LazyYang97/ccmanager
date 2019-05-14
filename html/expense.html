@@ -1,57 +1,48 @@
-<ons-page>
-<div class="content" style="width:90%;margin:0 auto">
+<div ng-init="transgroup='expense'" class="contents" style="width:90%;margin:0 auto">
 <form name="expForm">
-
 <p> 
- <label for="date">
+ <label for="transdate">
      Date
  </label><br/> 
- <ons-input input-id="date" modifier="underbar" ng-model="date" name="date" type="date" style="width:100%"></ons-input>
-</p>
-
-<p> 
- <label for="expcategory">
-     Category
-     <span ng-show="expForm.expcategory.$error.required" style="color:red">*</span>
- </label><br/>
- <ons-select id="expcategory" ng-model="expcategory" name="expcategory" modifier="underbar" style="width:100%" required>
-     <option value=""></option>
-     <option>Category 1</option> 
- </ons-select>
+ <ons-input input-id="transdate" modifier="underbar" ng-model="transdate" name="transdate" type="date" style="width:100%"></ons-input>
 </p>
 
 <p>
- <label for="expamount">
-     Amount(RM)
+<ons-row>
+    <ons-col>
+ <label for="accid">
+     Account     
+     <span ng-show="expForm.accid.$error.required" style="color:red">*</span>
+ </label><br/d>
+ <select class="select-input select-input--underbar" id="accid" ng-model="accid" name="accid" modifier="underbar" style="width:100%" ng-options="x.accid as x.accname for x in accountslist" ng-change="selectOneAccount(accid)" required>
+ </select>
+    </ons-col>
+    <ons-col width="33%">
+ <ons-button ng-click="myNavigator.pushPage('html/suggest.html',{animation:'slide'})" style="width:100%;text-align:center">Suggest</ons-button>
+    </ons-col>
+</ons-row>
+</p>
+
+<p> 
+<label for="transcategory">
+     Category
+     <span ng-show="expForm.transcategory.$error.required" style="color:red">*</span>
  </label><br/>
- <ons-input input-id="expamount" type="number" min="0" modifier="underbar" style="width:100%" ng-model="expamount" name="expamount" placeholder="enter amount" required></ons-input>
+ <select id="transcategory" class="select-input select-input--underbar" ng-model="transcategory" name="transcategory" modifier="underbar" style="width:100%" ng-options="x for x in expensecategories" required>
+ </select>
+</p>
+
+<p>
+ <label for="amount">
+     Amount $
+ </label><br/>
+ <ons-input input-id="amount" type="number" min="0" modifier="underbar" style="width:100%" ng-model="amount" name="testamount" placeholder="enter amount" required></ons-input>
 </p>
 
 <p>
  <label for="desc">Description</label>
  <ons-input input-id="desc" type="text" modifier="underbar" style="width:100%" ng-model="desc" name="desc" placeholder="enter description"></ons-input>
 </p>
-
-<p>
-<ons-row>
-    <ons-col>
- <label for="expaccount">
-     Account     
-     <span ng-show="expForm.expaccount.$error.required" style="color:red">*</span>
- </label><br/>
- <ons-select id="expaccount" ng-model="expaccount" name="expaccount" modifier="underbar" style="width:100%" required>
-     <option value=""></option>
-     <option>Card 1</option> 
- </ons-select>
-    </ons-col>
-    <ons-col width="33%">
- <ons-button onclick="myNavigator.pushPage('html/suggest.html',{animation:'slide'})" style="width:100%;text-align:center">Suggest</ons-button>
-    </ons-col>
-</ons-row>
-</p>
-
-<ons-button modifier="large" ng-disabled="expForm.$invalid">Add</ons-button>
-
+<ons-button modifier="large" ng-click="addNewTransaction(transgroup,transcategory,transdate,accid,from_accid,to_accid,amount,desc)" ng-disabled="expForm.$invalid">Add</ons-button>
 </form>
 </div>
-</ons-page>

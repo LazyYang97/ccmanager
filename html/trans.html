@@ -1,7 +1,7 @@
-<ons-page ons-show="updateToolbar('Transactions')">
+<ons-page ons-show="updateToolbar('Transactions')" ng-init="selectAllTransaction()">
     <ons-fab position="bottom right">
-        <ons-icon icon="md-plus" onclick="mainTab.setActiveTab(0,{animation:'slide'})"></ons-icon> 
+        <ons-icon icon="md-plus" ng-click="mainTab.setActiveTab(0,{animation:'slide'})"></ons-icon> 
     </ons-fab>
-    <div ng-include="'html/transcontents.html'"> 
+    <div style="margin-bottom:70px;" ng-include="'html/transcontents.html'"> 
     </div>
 </ons-page>

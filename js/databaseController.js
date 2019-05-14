@@ -1,6 +1,7 @@
 app.expandControllerA = function($scope, $webSql){
     $scope.selectedAcc = [];
     $scope.accountslist = [];
+    $scope.transactionsList = [];
 
     //Get Credit Card Account Count
     $scope.getCountCreditCardAcc = function(){
@@ -33,36 +34,6 @@ app.expandControllerA = function($scope, $webSql){
             }
         }
         return count;
-    }
-
-    //Get Total Asset
-    $scope.getTotalAsset = function(){
-        var sum = 0;
-        for(i=0;i<$scope.accountslist.length;i++){
-            if($scope.accountslist[i].balance > 0 || $scope.accountslist[i].outstd_balance>0){
-                sum += $scope.accountslist[i].balance + $scope.accountslist[i].outstd_balance;
-            }
-        }
-        return sum;
-    }
-
-    //Get Total Debt
-    $scope.getTotalDebt = function(){
-        var sum = 0;
-        for(i=0;i<$scope.accountslist.length;i++){
-            if($scope.accountslist[i].balance < 0 || $scope.accountslist[i].outstd_balance<0){
-                sum += $scope.accountslist[i].balance + $scope.accountslist[i].outstd_balance;
-            }
-        }
-        return sum;
-    }
-
-    //Get Total Balance
-    $scope.getTotalBalance = function(){
-        var sum = 0;
-        sum = $scope.getTotalAsset() + $scope.getTotalDebt();
-        return sum;
-
     }
 
     //Get Cash Total Balance
@@ -176,7 +147,7 @@ app.expandControllerA = function($scope, $webSql){
     });
 
     //Accounts List Initialization
-    $scope.accountslistinit = function(){
+    $scope.selectAllAccounts = function(){
         $scope.accountslist = [];
         $scope.db.selectAll("account").then(function(results){
        for(i=0;i<results.rows.length;i++){
@@ -185,8 +156,8 @@ app.expandControllerA = function($scope, $webSql){
     });
     }
 
-    //Account Profile Initialization
-    $scope.accountProfileInit = function(id){
+    //Select One Account
+    $scope.selectOneAccount = function(id){
         $scope.db.select("account",{
             "accid":id
         }).then(function(results){
@@ -209,12 +180,12 @@ app.expandControllerA = function($scope, $webSql){
         var next_due_date = paymentdd + new Date().addMonths(1).toString(" MMM yyyy")
         $scope.db.insert('account',{"accname":accname,"accgroup":selectedAccGroup,"fourdigits":fourdigits,"expiry":expiry,"cardtype":selectedCardType,"bank":bank,"statement_date":statement_date,"payment_due":payment_due,"annual_fee":annualfee,"balance":balance,"cut_off_date":cut_off_date,"next_due_date":next_due_date,"outstd_balance":outstd_balance,"due_amount":due_amount,"settled":settled}).then(function(results){
 
-            $scope.accountslistinit();
+            $scope.selectAllAccounts();
             acctransNavigator.popPage();
         });
     };
 
-    //Update Account
+    //Edit Account
     $scope.updateAccount = function(selectedAccID,selectedAccGroup,fourdigits,expirymonth,expiryyear,accname,selectedCardType,bank,sdate,paymentdd,annualfee,balance){
 
         var expiry = expirymonth + "/" + expiryyear;
@@ -229,8 +200,8 @@ app.expandControllerA = function($scope, $webSql){
                 "accid":selectedAccID
             }
         );
-        $scope.accountslistinit();
-        $scope.accountProfileInit(selectedAccID);
+        $scope.selectAllAccounts();
+        $scope.selectOneAccount(selectedAccID);
         acctransNavigator.popPage();
     }
 
@@ -239,29 +210,93 @@ app.expandControllerA = function($scope, $webSql){
         $scope.db.del('account',{
             "accid":id
         })
-        $scope.accountslistinit();
+        $scope.selectedAcc = [];
+        $scope.selectAllAccounts();
         acctransNavigator.popPage();
     }
-}
 
-//Directive for Account List
-app.directive('accountListItem',function(){
-    var directive = {};
-    directive.template = '<ng-include src="getTemplateUrl()"/>';
-    directive.restrict = 'EA';
-    directive.scope = {
-        account : "=data"
-    };
-    directive.controller = function($scope){
-        $scope.getTemplateUrl = function(){
-            if($scope.account.accgroup == "creditcard"){
-                return "html/creditcardacclist.html";
-            }
-            else{
-                return "html/otheracclist.html";
-            }
-        }
+    //Create Transaction Table
+    $scope.db.createTable('transactions',{
+    "transacid":{
+        "type":"INTEGER",
+        "null":"NOT NULL",
+        "primary":true,
+        "auto_increment":true
+    },
+    "transgroup":{
+        "type":"TEXT",
+        "null":"NOT NULL"
+    },
+    "transdate":{
+        "type":"DATE",
+        "null":"NOT NULL"
+    },
+    "transcategory":{
+        "type":"TEXT"
+    },
+    "accid":{
+        "type":"INTEGER"
+    },
+    "from_accid":{
+        "type":"INTEGER"
+    },
+    "to_accid":{
+        "type":"INTEGER"
+    },
+    "amount":{
+        "type":"INTEGER"
+    },
+    "desc":{
+        "type":"TEXT"
     }
-    return directive;
-});
+    });
+
+    //Add New Transaction and Perform Calculation
+    $scope.addNewTransaction = function(transgroup,transcategory,transdate,accid,from_accid,to_accid,amount,desc){
+        $scope.db.insert('transactions',
+            {
+                "transgroup":transgroup,
+                "transcategory":transcategory,
+                "transdate":transdate,
+                "accid":accid,
+                "from_accid":from_accid,
+                "to_accid":to_accid,
+                "amount":amount,
+                "desc":desc
+        }).then(function(results){
+            var sum = 0;
+            if(transgroup == 'expense'){
+                amount = -Math.abs(amount);
+            }
+            if($scope.selectedAcc[0].accgroup=='creditcard'){
+               sum = $scope.selectedAcc[0].outstd_balance + amount;
+                $scope.db.update("account",{
+                    "outstd_balance":sum
+                },{"accid":accid});
+            }else{
+                sum = $scope.selectedAcc[0].balance + amount;
+                $scope.db.update("account",{
+                    "balance":sum
+                },{"accid":accid});
+            }
+            $scope.selectAllTransaction();
+            $scope.selectAllAccounts();
+            acctransTab.setActiveTab(1);
+            mainTab.setActiveTab(1);
+
+        });
+    }
+
+    //Select All Transaction
+    $scope.selectAllTransaction = function(){
+        $scope.transactionsList = [];
+        $scope.db.selectAll("transactions").then(function(results){
+            for(i=0;i<results.rows.length;i++){
+                $scope.transactionsList.push(results.rows.item(i));
+            }
+
+        })
+
+    }
+}
 

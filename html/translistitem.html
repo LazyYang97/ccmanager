@@ -1,0 +1,28 @@
+<ons-list-item>
+    <div class="left">
+        {{transaction.transcategory}} 
+    </div>
+    <div class="center">
+        <span class="list-item__title">
+            {{transaction.desc}}
+        </span>
+        <span class="list-item__subtitle">
+            {{transaction.accid}}
+        </span> 
+    </div>
+    <div class="right">
+        <ons-row style="width:150px;text-align:right">
+            <ons-col>
+            </ons-col>
+            <ons-col>
+                <span style="color:blue" ng-if="transaction.transgroup!='expense'">
+                   $ {{transaction.amount}}
+                </span>
+                <span style="color:red" ng-if="transaction.transgroup=='expense'">
+                   $ {{transaction.amount}}
+                </span>
+
+            </ons-col> 
+        </ons-row>
+    </div>
+</ons-list-item>

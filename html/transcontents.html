@@ -1,17 +1,3 @@
-<ons-row style="padding:10px;text-align:center;background:#ffffff">
-        <ons-col width="33%">
-            <span>Income</span><br/>
-            <span style="color:blue">0</span>
-        </ons-col> 
-        <ons-col width="33%">
-            <span>Expense</span><br/>
-            <span style="color:red">10</span>
-        </ons-col>
-        <ons-col width="33%">
-            <span>Total</span><br/>
-            <span>-10</span>
-        </ons-col>
-</ons-row>
 <ons-list>
     <ons-list-item style="background:#eeeeee">
         <div class="center">
@@ -28,14 +14,6 @@
             </ons-row>
         </div>
     </ons-list-item>
-    <ons-list-item style="background:#eeeeee">
-        <div class="right">
-            <ons-row style="width:160px;text-align:center">
-                <ons-col style="color:red">RM10</ons-col>
-                <ons-col style="color:blue">0</ons-col>
-            </ons-row>
-        </div>
-    </ons-list-item>
 </ons-list>
 <ons-list modifier="inset">
     <ons-list-item>
@@ -43,29 +21,11 @@
             Date Month
         </div>
         <div class="right">
-            <ons-row style="width:150px;text-align:center">
-                <ons-col style="color:red">RM10</ons-col>
-                <ons-col style="color:blue">0</ons-col>
+            <ons-row style="width:150px;text-align:right">
+                <ons-col style="color:blue">$0</ons-col>
+                <ons-col style="color:red">$0</ons-col>
             </ons-row>
         </div>
     </ons-list-item>
-    <ons-list-item>
-        <div class="left">
-            Movie
-        </div>
-        <div class="center">
-            <span class="list-item__title">
-                Item
-            </span>
-            <span class="list-item__subtitle">
-                Card 1
-            </span>
-        </div>
-        <div class="right">
-            <ons-row style="width:150px;text-align:center">
-                <ons-col style="color:red">RM10</ons-col>
-                <ons-col></ons-col>
-            </ons-row>
-        </div>
-    </ons-list-item>
+    <transactions-list-item ng-repeat="transaction in transactionsList" data="transaction"></transactions-list-item>
 </ons-list>
