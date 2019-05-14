@@ -34,7 +34,11 @@
             Expiry
             <span ng-show="addaccForm.expiry.$error.required" style="color:red">*</span>
         </label><br/>
-        <ons-input ng-init="expiry=selectedacc.expiry" input-id="expiry" modifier="underbar" type="month" ng-model="expiry" name="expiry" style="width:90%" required></ons-input> 
+        <span>
+            <ons-input ng-init="expirymonth=extractExpiryMonth(selectedacc.expiry)"ng-model="expirymonth" name="expirymonth" input-id="expirymonth" modifier="underbar" placeholder="MM" type="text" style="width:45%" required></ons-input>
+        <span>/</span>
+        <ons-input ng-init="expiryyear=extractExpiryYear(selectedacc.expiry)" ng-model="expiryyear" placeholder="YY" name="expiryyear" input-id="expiryyear" modifier="underbar" type="text" style="width:45%" required></ons-input> 
+        </span>
     </ons-col>
 </ons-row>
 </p>
@@ -65,31 +69,27 @@
     </ons-col>
 </ons-row>
 </p>
-<p> 
-<ons-row>
-    <ons-col>
+<p>
         <label for="sdate">
             Statement Date
             <span ng-show="addaccForm.sdate.$error.required" style="color:red">*</span>
         </label><br/>
-        <select ng-model="sdate" class="select-input select-input--underbar" ng-init="sdate=selectedacc.statement_date" name="sdate" input-id="sdate" ng-options="x for x in dates" modifier="underbar" style="width:90%" required>
+        <select ng-init="sdate=selectedacc.statement_date.substring(0,2)" class="select-input select-input--underbar" ng-model="sdate" name="sdate" input-id="sdate" ng-options="x for x in dates" modifier="underbar" style="width:100%" required>
         </select>
-    </ons-col>
-    <ons-col>
+</p>
+<p>
         <label for="paymentdd">
             Payment Due Date
             <span ng-show="addaccForm.paymentdd.$error.required" style="color:red">*</span>
         </label><br/>
-        <select ng-model="paymentdd" ng-init="paymentdd=selectedacc.payment_due" class="select-input select-input--underbar" ng-options="x for x in dates" name="paymentdd" input-id="paymentdd" type="date" modifier="underbar" style="width:90%" required>
+        <select ng-init="paymentdd=selectedacc.payment_due.substring(0,2)" class="select-input select-input--underbar" ng-model="paymentdd" ng-options="x for x in dates" name="paymentdd" input-id="paymentdd" type="date" modifier="underbar" style="width:100%" required>
         </select>
-    </ons-col>
-</ons-row>
 </p>
 <p>
     <label for="annualfee">Annual Fee</label>
-    <ons-input ng-model="annualfee" name="annualfee" input-id="annualfee" min="0" modifier="underbar" type="number" style="width:100%" ng-init="annualfee=selectedacc.annualfee"></ons-input>
+    <ons-input ng-model="annualfee" name="annualfee" input-id="annualfee" min="0" modifier="underbar" type="number" style="width:100%" ng-init="annualfee=selectedacc.annual_fee"></ons-input>
 </p>
-<ons-button modifier="large" ng-hide="!selectedAccGroup" ng-disabled="addaccForm.$invalid" ng-click="updateAccount(selectedaccID,selectedAccGroup,fourdigits,expiry,accname,selectedCardType,bank,sdate,paymentdd,annualfee,balance)" style="margin-bottom:20px">Save</ons-button>
+<ons-button modifier="large" ng-hide="!selectedAccGroup" ng-disabled="addaccForm.$invalid" ng-click="updateAccount(selectedaccID,selectedAccGroup,fourdigits,expirymonth,expiryyear,accname,selectedCardType,bank,sdate,paymentdd,annualfee,balance)" style="margin-bottom:20px">Save</ons-button>
 </div>
 
 <!--Debit Card Fields-->
@@ -108,7 +108,11 @@
             Expiry
             <span ng-show="addaccForm.expiry.$error.required" style="color:red">*</span>
         </label><br/>
-        <ons-input ng-model="expiry" name="expiry" input-id="expiry" modifier="underbar" type="month" style="width:90%" required></ons-input> 
+        <span>
+            <ons-input ng-model="expirymonth" name="expirymonth" input-id="expirymonth" modifier="underbar" placeholder="MM" type="number" style="width:45%" required></ons-input>
+        <span>/</span>
+        <ons-input ng-model="expiryyear" placeholder="YY" name="expiryyear" input-id="expiryyear" modifier="underbar" type="number" style="width:45%" required></ons-input> 
+        </span>
     </ons-col>
 </ons-row>
 </p>
@@ -146,7 +150,7 @@
     </label>
     <ons-input ng-model="balance" name="balance" input-id="balance" modifier="underbar" type="number" min="0" style="width:100%" required></ons-input>
 </p>
-<ons-button modifier="large" ng-hide="!selectedAccGroup" ng-disabled="addaccForm.$invalid" ng-click="updateAccount(selectedaccID,selectedAccGroup,fourdigits,expiry,accname,selectedCardType,bank,sdate,paymentdd,annualfee,balance)" style="margin-bottom:20px">Save</ons-button>
+<ons-button modifier="large" ng-hide="!selectedAccGroup" ng-disabled="addaccForm.$invalid" ng-click="updateAccount(selectedaccID,selectedAccGroup,fourdigits,expirymonth,expiryyear,accname,selectedCardType,bank,sdate,paymentdd,annualfee,balance)" style="margin-bottom:20px">Save</ons-button>
 </div>
 
 <!--Cash Fields-->
@@ -162,7 +166,7 @@
     <label for="balance">Balance</label>
     <ons-input ng-init="balance=selectedacc.balance" ng-model="balance" name="name" input-id="balance" modifier="underbar" min="0" type="number" style="width:100%" required></ons-input>
 </p>
-<ons-button modifier="large" ng-hide="!selectedAccGroup" ng-disabled="addaccForm.$invalid" ng-click="updateAccount(selectedaccID,selectedAccGroup,fourdigits,expiry,accname,selectedCardType,bank,sdate,paymentdd,annualfee,balance)" style="margin-bottom:20px">Save</ons-button>
+<ons-button modifier="large" ng-hide="!selectedAccGroup" ng-disabled="addaccForm.$invalid" ng-click="updateAccount(selectedaccID,selectedAccGroup,fourdigits,expirymonth,expiryyear,accname,selectedCardType,bank,sdate,paymentdd,annualfee,balance)" style="margin-bottom:20px">Save</ons-button>
 </div>
 </div>
 </form>

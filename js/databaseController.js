@@ -1,10 +1,118 @@
 app.expandControllerA = function($scope, $webSql){
     $scope.selectedAcc = [];
     $scope.accountslist = [];
-    $scope.countCreditCardAcc = '';
-    $scope.countDebitCardAcc = '';
-    $scope.countCashAcc = '';
-    $scope.getID = '';
+
+    //Get Credit Card Account Count
+    $scope.getCountCreditCardAcc = function(){
+        var count = 0;
+        for(i=0;i<$scope.accountslist.length;i++){
+            if($scope.accountslist[i].accgroup=='creditcard'){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    //Get Debit Card Account Count
+    $scope.getCountDebitCardAcc = function(){
+        var count = 0;
+        for(i=0;i<$scope.accountslist.length;i++){
+            if($scope.accountslist[i].accgroup=='debitcard'){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    //Get Debit Card Account Count
+    $scope.getCountCashAcc = function(){
+        var count = 0;
+        for(i=0;i<$scope.accountslist.length;i++){
+            if($scope.accountslist[i].accgroup=='cash'){
+                count++;
+            }
+        }
+        return count;
+    }
+
+    //Get Total Asset
+    $scope.getTotalAsset = function(){
+        var sum = 0;
+        for(i=0;i<$scope.accountslist.length;i++){
+            if($scope.accountslist[i].balance > 0 || $scope.accountslist[i].outstd_balance>0){
+                sum += $scope.accountslist[i].balance + $scope.accountslist[i].outstd_balance;
+            }
+        }
+        return sum;
+    }
+
+    //Get Total Debt
+    $scope.getTotalDebt = function(){
+        var sum = 0;
+        for(i=0;i<$scope.accountslist.length;i++){
+            if($scope.accountslist[i].balance < 0 || $scope.accountslist[i].outstd_balance<0){
+                sum += $scope.accountslist[i].balance + $scope.accountslist[i].outstd_balance;
+            }
+        }
+        return sum;
+    }
+
+    //Get Total Balance
+    $scope.getTotalBalance = function(){
+        var sum = 0;
+        sum = $scope.getTotalAsset() + $scope.getTotalDebt();
+        return sum;
+
+    }
+
+    //Get Cash Total Balance
+    $scope.getCashTotalBalance = function(){
+        var sum = 0;
+        for(i=0;i<$scope.accountslist.length;i++){
+            if($scope.accountslist[i].accgroup=='cash'){
+                sum += $scope.accountslist[i].balance;
+            }
+        }
+        return sum;
+    }
+
+    //Get Debit Card Total Balance
+    $scope.getDebitCardTotalBalance = function(){
+        var sum = 0;
+        for(i=0;i<$scope.accountslist.length;i++){
+            if($scope.accountslist[i].accgroup=='debitcard'){
+                sum += $scope.accountslist[i].balance;
+            }
+        }
+        return sum;
+
+    }
+
+    //Get Credit Card Outstanding Amount Total
+    $scope.getOutstandingTotal = function(){
+        var sum = 0;
+        for(i=0;i<$scope.accountslist.length;i++){
+            if($scope.accountslist[i].accgroup=='creditcard'){
+                sum += $scope.accountslist[i].outstd_balance;
+            }
+        }
+        return sum;
+
+    }
+
+    //Expiry Formatting
+    $scope.extractExpiryMonth = function(expiry){
+        var expiryMonth = expiry.substring(0,2);
+        return expiryMonth;
+    }
+    $scope.extractExpiryYear = function(expiry){
+        var expiryYear = expiry.substring(3,5);
+        return expiryYear;
+    }
+    $scope.extractStatementDate = function(statement_date){
+        var statementDate = statement_date.substring(0,2);
+        return statementDate;
+    }
 
     //Database Initialization
     $scope.db = $webSql.openDatabase('ccmanagerdb','1.0','CCManagerDB', 2*1024*1024);
@@ -29,7 +137,7 @@ app.expandControllerA = function($scope, $webSql){
         "type":"INTEGER"
     },
     "expiry":{
-        "type":"DATE"
+        "type":"TEXT"
     },
     "cardtype":{
         "type":"TEXT",
@@ -38,10 +146,10 @@ app.expandControllerA = function($scope, $webSql){
         "type":"TEXT"
     },
     "statement_date":{
-    "type":"INTEGER"
+    "type":"TEXT"
     },
     "payment_due":{
-        "type":"INTEGER"
+        "type":"TEXT"
     },
     "annual_fee":{
         "type":"DOUBLE"
@@ -69,19 +177,11 @@ app.expandControllerA = function($scope, $webSql){
 
     //Accounts List Initialization
     $scope.accountslistinit = function(){
+        $scope.accountslist = [];
         $scope.db.selectAll("account").then(function(results){
        for(i=0;i<results.rows.length;i++){
             $scope.accountslist.push(results.rows.item(i));
        }
-        for(i=0;i<$scope.accountslist.length;i++){
-            if($scope.accountslist[i].accgroup=='creditcard'){
-                $scope.countCreditCardAcc++;
-            }else if($scope.accountslist[i].accgroup=='debitcard'){
-                $scope.countDebitCardAcc++;
-            }else if($scope.accountslist[i].accgroup=='cash'){
-                $scope.countCashAcc++;
-            }
-        }
     });
     }
 
@@ -93,33 +193,42 @@ app.expandControllerA = function($scope, $webSql){
             for(i=0;i<results.rows.length;i++){
                 $scope.selectedAcc = [];
                 $scope.selectedAcc.push(results.rows.item(i));
-                console.log($scope.selectedAcc);
             }
         });
     }
+
     //Add New Account
-    $scope.addNewAccount = function(selectedAccGroup,fourdigits,expiry,accname,selectedCardType,bank,sdate,paymentdd,annualfee,balance){
-        var expiry = new Date(expiry).toString('dd/yy');
+    $scope.addNewAccount = function(selectedAccGroup,fourdigits,expirymonth,expiryyear,accname,selectedCardType,bank,sdate,paymentdd,annualfee,balance){
+        var expiry = expirymonth + "/" + expiryyear;
         var outstd_balance = 0;
         var due_amount = 0;
         var settled = 0;
-        $scope.db.insert('account',{"accname":accname,"accgroup":selectedAccGroup,"fourdigits":fourdigits,"expiry":expiry,"cardtype":selectedCardType,"bank":bank,"statement_date":sdate,"payment_due":paymentdd,"annual_fee":annualfee,"balance":balance,"cut_off_date":sdate,"next_due_date":paymentdd,"outstd_balance":outstd_balance,"due_amount":due_amount,"settled":settled}).then(function(results){
+        var statement_date = sdate + new Date().toString(" MMM yyyy");
+        var payment_due = paymentdd + new Date().toString(" MMM yyyy");
+        var cut_off_date = sdate + new Date().addMonths(1).toString(" MMM yyyy");
+        var next_due_date = paymentdd + new Date().addMonths(1).toString(" MMM yyyy")
+        $scope.db.insert('account',{"accname":accname,"accgroup":selectedAccGroup,"fourdigits":fourdigits,"expiry":expiry,"cardtype":selectedCardType,"bank":bank,"statement_date":statement_date,"payment_due":payment_due,"annual_fee":annualfee,"balance":balance,"cut_off_date":cut_off_date,"next_due_date":next_due_date,"outstd_balance":outstd_balance,"due_amount":due_amount,"settled":settled}).then(function(results){
 
-            acctransNavigator.popPage();
-            $scope.accountslist = [];
             $scope.accountslistinit();
+            acctransNavigator.popPage();
         });
     };
 
     //Update Account
-    $scope.updateAccount = function(selectedAccID,selectedAccGroup,fourdigits,expiry,accname,selectedCardType,bank,sdate,paymentdd,annualfee,balance){
+    $scope.updateAccount = function(selectedAccID,selectedAccGroup,fourdigits,expirymonth,expiryyear,accname,selectedCardType,bank,sdate,paymentdd,annualfee,balance){
 
-        $scope.db.update('account',{"accname":accname,"accgroup":selectedAccGroup,"fourdigits":fourdigits,"expiry":expiry,"cardtype":selectedCardType,"bank":bank,"statement_date":sdate,"payment_due":paymentdd,"annual_fee":annualfee,"balance":balance,"cut_off_date":sdate,"next_due_date":paymentdd},
+        var expiry = expirymonth + "/" + expiryyear;
+
+        var statement_date = sdate + new Date().toString(" MMM yyyy");
+        var payment_due = paymentdd + new Date().toString(" MMM yyyy");
+        var cut_off_date = sdate + new Date().addMonths(1).toString(" MMM yyyy");
+        var next_due_date = paymentdd + new Date().addMonths(1).toString(" MMM yyyy")
+
+        $scope.db.update('account',{"accname":accname,"accgroup":selectedAccGroup,"fourdigits":fourdigits,"expiry":expiry,"cardtype":selectedCardType,"bank":bank,"statement_date":statement_date,"payment_due":payment_due,"annual_fee":annualfee,"balance":balance,"cut_off_date":cut_off_date,"next_due_date":next_due_date},
             {
                 "accid":selectedAccID
             }
         );
-        $scope.accountslist = [];
         $scope.accountslistinit();
         $scope.accountProfileInit(selectedAccID);
         acctransNavigator.popPage();
@@ -130,12 +239,12 @@ app.expandControllerA = function($scope, $webSql){
         $scope.db.del('account',{
             "accid":id
         })
-        $scope.accountslist = [];
         $scope.accountslistinit();
         acctransNavigator.popPage();
     }
 }
 
+//Directive for Account List
 app.directive('accountListItem',function(){
     var directive = {};
     directive.template = '<ng-include src="getTemplateUrl()"/>';

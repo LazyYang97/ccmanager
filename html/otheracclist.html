@@ -1,6 +1,9 @@
 <ons-list-item>
     <div class='center'>
         {{account.accname}}
+        <span ng-if="account.accgroup=='debitcard'">
+            ({{account.fourdigits}})
+        </span>
     </div>
     <div class='right'>
         <ons-row style='width:150px;text-align:right'>

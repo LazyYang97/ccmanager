@@ -1,7 +1,13 @@
 <ons-list style="background:#eeeeee">
     <ons-list-item>
         <div lass="center">
-            Status
+            Status:
+            <span ng-if="selectedAcc[0].settled==1">
+                Settled
+            </span>
+            <span ng-if="selectedAcc[0].settled==0">
+                Unsettled
+            </span>
         </div>
         <div class="right">
             <ons-switch ng-model="selectedAcc[0].settled"></ons-switch>
@@ -19,22 +25,33 @@
     </ons-list-item>
     <ons-list-item>
         <div class="center">
-            Statement Date: {{selectedAcc[0].statement_date}} {{nowMonthYear}}
+            Statement Date: {{selectedAcc[0].statement_date}} 
         </div>
     </ons-list-item>
     <ons-list-item>
         <div class="center">
-            Due Date: {{selectedAcc[0].payment_due}} {{nowMonthYear}}
+            Due Date: {{selectedAcc[0].payment_due}} 
         </div>
     </ons-list-item>
     <ons-list-item>
         <div class="center">
-            Cut off Date: {{selectedAcc[0].cut_off_date}} {{nextMonthYear}}
+            Cut off Date: {{selectedAcc[0].cut_off_date}} 
         </div>
     </ons-list-item>
     <ons-list-item>
         <div class="center">
-            Next Due Date: {{selectedAcc[0].next_due_date}} {{nextMonthYear}}
+            Next Due Date: {{selectedAcc[0].next_due_date}} 
+        </div>
+    </ons-list-item>
+    <ons-list-item>
+        <div class="center">
+            Annual Fee: 
+            <span ng-if="selectedAcc[0].annual_fee==0">
+                Free
+            </span>
+            <span ng-if="selectedAcc[0].annual_fee!=0">
+                RM {{selectedAcc[0].annual_fee}}
+            </span>
         </div>
     </ons-list-item>
 </ons-list>
