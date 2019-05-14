@@ -1,40 +1,40 @@
 <ons-list style="background:#eeeeee">
     <ons-list-item>
-        <div class="center">
-        Unsettled
-        </div> 
+        <div lass="center">
+            Status
+        </div>
         <div class="right">
-            <ons-switch></ons-switch>
+            <ons-switch ng-model="selectedAcc[0].settled"></ons-switch>
         </div>
     </ons-list-item>
     <ons-list-item>
         <div class="center">
-            Due Amount:
+            Due Amount: RM {{selectedAcc[0].due_amount}}
         </div>
     </ons-list-item>
     <ons-list-item>
         <div class="center">
-            Outstanding:
+            Outstanding: RM {{selectedAcc[0].outstd_balance}}
         </div>
     </ons-list-item>
     <ons-list-item>
         <div class="center">
-            Statement Date:
+            Statement Date: {{selectedAcc[0].statement_date}} {{nowMonthYear}}
         </div>
     </ons-list-item>
     <ons-list-item>
         <div class="center">
-            Due Date:
+            Due Date: {{selectedAcc[0].payment_due}} {{nowMonthYear}}
         </div>
     </ons-list-item>
     <ons-list-item>
         <div class="center">
-            Cut off Date:
+            Cut off Date: {{selectedAcc[0].cut_off_date}} {{nextMonthYear}}
         </div>
     </ons-list-item>
     <ons-list-item>
         <div class="center">
-            Next Due Date:
+            Next Due Date: {{selectedAcc[0].next_due_date}} {{nextMonthYear}}
         </div>
     </ons-list-item>
 </ons-list>

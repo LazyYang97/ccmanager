@@ -36,7 +36,7 @@
             </ons-row>
         </div>
     </ons-list-item> 
-    <account-list-item ng-repeat="account in accountslist" data="account" ng-click="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide'})" ng-if="account.accgroup=='creditcard'"></account-list-item>
+    <account-list-item ng-repeat="account in accountslist" data="account" ng-click="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide',data:{accountdetails:account}})" ng-if="account.accgroup=='creditcard'"></account-list-item>
 
     <!--Debit Card-->
     <ons-list-item ng-if="countDebitCardAcc!=0" style="background:#eeeeee">
@@ -50,7 +50,7 @@
             </ons-row>
         </div>
     </ons-list-item> 
-    <account-list-item ng-repeat="account in accountslist" data="account" ng-click="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide'})" ng-if="account.accgroup=='debitcard'"></account-list-item>
+    <account-list-item ng-repeat="account in accountslist" data="account" ng-click="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide',data:{accountdetails:account}})" ng-if="account.accgroup=='debitcard'"></account-list-item>
 
     <!--Cash-->
     <ons-list-item ng-if="countCashAcc!=0" style="background:#eeeeee">
@@ -64,6 +64,6 @@
             </ons-row>
         </div>
     </ons-list-item> 
-    <account-list-item ng-repeat="account in accountslist" data="account" ng-click="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide'})" ng-if="account.accgroup=='cash'"></account-list-item>
+    <account-list-item ng-repeat="account in accountslist" data="account" ng-click="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide',data:{accountdetails:account}})" ng-if="account.accgroup=='cash'"></account-list-item>
     </ons-list>
 </ons-page>

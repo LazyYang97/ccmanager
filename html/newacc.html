@@ -15,9 +15,8 @@
 <div class="content" style="width:90%;margin:0 auto">
 <p>
  <label for="selectedAccGroup">Group</label><br/>
- <ons-select id="selectedAccGroup" ng-model="selectedAccGroup" modifier="underbar" style="width:100%">
-     <option ng-repeat="x in accgroups" value="{{x.value}}">{{x.type}}</option>
- </ons-select>
+ <select class="select-input select-input--underbar" id="selectedAccGroup" ng-model="selectedAccGroup" ng-options="x for (x,y) in accgroups" modifier="underbar" style="width:100%">
+ </select>
 </p>
 
 <!--Credit Card Fields-->
@@ -54,9 +53,8 @@
             Type
             <span ng-show="addaccForm.selectedCardType.$error.required" style="color:red">*</span>
         </label><br/>
-        <ons-select id="selectedCardType" ng-model="selectedCardType" name="selectedCardType" modifier="underbar" style="width:90%" required>
-            <option ng-repeat="x in cardtypes" value="{{x}}">{{x}}</option>
-        </ons-select>
+        <select id="selectedCardType" class="select-input select-input--underbar" ng-model="selectedCardType" name="selectedCardType" modifier="underbar" style="width:90%" ng-options="x for x in cardtypes" required> 
+        </select>
     </ons-col>
     <ons-col>
         <label for="bank">
@@ -75,31 +73,24 @@
             Statement Date
             <span ng-show="addaccForm.sdate.$error.required" style="color:red">*</span>
         </label><br/>
-        <ons-input ng-model="sdate" name="sdate" input-id="sdate" type="date" modifier="underbar" style="width:90%" required>
-        </ons-input>
+        <select class="select-input select-input--underbar" ng-model="sdate" name="sdate" input-id="sdate" ng-options="x for x in dates" modifier="underbar" style="width:90%" required>
+        </select>
     </ons-col>
     <ons-col>
         <label for="paymentdd">
             Payment Due Date
             <span ng-show="addaccForm.paymentdd.$error.required" style="color:red">*</span>
         </label><br/>
-        <ons-input ng-model="paymentdd" name="paymentdd" input-id="paymentdd" type="date" modifier="underbar" style="width:90%" required>
-        </ons-input>
+        <select class="select-input select-input--underbar" ng-model="paymentdd" ng-options="x for x in dates" name="paymentdd" input-id="paymentdd" type="date" modifier="underbar" style="width:90%" required>
+        </select>
     </ons-col>
 </ons-row>
-</p>
-<p>
-    <label for="obalance">
-        Outstanding Balance
-            <span ng-show="addaccForm.obalance.$error.required" style="color:red">*</span>
-    </label>
-    <ons-input input-id="obalance" ng-model="obalance" name="obalance" min="0" modifier="underbar" type="number" style="width:100%" required></ons-input>
 </p>
 <p>
     <label for="annualfee">Annual Fee</label>
     <ons-input ng-model="annualfee" name="annualfee" input-id="annualfee" min="0" modifier="underbar" type="number" style="width:100%"></ons-input>
 </p>
-<ons-button modifier="large" ng-hide="!selectedAccGroup" ng-disabled="addaccForm.$invalid" ng-click="addNewAccount(selectedAccGroup,fourdigits,expiry,accname,selectedCardType,bank,sdate,paymentdd,obalance,annualfee,balance)" style="margin-bottom:20px">Add</ons-button>
+<ons-button modifier="large" ng-hide="!selectedAccGroup" ng-disabled="addaccForm.$invalid" ng-click="addNewAccount(selectedAccGroup,fourdigits,expiry,accname,selectedCardType,bank,sdate,paymentdd,annualfee,balance)" style="margin-bottom:20px">Add</ons-button>
 </div>
 
 <!--Debit Card Fields-->
@@ -136,9 +127,8 @@
             Type
             <span ng-show="addaccForm.selectedCardType.$error.required" style="color:red">*</span>
         </label><br/>
-        <ons-select ng-model="selectedCardType" name="selectedCardType" id="selectedCardType" modifier="underbar" style="width:90%" required>
-            <option ng-repeat="x in cardtypes" value="{{x}}">{{x}}</option>
-        </ons-select>
+        <select id="selectedCardType" class="select-input select-input--underbar" ng-model="selectedCardType" name="selectedCardType" modifier="underbar" style="width:90%" ng-options="x for x in cardtypes" required> 
+        </select>
     </ons-col>
     <ons-col>
         <label for="bank">
@@ -156,7 +146,7 @@
     </label>
     <ons-input ng-model="balance" name="balance" input-id="balance" modifier="underbar" type="number" min="0" style="width:100%" required></ons-input>
 </p>
-<ons-button modifier="large" ng-hide="!selectedAccGroup" ng-disabled="addaccForm.$invalid" ng-click="addNewAccount(selectedAccGroup,fourdigits,expiry,accname,selectedCardType,bank,sdate,paymentdd,obalance,annualfee,balance)" style="margin-bottom:20px">Add</ons-button>
+<ons-button modifier="large" ng-hide="!selectedAccGroup" ng-disabled="addaccForm.$invalid" ng-click="addNewAccount(selectedAccGroup,fourdigits,expiry,accname,selectedCardType,bank,sdate,paymentdd,annualfee,balance)" style="margin-bottom:20px">Add</ons-button>
 </div>
 
 <!--Cash Fields-->
@@ -172,7 +162,7 @@
     <label for="balance">Balance</label>
     <ons-input ng-model="balance" name="name" input-id="balance" modifier="underbar" min="0" type="number" style="width:100%" required></ons-input>
 </p>
-<ons-button modifier="large" ng-hide="!selectedAccGroup" ng-disabled="addaccForm.$invalid" ng-click="addNewAccount(selectedAccGroup,fourdigits,expiry,accname,selectedCardType,bank,sdate,paymentdd,obalance,annualfee,balance)" style="margin-bottom:20px">Add</ons-button>
+<ons-button modifier="large" ng-hide="!selectedAccGroup" ng-disabled="addaccForm.$invalid" ng-click="addNewAccount(selectedAccGroup,fourdigits,expiry,accname,selectedCardType,bank,sdate,paymentdd,annualfee,balance)" style="margin-bottom:20px">Add</ons-button>
 </div>
 </div>
 </form>

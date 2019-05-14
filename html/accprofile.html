@@ -1,12 +1,14 @@
-<ons-page>
+<ons-page ng-init="accountProfileInit(acctransNavigator.topPage.data.accountdetails.accid)">
    <ons-toolbar>
        <div class="left">
-           <ons-back-button onclick="acctransNavigator.popPage()"></ons-back-button>
+           <ons-back-button ng-click="acctransNavigator.popPage()"></ons-back-button>
        </div>
-       <div class="center">accname</div>
+       <div class="center">
+           {{selectedAcc[0].accname}}
+       </div>
        <div class="right">
-           <ons-toolbar-button icon="md-delete"></ons-toolbar-button>
-           <ons-toolbar-button icon="md-edit"></ons-toolbar-button>
+           <ons-toolbar-button icon="md-delete" ng-click="deleteAccount(acctransNavigator.topPage.data.accountdetails.accid)"></ons-toolbar-button>
+           <ons-toolbar-button icon="md-edit" ng-click="acctransNavigator.pushPage('html/editacc.html',{animation:'slide',data:{selectedacc:selectedAcc[0]}})"></ons-toolbar-button>
 
        </div>
    </ons-toolbar>
@@ -15,15 +17,14 @@
         <ons-list>
             <ons-list-item>
                 <div class="center">
-                    <span class="list-item__title">
-                        bank
+                    <span ng-if="selectedAcc[0].accgroup!='cash'" class="list-item__title">
+                        {{selectedAcc[0].bank}}
                     </span>
-                    <span class="list-item__subtitle">
-                        expiry<br/>
-                        balance
+                    <span ng-if="selectedAcc[0].accgroup!='cash'" class="list-item__subtitle">
+                        Expiry: {{selectedAcc[0].expiry}}<span ng-if="selectedAcc.accgroup=='debitcard'"><br/>Balance: RM {{selectedAcc[0].balance}}</span>
                     </span>
-                    <span ng-if="type=='cash'"class="list-item__title">
-                        balance
+                    <span ng-if="selectedAcc[0].accgroup=='cash'"class="list-item__title">
+                        Balance: RM {{selectedAcc[0].balance}}
                     </span>
                 </div>
                 <div class="right">
@@ -31,7 +32,7 @@
                 </div>
             </ons-list-item>
         </ons-list> 
-        <div class="center" ng-if="acctransNavigator.topPage.data.type=='creditcard'" ng-include="'html/creditcarddetails.html'"></div>
-        <div  ng-if="acctransNavigator.topPage.data.type!='creditcard'" ng-include="'html/transcontents.html'"></div>
+        <div class="center" ng-if="selectedAcc[0].accgroup=='creditcard'" ng-include="'html/creditcarddetails.html'"></div>
+        <div  ng-if="selectedAcc[0].accgroup!='creditcard'" ng-include="'html/transcontents.html'"></div>
    </div>
 </ons-page>
