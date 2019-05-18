@@ -1,59 +1,58 @@
 <ons-list style="background:#eeeeee">
-    <ons-list-item>
-        <div lass="center">
-            Status:
-            <span ng-if="selectedAcc[0].settled==1">
-                Settled
-            </span>
-            <span ng-if="selectedAcc[0].settled==0">
-                Unsettled
-            </span>
-        </div>
-        <div class="right">
-            <ons-switch ng-model="selectedAcc[0].settled"></ons-switch>
-        </div>
-    </ons-list-item>
-    <ons-list-item>
-        <div class="center">
-            Due Amount: RM {{selectedAcc[0].due_amount}}
-        </div>
-    </ons-list-item>
-    <ons-list-item>
-        <div class="center">
-            Outstanding: RM {{selectedAcc[0].outstd_balance}}
-        </div>
-    </ons-list-item>
-    <ons-list-item>
-        <div class="center">
-            Statement Date: {{selectedAcc[0].statement_date}} 
-        </div>
-    </ons-list-item>
-    <ons-list-item>
-        <div class="center">
-            Due Date: {{selectedAcc[0].payment_due}} 
-        </div>
-    </ons-list-item>
-    <ons-list-item>
-        <div class="center">
-            Cut off Date: {{selectedAcc[0].cut_off_date}} 
-        </div>
-    </ons-list-item>
-    <ons-list-item>
-        <div class="center">
-            Next Due Date: {{selectedAcc[0].next_due_date}} 
-        </div>
-    </ons-list-item>
-    <ons-list-item>
-        <div class="center">
-            Annual Fee: 
-            <span ng-if="selectedAcc[0].annual_fee==0">
-                Free
-            </span>
-            <span ng-if="selectedAcc[0].annual_fee!=0">
-                RM {{selectedAcc[0].annual_fee}}
-            </span>
-        </div>
-    </ons-list-item>
+            <ons-list-item>
+                <div lass="center">
+                    Status:
+                    <span ng-if="selectedAcc[0].status==1">
+                        Settled
+                    </span>
+                    <span ng-if="selectedAcc[0].status==0">
+                        Unsettled
+                    </span>
+                </div>
+                <div class="right">
+                    <ons-switch ng-model="selectedAcc[0].status"></ons-switch>
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    Due Amount: $ {{selectedAcc[0].due_amount}}
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    Outstanding: $ {{selectedAcc[0].outstd_amount}} 
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    Statement Date: {{selectedAcc[0].statement_date}} 
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    Due Date: {{selectedAcc[0].payment_due_date}}   
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    Cut off Date: {{selectedAcc[0].cut_off_date}} 
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    Next Due Date: {{selectedAcc[0].next_due_date}} 
+                </div>
+            </ons-list-item>
+            <ons-list-item>
+                <div class="center">
+                    Annual Fee: &nbsp;
+                    <span ng-if="selectedAcc[0].annual_fee==0">
+                        Free
+                    </span>
+                    <span ng-if="selectedAcc[0].annual_fee!=0">
+                        $ {{selectedAcc[0].annual_fee}}
+                    </span>
+                </div>
+            </ons-list-item>
 </ons-list>
-<ons-button style="margin:2% 5%;width:90%;position:static;bottom:0;left:0;text-align:center">Settle Outstanding Amount</ons-button>
-<ons-button style="margin:2% 5%;width:90%;position:static;bottom:0;left:0;text-align:center">View Transactions</ons-button>
+<ons-button style="margin:2% 5%;width:90%;position:static;bottom:0;left:0;text-align:center">Settle Outstanding Amount</ons-button> 

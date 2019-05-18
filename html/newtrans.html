@@ -5,23 +5,15 @@
             Add Transactions
         </div>
     </ons-toolbar>
-    <div class="segment" style="width: 100%; margin: 0 auto;">
-        <div class="segment__item">
-            <input type="radio" class="segment__input" name="segment-expense" ng-model="transgroupTab" value="expense">
-            <div class="segment__button">Expense</div>
-        </div>
-        <div class="segment__item">
-            <input type="radio" ng-model="transgroupTab" class="segment__input" name="segment-income" value="income">
-            <div class="segment__button">Income</div>
-        </div>
-        <div class="segment__item">
-            <input type="radio" ng-model="transgroupTab" class="segment__input" name="segment-transfer" value="transfer">
-            <div class="segment__button">Transfer</div>
-        </div>
-    </div>
-    <div ng-if="transgroupTab=='expense'" ng-include="'html/expense.html'"></div>
-    <div ng-if="transgroupTab=='income'" ng-include="'html/income.html'"></div>
-    <div ng-if="transgroupTab=='transfer'" ng-include="'html/transfer.html'"></div>
+
+    <ons-tabbar var="newtransTab" position="top" swipeable position="auto">
+        <ons-tab page="html/expense.html" label="Expense" active>
+        </ons-tab>
+        <ons-tab page="html/income.html" label="Income">
+        </ons-tab>
+        <ons-tab page="html/transfer.html" label="Transfer">
+        </ons-tab>
+    </ons-tabbar>    
      
 </ons-page>
 </ons-navigator>

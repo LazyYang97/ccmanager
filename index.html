@@ -15,11 +15,12 @@
         <script src="js/angular-websql.min.js"></script>
         <script src="js/date.js"></script>
         <script src="js/app.js"></script>
-        <script src="js/databaseController.js"></script>
-
+        <script src="js/accountsController.js"></script>
+        <script src="js/appService.js"></script>
+        
         <title>CCManager</title>
     </head>
-    <body ng-app="myApp" ng-controller="ManagerController">
+    <body ng-app="myApp" ng-controller="MainController as mc">
         <ons-page>
             <ons-tabbar var="mainTab" swipeable position="bottom">
 
@@ -37,9 +38,11 @@
             </ons-tabbar>
         </ons-page>
 
+        <!--Toast-->
         <ons-toast var="toast">
             {{toastmsg}}<button ng-click="toast.hide()">Dismiss</button>
         </ons-toast>
 
+        <!-- Alert Dialog-->
     </body>
 </html>

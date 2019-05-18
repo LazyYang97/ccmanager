@@ -1,40 +1,46 @@
-<div class="content" ng-init="transgroup='transfer'" style="width:90%;margin:0 auto">
-    <form name="transfForm">
-
-<p> 
- <label for="transdate">Date</label><br/> 
- <ons-input input-id="transdate" modifier="underbar" ng-model="transdate" name="transdate" type="date" style="width:100%"></ons-input>
-</p>
-
-<p>
- <label for="from_accid">
-     From
-     <span ng-show="transfForm.from_accid.$error.required" style="color:red">*</span>
- </label><br/>
- <select class="select-input select-input--underbar" id="from_accid" ng-model="from_accid" name="from_accid" modifier="underbar" style="width:100%" ng-options="x.accid as x.accname for x in accountslist" required>
- </select>
-</p>
-
-<p> 
- <label for="to_accid">
-     To
-     <span ng-show="transfForm.to_accid.$error.required" style="color:red">*</span>
- </label><br/>
- <select class="select-input select-input--underbar" id="to_accid" ng-model="to_accid" name="to_accid" modifier="underbar" style="width:100%" ng-options="x.accid as x.accname for x in accountslist" required>
- </select>
-</p>
-
-<p>
- <label for="amount">Amount $</label><br/>
- <ons-input input-id="amount" modifier="underbar" min="0" type="number" ng-model="amount" name="amount" placeholder="enter amount" style="width:100%" required></ons-input>
-</p>
-
-<p>
- <label for="desc">Description</label>
- <ons-input input-id="desc" modifier="underbar" type="text" style="width:100%" placeholder="enter description"></ons-input>
-</p>
-
-<ons-button modifier="large" ng-click="addNewTransaction(transgroup,transcategory,transdate,accid,from_accid,to_accid,amount,desc)" ng-disabled="transfForm.$invalid">Add</ons-button>
-
-    </form>
-</div>
+<ons-page <!--ng-controller="transfFormController as transfFormCtrl"-->>
+    <div class="content" style="width:90%;margin:0 auto"> 
+        <form name="transfForm">
+            <p> 
+                <label for="transfDate">
+                    Date
+                </label>
+                <ons-input ng-model="transfFormCtrl.date" id="transfDate" name="transfDate" modifier="underbar" type="date" style="width:100%" required></ons-input>
+            </p>
+            <p> 
+                 <label for="fromAcc">
+                      From 
+                        <span ng-show="transfForm.fromAcc.$error.required" style="color:red">*</span>
+                 </label>
+                 <ons-select ng-model="transfFormCtrl.from_accid" id="fromAcc" name="fromAcc" modifier="underbar" style="width:100%" required>
+                     <option value=""></option>
+                     <option value="eqewqe">weqew</option>
+                 </ons-select>
+            </p>
+            <p> 
+                 <label for="toAcc">
+                      To 
+                        <span ng-show="transfForm.toAcc.$error.required" style="color:red">*</span>
+                 </label>
+                 <ons-select ng-model="transfFormCtrl.to_accid" id="toAcc" name="toAcc" modifier="underbar" style="width:100%" required>
+                     <option value=""></option>
+                     <option value="eqewqe">weqew</option>
+                 </ons-select>
+            </p>
+            <p> 
+                <label for="transfAmt">
+                    Amount $
+                </label>
+                <ons-input ng-model="transfFormCtrl.amount" id="transfAmt" name="transfAmt" modifier="underbar" type="number" style="width:100%"></ons-input>
+            </p>
+            <p> 
+                <label for="transfDesc">
+                    Description
+                </label>
+                <ons-input ng-model="transfFormCtrl.desc" id="transfDesc" name="transfDesc" modifier="underbar" type="text" style="width:100%"></ons-input>
+            </p>
+            <ons-button ng-model="transfFormCtrl.addBtn" id="transfAdd" name="transfAdd" modifier="large" style="margin-top:20px">Add</ons-button>
+            
+        </form>
+    </div>
+</ons-page>

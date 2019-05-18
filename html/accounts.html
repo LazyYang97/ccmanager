@@ -1,55 +1,62 @@
-<ons-page ng-init="selectAllAccounts()" ons-show="updateToolbar('Accounts')">
+<ons-page ng-init="accountsInit()" ons-show="updateAccTransTitle('Accounts')">
     <ons-fab position="bottom right" >
         <ons-icon icon="md-plus" ng-click="acctransNavigator.pushPage('html/newacc.html',{animation:'slide'})"></ons-icon>
     </ons-fab>
-    <ons-list style="margin-bottom:70px;">
-
-    <!--Credit Card-->
-    <ons-list-item ng-if="getCountCreditCardAcc()" style="background:#eeeeee">
-        <div class="center">
-            Credit Cards
+    <div class="content" style="margin-bottom:70px;">
+        <div ng-show="AccountsList.length==0" style="text-align:center;margin-top:30px;">
+            <em>It's empty. Add a new one....</em> 
         </div>
-        <div class="right">
-            <ons-row style="width:150px;text-align:right">
-                <ons-col>
-                    <span>Payable</span><br/>
-                    <span style="color:blue"></span>
+    <!--Credit Card-->
+    <ons-list modifier="longdivider" ng-if="checkAccGroupCount('creditcard')!=0">
+        <ons-list-item style="font-weight:bold;background:#eeeeee">
+        <div class="center" >
+                Credit Card
+        </div>
+        <div class="right" style="width:150px;text-align:right">
+            <ons-row>
+                <ons-col width="50%">
+                    testing<br/>
+                    <span>$ 100</span>
                 </ons-col>
-                <ons-col>
-                    <span>Outstd.</span><br/>
-                    <span style="color:red">{{getOutstandingTotal()}}</span>
+                <ons-col width="50%">
+                    testing<br/>
+                    <span>$ {{showAccGroupsTotalBalance('creditcard')}}</span>
                 </ons-col>
             </ons-row>
         </div>
-    </ons-list-item> 
-    <account-list-item ng-repeat="account in accountslist" data="account" ng-click="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide',data:{accountdetails:account}})" ng-if="account.accgroup=='creditcard'"></account-list-item>
+    </ons-list-item>
+    <account-list-item ng-repeat="account in AccountsList" modifier="longdivider" ng-if="account.accgroup=='creditcard'"  ng-click="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide',data:{accountdetails:account}})"  data="account"></account-list-item>
+    </ons-list>
 
     <!--Debit Card-->
-    <ons-list-item ng-if="getCountDebitCardAcc()" style="background:#eeeeee">
-        <div class="center">
+    <ons-list modifier="longdivider" ng-if="checkAccGroupCount('debitcard')!=0">
+        <ons-list-item modifier="longdivider" style="font-weight:bold;background:#eeeeee">
+        <div class="center" >
         Debit Cards
         </div>
         <div class="right">
             <ons-row style="width:150px;text-align:right">
                 <ons-col></ons-col>
-                <ons-col style="color:blue">$ {{getDebitCardTotalBalance()}}</ons-col>
+                <ons-col style="color:blue">$ {{showAccGroupsTotalBalance('debitcard')}}</ons-col>
             </ons-row>
         </div>
-    </ons-list-item> 
-    <account-list-item ng-repeat="account in accountslist" data="account" ng-click="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide',data:{accountdetails:account}})" ng-if="account.accgroup=='debitcard'"></account-list-item>
+    </ons-list-item>
+    <account-list-item ng-repeat="account in AccountsList" data="account" ng-click="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide',data:{accountdetails:account}})" ng-if="account.accgroup=='debitcard'"></account-list-item>
+    </ons-list>
 
     <!--Cash-->
-    <ons-list-item ng-if="getCountCashAcc()" style="background:#eeeeee">
+    <ons-list modifier="longdivider" ng-if="checkAccGroupCount('cash')!=0">
+    <ons-list-item modifier="longdivider" style="font-weight:bold;background:#eeeeee">
         <div class="center">
             Cash
         </div>
         <div class="right">
             <ons-row style="width:150px;text-align:right">
                 <ons-col></ons-col>
-                <ons-col style="color:blue">$ {{getCashTotalBalance()}}</ons-col>
+                <ons-col style="color:blue">$ {{showAccGroupsTotalBalance('cash')}}</ons-col>
             </ons-row>
         </div>
-    </ons-list-item> 
-    <account-list-item ng-repeat="account in accountslist" data="account" ng-click="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide',data:{accountdetails:account}})" ng-if="account.accgroup=='cash'"></account-list-item>
+    </ons-list-item>
+    <account-list-item ng-repeat="account in AccountsList" data="account" ng-click="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide',data:{accountdetails:account}})" ng-if="account.accgroup=='cash'"></account-list-item>
     </ons-list>
 </ons-page>

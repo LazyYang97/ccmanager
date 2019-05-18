@@ -1,4 +1,4 @@
-<ons-page ng-init="selectOneAccount(acctransNavigator.topPage.data.accountdetails.accid)">
+<ons-page ng-init="showSelectedAcc(acctransNavigator.topPage.data.accountdetails.accid);">
    <ons-toolbar>
        <div class="left">
            <ons-back-button ng-click="acctransNavigator.popPage()"></ons-back-button>
@@ -7,13 +7,14 @@
            {{selectedAcc[0].accname}}
        </div>
        <div class="right">
-           <ons-toolbar-button icon="md-delete" ng-click="deleteAccount(acctransNavigator.topPage.data.accountdetails.accid)"></ons-toolbar-button>
+           <ons-toolbar-button icon="md-delete" ng-click="deleteAlertDialog.show()"></ons-toolbar-button>
            <ons-toolbar-button icon="md-edit" ng-click="acctransNavigator.pushPage('html/editacc.html',{animation:'slide',data:{selectedacc:selectedAcc[0]}})"></ons-toolbar-button>
 
        </div>
    </ons-toolbar>
 
    <div class="content">
+       <div>
         <ons-list>
             <ons-list-item>
                 <div class="center">
@@ -28,11 +29,43 @@
                     </span>
                 </div>
                 <div class="right">
-                    <ons-icon icon="md-card"></ons-icon>
+                    <ons-icon ng-if="selectedAcc[0].cardtype=='visa'" icon="fa-cc-visa" size="32px"></ons-icon>
+                    <ons-icon ng-if="selectedAcc[0].cardtype=='master'" icon="fa-cc-mastercard" size="32px"></ons-icon>
                 </div>
             </ons-list-item>
         </ons-list> 
-        <div class="center" ng-if="selectedAcc[0].accgroup=='creditcard'" ng-include="'html/creditcarddetails.html'"></div>
-        <div  ng-if="selectedAcc[0].accgroup!='creditcard'" ng-include="'html/transcontents.html'"></div>
+   </div>
+   <div style="width:100%;text-align:center;margin:10px 0px">
+       <div class="segment" style="width: 250px; margin: 0 auto;">
+           <div class="segment__item" ng-show="showCreditCardDetails(selectedAcc[0].accgroup)">
+          <input type="radio" ng-model="showDetails" class="segment__input" ng-value="true" name="segment-a">
+          <div class="segment__button">Details</div>
+      </div>
+      <div class="segment__item">
+          <input type="radio" ng-model="showDetails" class="segment__input" name="segment-a" ng-value="false">
+          <div class="segment__button">Transactions</div>
+      </div>
+    </div>
+
+   </div>
+   <div ng-switch="showDetails">
+       <div ng-switch-when="true">
+           <div ng-include="'html/creditcarddetails.html'"></div>
+       </div>
+       <div ng-switch-when="false">
+           <div ng-include="'html/transcontents.html'"></div>
+       </div>
    </div>
 </ons-page>
+
+<ons-alert-dialog var="deleteAlertDialog">
+    <div class="alert-dialog-title">Delete {{selectedAcc[0].accname}}</div>
+            <div class="alert-dialog-content">
+                Are you sure?
+            </div>
+            <div class="alert-dialog-footer">
+                <button class="alert-dialog-button" ng-click="deleteAlertDialog.hide()">NO!!</button>
+                <button class="alert-dialog-button" ng-click="deleteSelectedAccount(selectedAcc[0])">Yes..</button>
+            </div>
+</ons-alert-dialog>
+

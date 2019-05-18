@@ -2,14 +2,18 @@
     <ons-page>
         <ons-toolbar>
             <div class="center">
-                {{acctransTitle}}
-            </div>      
+            <ons-segment id="segment" tabbar-id="acctransTabbar" style="width:170px">
+                <button>Accounts</button>
+                <button>Transactions</button>
+            </ons-segment>
+            </div>
             <div class="right" ng-if="acctransTitle=='Transactions'">
                 <ons-toolbar-button icon="md-filter-list" onclick="acctransNavigator.pushPage('html/transfilters.html',{animation:'fade'})"></ons-toolbar-button>
             </div>
         </ons-toolbar> 
+
 <!--Transactions Tabs-->
-        <ons-tabbar var="acctransTab" position="top">
+        <ons-tabbar var="acctransTabbar" id="acctransTabbar" position="top">
             <ons-tab page="html/accounts.html" label="Accounts" active></ons-tab>
             <ons-tab page="html/trans.html" label="Transactions"></ons-tab>
         </ons-tabbar>
