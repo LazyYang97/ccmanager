@@ -4,14 +4,13 @@
     <ons-col>
         <label for="fourdigits">
             Last 4 Digits
-            <span ng-show="addaccForm.fourdigits.$error.required" style="color:red">*</span>
         </label><br/>
-        <ons-input ng-model="submitted.fourdigits" placeholder="XXXX" name="fourdigits" input-id="fourdigits" modifier="underbar" type="tel" maxlength="4" style="width:90%" required></ons-input>
+        <ons-input ng-model="submitted.fourdigits" placeholder="XXXX" name="fourdigits" input-id="fourdigits" modifier="underbar" type="text" maxlength="4" pattern="\d{4}" style="width:90%"></ons-input>
     </ons-col>
     <ons-col>
         <label for="expiry">
             Expiry
-            <span ng-show="addaccForm.expirymonth.$error.required || addaccForm.expiryyear.$error.required" style="color:red">*</span>
+            <span ng-show="{{accFormName}}.expirymonth.$error.required || {{accFormName}}.expiryyear.$error.required" style="color:red">*</span>
         </label><br/>
         <span>
             <select class="select-input select-input--underbar" ng-model="submitted.expirymonth" name="expirymonth" input-id="expirymonth" modifier="underbar" ng-options="n for n in [] | range:1:12" style="width:45%" required>
@@ -38,7 +37,7 @@
     <ons-col>
         <label for="selectedCardType">
             Type
-            <span ng-show="addaccForm.selectedCardType.$error.required" style="color:red">*</span>
+            <span ng-show="{{accFormName}}.selectedCardType.$error.required" style="color:red">*</span>
         </label><br/>
         <select id="selectedCardType" class="select-input select-input--underbar" ng-model="submitted.selectedCardType" name="selectedCardType" modifier="underbar" style="width:90%" ng-options="x.type as x.label for x in cardtypes" required> 
         </select>
@@ -46,7 +45,7 @@
     <ons-col>
         <label for="bank">
             Bank
-            <span ng-show="addaccForm.bank.$error.required" style="color:red">*</span>
+            <span ng-show="{{accFormName}}.bank.$error.required" style="color:red">*</span>
         </label><br/>
         <ons-input type="text" ng-model="submitted.bank" name="bank" id="bank" modifier="underbar" style="width:90%" required>
         </ons-input>

@@ -2,6 +2,7 @@ app.accountsController = function($scope,$webSql,appService){
 
     $scope.submitted={};
     $scope.selectedAcc = [];
+    $scope.accFormName = "";
     accountsInit();
 
     function accountsInit(){
@@ -10,25 +11,79 @@ app.accountsController = function($scope,$webSql,appService){
         $scope.accgroups = appService.getAccGroups();
 
     }
-    //Set the New Acc Form to Default
-    $scope.setDefaultAccForms = function(current){
-        $scope.submitted = angular.copy(appService.getDefaultNewAccForm());
-        $scope.submitted.selectedAccGroup = current;
+
+    //SET the New Acc Form & Edit Acc Form to Default
+    $scope.setDefaultAccForms = function(current,formname,selectedacc){
+        if(formname=='addaccForm'){
+            $scope.accFormName = formname;
+            $scope.submitted = angular.copy(appService.getDefaultNewAccForm());
+            $scope.submitted.selectedAccGroup = current;
+
+        }else if(formname=='editaccForm'){
+            $scope.accFormName = formname;
+            var sdate = new Date(selectedacc.statement_date).getDate();
+            var paymentdd = new Date(selectedacc.payment_due_date).getDate();
+            var editAccForm = {};
+            if(current == selectedacc.accgroup)
+            {   editAccForm = {
+                "selectedAccGroup":current,
+                "accname":selectedacc.accname,
+                "fourdigits":selectedacc.fourdigits,
+                "expirymonth":selectedacc.expirymonth,
+                "expiryyear":selectedacc.expiryyear,
+                "selectedCardType":selectedacc.cardtype,
+                "bank":selectedacc.bank,
+                "sdate":sdate,
+                "paymentdd":paymentdd,
+                "annualfee":selectedacc.annual_fee,
+                "balance":selectedacc.balance
+            }
+            }else{
+                editAccForm = {
+                "selectedAccGroup":current,
+                "accname":selectedacc.accname,
+                "fourdigits":"",
+                "expirymonth":"",
+                "expiryyear":"",
+                "selectedCardType":"",
+                "bank":"",
+                "sdate":"",
+                "paymentdd":"",
+                "annualfee":"",
+                "balance":selectedacc.balance
+                }
+
+            }
+            $scope.submitted = angular.copy(editAccForm);
+
+        }
     }
 
-    //Create New Account
+    //CREATE New Account
     $scope.createNewAccount = function(){
         var newAcc = [];
         newAcc.push($scope.submitted);
         appService.insertIntoAccount(newAcc[0]);
         accountsInit();
-        $scope.toastmsg = "Added "+ newAcc[0].accname;
+        $scope.toastmsg = "Added Account ("+ newAcc[0].accname+")";
         toast.show();
         acctransNavigator.popPage();
 
     }
 
-    //Show Selected Account in Account Profile
+    //EDIT Selected Account
+    $scope.editSelectedAccount = function(id){
+        var editAcc = [];
+        editAcc.push($scope.submitted);
+        appService.updateSelectedAccount(id,editAcc[0]);
+        accountsInit();
+        $scope.toastmsg = "Edited " + editAcc[0].accname;
+        toast.show();
+        acctransNavigator.popPage();
+
+    }
+
+    //SHOW Selected Account in Account Profile
     $scope.showSelectedAcc = function(id){
         $scope.selectedAcc = appService.getOneAcc(id);
     }
@@ -44,13 +99,13 @@ app.accountsController = function($scope,$webSql,appService){
         }
     }
 
-    //Check Accounts Group Quantity
+    //CHECK Accounts Group Quantity
     $scope.checkAccGroupCount = function(data){
         var temp = appService.getCountAccGroups();
         return temp[data].quantity;
     }
 
-    //Show Total Balance & Total Outstanding Amount
+    //SHOW Total Balance & Total Outstanding Amount
     $scope.showAccGroupsTotalBalance = function(data){
         var temp = appService.getAccGroupsTotalBalance();
         if(data == 'creditcard')
@@ -68,10 +123,6 @@ app.accountsController = function($scope,$webSql,appService){
         acctransNavigator.popPage();
     }
 
-    //EDIT selected Account
-    $scope.editSelectedAccount = function(){
-        appService.up
-    }
 
 }
 

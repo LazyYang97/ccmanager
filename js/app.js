@@ -1,5 +1,4 @@
-var app = angular.module('myApp',['onsen','angular-websql']);
-
+var app = angular.module('myApp',['onsen','angular-websql','angular.filter']);
 
 app.controller('MainController',function($scope,$webSql,appService){
 
@@ -7,6 +6,7 @@ app.controller('MainController',function($scope,$webSql,appService){
     $scope.alertDialogBtnClicked = false;
 
     app.accountsController($scope,$webSql,appService);
+    app.transactionController($scope,$webSql,appService);
     ons.disableAutoStyling();
 
     //Update Accounts & Transactions Toolbar Title
@@ -16,22 +16,6 @@ app.controller('MainController',function($scope,$webSql,appService){
 
 
 })
-
-//Directive for Transactions List
-app.directive('transactionsListItem',function(){
-    var directive = {};
-    directive.template = '<ng-include src="getTemplateUrl()">';
-    directive.restrict = 'EA';
-    directive.scope = {
-        transaction : "=data"
-    };
-    directive.controller=function($scope){
-        $scope.getTemplateUrl = function(){
-            return "html/translistitem.html";
-        }
-    }
-    return directive;
-});
 
 app.filter('range', function(){
     return function(input,min,max){

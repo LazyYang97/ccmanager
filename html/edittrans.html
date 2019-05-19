@@ -1,115 +1,47 @@
-<ons-navigator swipeable var="myNavigator">
-    <ons-page>
+<ons-page ng-init="setDefaultTransForms(acctransNavigator.topPage.data.trans.transgroup,'editTransForm',acctransNavigator.topPage.data.trans)">
+
     <ons-toolbar>
-        <div class="center" style="text-align:center">
-            Edit Transactions
+        <div class="left">
+        <ons-back-button ng-click="acctransNavigator.popPage()"></ons-back-button>
+        </div>
+        <div class="center">
+            <b>Edit Transaction</b>
         </div>
     </ons-toolbar>
-    <ons-tabbar position="top">
-        <ons-tab page="editexpense.html" label="Expense" active></ons-tab>
-        <ons-tab page="editincome.html" label="Income"></ons-tab>
-        <ons-tab page="editransfer.html" label="Transfer"></ons-tab>
-    </ons-tabbar>
-</ons-page>
-</ons-navigator>
 
-<template id="editexpense.html">
-<ons-page>
-<div class="content" style="width:90%;margin:0 auto">
-<p> 
- <label for="date">Date</label><br/> 
- <ons-input input-id="date" modifier="underbar" type="date" style="width:100%"></ons-input>
-</p>
-<ons-row>
-    <ons-col>
- <label for="account">Account</label><br/>
- <ons-select id="account" modifier="underbar" style="width:100%">
-     <option>Card 1</option> 
- </ons-select>
-    </ons-col>
-    <ons-col width="33%">
- <ons-button onclick="myNavigator.pushPage('html/suggest.html',{animation:'slide'})" style="width:100%;text-align:center">Suggest</ons-button>
-    </ons-col>
-</ons-row>
-<p> 
- <label for="category">Category</label><br/>
- <ons-select id="category" modifier="underbar" style="width:100%">
-     <option>Category 1</option> 
- </ons-select>
-</p>
-<p>
- <label for="amount">Amount</label><br/>
- <ons-input input-id="amount" modifier="underbar" type="number" style="width:100%"></ons-input>
-</p>
-<p>
- <label for="desc">Description</label>
- <ons-input input-id="desc" modifier="underbar" type="text" style="width:100%"></ons-input>
-</p>
-<ons-button style="width:100%;position:sticky;bottom:0;left:0;text-align:center">Add</ons-button>
-</div>
-</ons-page>
-</template>
+    <form  style="width:90%;margin:0 auto;" name="{{transFormName}}">
 
-<template id="editincome.html">
-<ons-page>
-<div class="content" style="width:90%;margin:0 auto">
-<p> 
- <label for="date">Date</label><br/> 
- <ons-input input-id="date" modifier="underbar" type="date" style="width:100%"></ons-input>
-</p>
-<p>
- <label for="account">Account</label><br/>
- <ons-select id="account" modifier="underbar" style="width:100%">
-     <option>Card 1</option> 
- </ons-select>
-</p>
-<p> 
- <label for="category">Category</label><br/>
- <ons-select id="category" modifier="underbar" style="width:100%">
-     <option>Category 1</option> 
- </ons-select>
-</p>
-<p>
- <label for="amount">Amount</label><br/>
- <ons-input input-id="amount" modifier="underbar" type="number" style="width:100%"></ons-input>
-</p>
-<p>
- <label for="desc">Description</label>
- <ons-input input-id="desc" modifier="underbar" type="text" style="width:100%"></ons-input>
-</p>
-<ons-button style="width:100%;position:sticky;bottom:0;left:0;text-align:center">Add</ons-button>
-</div>
-</ons-page>
-</template>
+        <div style="width:100%;text-align:center;margin:10px 0px;">
+         <div class="segment" style="width: 80%; margin:0 auto;">
+           <div class="segment__item">
+               <input type="radio" ng-model="transsubmitted.selectedTransGroup" value="expense" class="segment__input" name="segment-a" checked>
+             <div class="segment__button"><b>Expense</b></div>
+           </div>
+           <div class="segment__item">
+               <input type="radio" class="segment__input" ng-model="transsubmitted.selectedTransGroup" value="income" name="segment-a">
+             <div class="segment__button"><b>Income</b></div>
+           </div>
+           <div class="segment__item">
+               <input type="radio" class="segment__input" ng-model="transsubmitted.selectedTransGroup" value="transfer" name="segment-a">
+             <div class="segment__button"><b>Transfer</b></div>
+           </div>
+         </div>
+        </div>
+        
+        <div ng-switch="transsubmitted.selectedTransGroup" class="content">
+            <div ng-init="setDefaultTransForms('expense','editTransForm',acctransNavigator.topPage.data.trans)" ng-switch-when="expense">
+                <div ng-include="'html/expense.html'"></div> 
+            </div>
+            <div ng-init="setDefaultTransForms('income','editTransForm',acctransNavigator.topPage.data.trans)" ng-switch-when="income">
+                <div ng-include="'html/income.html'"></div> 
+            </div>
+            <div ng-init="setDefaultTransForms('transfer','editTransForm',acctransNavigator.topPage.data.trans)" ng-switch-when="transfer">
+                <div ng-include="'html/transfer.html'"></div> 
+            </div>
+        </div>
 
-<template id="editransfer.html">
-<ons-page>
-<div class="content" style="width:90%;margin:0 auto">
-<p> 
- <label for="date">Date</label><br/> 
- <ons-input input-id="date" modifier="underbar" type="date" style="width:100%"></ons-input>
-</p>
-<p>
- <label for="fromaccount">From</label><br/>
- <ons-select id="fromaccount" modifier="underbar" style="width:100%">
-     <option>Card 1</option> 
- </ons-select>
-</p>
-<p> 
- <label for="toaccount">To</label><br/>
- <ons-select id="toaccount" modifier="underbar" style="width:100%">
-     <option>Card 2</option> 
- </ons-select>
-</p>
-<p>
- <label for="amount">Amount</label><br/>
- <ons-input input-id="amount" modifier="underbar" type="number" style="width:100%"></ons-input>
-</p>
-<p>
- <label for="desc">Description</label>
- <ons-input input-id="desc" modifier="underbar" type="text" style="width:100%"></ons-input>
-</p>
-<ons-button style="width:100%;position:sticky;bottom:0;left:0;text-align:center">Add</ons-button>
-</div>
+        <ons-button modifier="large" ng-disabled="{{transFormName}}.$invalid" ng-click="editSelectedAccount(acctransNavigator.topPage.data.trans.transid)">Save</ons-button> 
+
+    </form> 
+
 </ons-page>
-</template>

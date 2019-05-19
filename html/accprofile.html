@@ -1,10 +1,10 @@
-<ons-page ng-init="showSelectedAcc(acctransNavigator.topPage.data.accountdetails.accid);">
+<ons-page ons-show="showSelectedAcc(acctransNavigator.topPage.data.accountdetails.accid);">
    <ons-toolbar>
        <div class="left">
            <ons-back-button ng-click="acctransNavigator.popPage()"></ons-back-button>
        </div>
        <div class="center">
-           {{selectedAcc[0].accname}}
+           <b>{{selectedAcc[0].accname}} {{selectedAcc[0].fourdigits}}</b>
        </div>
        <div class="right">
            <ons-toolbar-button icon="md-delete" ng-click="deleteAlertDialog.show()"></ons-toolbar-button>
@@ -22,15 +22,15 @@
                         {{selectedAcc[0].bank}}
                     </span>
                     <span ng-if="selectedAcc[0].accgroup!='cash'" class="list-item__subtitle">
-                        Expiry: {{selectedAcc[0].expiry}}<span ng-if="selectedAcc[0].accgroup=='debitcard'"><br/>Balance: ${{selectedAcc[0].balance}}</span>
+                        Expiry: {{selectedAcc[0].expirymonth}}/{{selectedAcc[0].expiryyear}}<span ng-if="selectedAcc[0].accgroup=='debitcard'"><br/>Balance: ${{selectedAcc[0].balance}}</span>
                     </span>
                     <span ng-if="selectedAcc[0].accgroup=='cash'"class="list-item__title">
                         Balance: ${{selectedAcc[0].balance}}
                     </span>
                 </div>
                 <div class="right">
-                    <ons-icon ng-if="selectedAcc[0].cardtype=='visa'" icon="fa-cc-visa" size="32px"></ons-icon>
-                    <ons-icon ng-if="selectedAcc[0].cardtype=='master'" icon="fa-cc-mastercard" size="32px"></ons-icon>
+                    <img src="img/visacardicon.png" ng-if="selectedAcc[0].cardtype=='visa'" width="48px"/>
+                    <img src="img/mastercardicon.png" ng-if="selectedAcc[0].cardtype=='master'" width="48px"/>
                 </div>
             </ons-list-item>
         </ons-list> 

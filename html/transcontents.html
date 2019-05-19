@@ -15,10 +15,11 @@
         </div>
     </ons-list-item>
 </ons-list>
-<ons-list modifier="inset">
+
+<ons-list modifier="inset" style="margin-bottom:10px;" ng-repeat="(key,value) in TransList | groupBy:'transdate'">
     <ons-list-item>
         <div class="center">
-            Date Month
+            {{formatTransListDate(key)}}
         </div>
         <div class="right">
             <ons-row style="width:150px;text-align:right">
@@ -27,5 +28,5 @@
             </ons-row>
         </div>
     </ons-list-item>
-    <transactions-list-item ng-repeat="transaction in transactionsList" data="transaction"></transactions-list-item>
+    <transactions-list-item ng-click="acctransNavigator.pushPage('html/edittrans.html',{animation:'slide',data:{trans:transaction}})" ng-repeat="transaction in value" data="transaction"></transactions-list-item>
 </ons-list>

@@ -2,7 +2,7 @@
 <p>
     <label for="accname">
         Account Name
-        <span ng-show="addaccForm.accname.$error.required" style="color:red">*</span>
+        <span ng-show="{{accFormName}}.accname.$error.required" style="color:red">*</span>
     </label><br/>
     <ons-input ng-model="submitted.accname" name="accname" input-id="accname" modifier="underbar" type="text" style="width:100%" required></ons-input>
 </p>

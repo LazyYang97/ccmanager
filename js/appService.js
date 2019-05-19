@@ -1,13 +1,19 @@
 //Services
 app.service('appService',['$webSql',function($webSql){
+    ///////////////////////////////////////////////////////////////////////
+    ////////////////////////////For Accounts///////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+
     var vm = this;
     var tempAccList = {};
+
     //Acounts Groups
     var tempAccGroups ={
         creditcard:{"type":'creditcard',"label":'Credit Card',"quantity":0,"totaloutstd":0},
         debitcard:{"type":'debitcard',"label":'Debit Card',"quantity":0,"totalbalance":0},
         cash:{"type":'cash',"label":'Cash',"quantity":0,"totalbalance":0}
     };
+
     //GET Accounts Groups
     vm.getAccGroups = function(){
         return tempAccGroups;
@@ -18,6 +24,7 @@ app.service('appService',['$webSql',function($webSql){
         {type:'visa',label:'Visa'},
         {type:'master',label:'Master'}
     ];
+
     //GET Card Types
     vm.getCardTypes = function(){
         return cardTypes;
@@ -61,8 +68,11 @@ app.service('appService',['$webSql',function($webSql){
             "fourdigits":{
                 "type":"INTEGER"
             },
-            "expiry":{
-                "type":"TEXT"
+            "expirymonth":{
+                "type":"INTEGER"
+            },
+            "expiryyear":{
+                "type":"INTEGER"
             },
             "cardtype":{
                 "type":"TEXT"
@@ -86,32 +96,43 @@ app.service('appService',['$webSql',function($webSql){
                 "type":"BIT"//1 for settled, 0 for unsettled
             },
             "annual_fee":{
-                "type":"NUMBER"
+                "type":"DOUBLE"
             },
             "outstd_amount":{
-                "type":"NUMBER"
+                "type":"DOUBLE"
             },
             "due_amount":{
-                "type":"NUMBER"
+                "type":"DOUBLE"
             },
             "balance":{
-                "type":"NUMBER"
+                "type":"DOUBLE"
             }
         });
 
     //INSERT into Account Table
     vm.insertIntoAccount = function(data){
-        var expiry = data.expirymonth + '/' + data.expiryyear;
-        var sdate = data.sdate +" "+ new Date().toString("MMM yyyy");
-        var paymentdd = data.paymentdd +" "+ new Date().toString("MMM yyyy");
-        var cut_off_date = data.sdate +" "+ new Date().addMonths(1).toString("MMM yyyy");
-        var next_due_date = data.paymentdd +" "+ new Date().addMonths(1).toString("MMM yyyy");
+        var sdate = "";
+        if(data.sdate != "")
+            sdate = data.sdate +" "+ new Date().toString("MMM yyyy");
+
+        var paymentdd = "";
+        if(data.paymentdd != "")
+            paymentdd = data.paymentdd +" "+ new Date().toString("MMM yyyy");
+
+        var cut_off_date = "";
+        if(data.sdate != "")
+            cut_off_date = data.sdate +" "+ new Date().addMonths(1).toString("MMM yyyy");
+
+        var next_due_date = "";
+        if(data.paymentdd != "")
+            next_due_date = data.paymentdd +" "+ new Date().addMonths(1).toString("MMM yyyy");
 
         vm.db.insert('accounts',{
             "accgroup":data.selectedAccGroup,
             "accname":data.accname,
             "fourdigits":data.fourdigits,
-            "expiry":expiry,
+            "expirymonth":data.expirymonth,
+            "expiryyear":data.expiryyear,
             "cardtype":data.selectedCardType,
             "bank":data.bank,
             "statement_date":sdate,
@@ -125,6 +146,46 @@ app.service('appService',['$webSql',function($webSql){
             "balance":data.balance
         })
     };
+
+    //UPDATE selected Account
+    vm.updateSelectedAccount = function(selectedacc,data){
+        var sdate = "";
+        if(data.sdate != "")
+            sdate = data.sdate +" "+ new Date().toString("MMM yyyy");
+
+        var paymentdd = "";
+        if(data.paymentdd != "")
+            paymentdd = data.paymentdd +" "+ new Date().toString("MMM yyyy");
+
+        var cut_off_date = "";
+        if(data.sdate != "")
+            cut_off_date = data.sdate +" "+ new Date().addMonths(1).toString("MMM yyyy");
+
+        var next_due_date = "";
+        if(data.paymentdd != "")
+            next_due_date = data.paymentdd +" "+ new Date().addMonths(1).toString("MMM yyyy");
+
+        vm.db.update("accounts",{
+            "accgroup":data.selectedAccGroup,
+            "accname":data.accname,
+            "fourdigits":data.fourdigits,
+            "expirymonth":data.expirymonth,
+            "expiryyear":data.expiryyear,
+            "cardtype":data.selectedCardType,
+            "bank":data.bank,
+            "statement_date":sdate,
+            "payment_due_date":paymentdd,
+            "cut_off_date":cut_off_date,
+            "next_due_date":next_due_date,
+            "status":selectedacc.status,
+            "annual_fee":data.annualfee,
+            "outstd_amount":selectedacc.outstd_amount,
+            "due_amount":selectedacc.due_amount,
+            "balance":data.balance
+        },{"accid":selectedacc.accid});
+
+    }
+
     //GET All Accounts from Account Table
     vm.getAllAccounts = function(){
         tempAccList = [];
@@ -189,9 +250,138 @@ app.service('appService',['$webSql',function($webSql){
         vm.db.del("accounts",{"accid":id});
     }
 
-    vm.updateAccount = function(id){
-        vm.db
+    ///////////////////////////////////////////////////////////////////////
+    //////////////////////////For Transactions/////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+
+    var tempTransList = [];
+
+    //Transactions Categories
+    var expenseCategories = {
+        Movie:{label:'Movie'},
+        Petrol:{label:'Petrol'},
+        Other:{label:'Other'}
     }
+    var incomeCategories = {
+        Bonus:{label:'Bonus'},
+        Cashback:{label:'Cashback'},
+        Other:{label:'Other'}
+    }
+
+    //GET Expense Categories
+    vm.getExpenseCategories = function(){
+        return expenseCategories;
+    }
+
+    //GET Income Categories
+    vm.getIncomeCategories = function(){
+        return incomeCategories;
+    }
+
+    //Default New Transactions Form
+    var currentDate = new Date();
+    currentDate = new Date(currentDate).toISOString().split("T")[0];
+    var defNewTransForm = {
+        "transdate" : currentDate,
+        "selectedTransGroup" : "",
+        "transcategory" : "",
+        "transamount":0,
+        "transdesc":"",
+        "transacc":"",
+        "fromtransacc":"",
+        "totransacc":""
+    }
+
+    //GET Default New Transaction Form
+    vm.getDefaultNewTransForm = function(){
+        return defNewTransForm;
+    }
+
+    //CREATE Transaction Table
+    vm.db.createTable('transactions',{
+            "transid":{
+                "type":"INTEGER",
+                "null":"NOT NULL",
+                "primary":true,
+                "auto_increment":true
+            },
+            "transgroup":{
+                "type":"TEXT",
+                "null":"NOT NULL"
+            },
+            "transcategory":{
+                "type":"TEXT"
+            },
+            "transdate":{
+                "type":"DATE",
+                "null":"NOT NULL"
+            },
+            "transamount":{
+                "type":"DOUBLE"
+            },
+            "transacc":{
+                "type":"INTEGER"
+            },
+            "fromtransacc":{
+                "type":"INTEGER"
+            },
+            "totransacc":{
+                "type":"INTEGER"
+            },
+            "transdesc":{
+                "type":"TEXT"
+            }
+    });
+
+    //INSERT new transaction
+    vm.insertIntoTransactions = function(data){
+        if(data.selectedTransGroup == 'transfer')
+            data.transcategory = "Transfer";
+
+        vm.db.insert('transactions',{
+           "transgroup":data.selectedTransGroup,
+           "transcategory":data.transcategory,
+           "transdate":data.transdate,
+           "transamount":data.transamount,
+           "transacc":data.transacc,
+           "fromtransacc":data.fromtransacc,
+           "totransacc":data.totransacc,
+           "transdesc":data.transdesc
+       })
+
+    }
+
+    //GET All Transactions
+    vm.getAllTransactions = function(){
+        tempTransList = [];
+        vm.db.selectAll("transactions",[
+            {operator:"ORDER BY",postOperator:'DESC',columns:['transdate'] }
+        ]).then(function(results){
+            for(var i=0;i<results.rows.length;i++){
+                tempTransList.push(results.rows.item(i));
+            }
+        })
+        return tempTransList;
+    }
+
+    //UPDATE selected Transaction
+    vm.updateSelectedTransactions = function(id,data){
+        if(data.selectedTransGroup == 'transfer')
+            data.transcategory = "Transfer";
+
+        vm.db.update('transactions',{
+           "transgroup":data.selectedTransGroup,
+           "transcategory":data.transcategory,
+           "transdate":data.transdate,
+           "transamount":data.transamount,
+           "transacc":data.transacc,
+           "fromtransacc":data.fromtransacc,
+           "totransacc":data.totransacc,
+           "transdesc":data.transdesc
+       },{"transid":id})
+    }
+
+
 
 
 }])

@@ -1,53 +1,39 @@
-<ons-page <!--ng-controller="expFormController as expFormCtrl"-->>
-    <div class="content" style="width:90%;margin:0 auto"> 
-        <form name="expForm">
-            <p> 
-                <label for="expDate">
-                    Date
-                </label>
-                <ons-input ng-model="expFormCtrl.date" id="expDate" name="expDate" modifier="underbar" type="date" style="width:100%" required></ons-input>
-            </p>
-            <p> 
-                <label for="expCat">
-                    Category
-                    <span ng-show="expForm.expCat.$invalid" style="color:red">*</span>
-                </label>
-                <ons-select ng-model="expFormCtrl.category" id="expCat" name="expCat" modifier="underbar" style="width:100%" required>
-                    <option value=""></option>
-                    <option value="testing">Testing</option>
-                </ons-select>
-            </p>
-            <p> 
-                <label for="expAmt">
-                    Amount $
-                </label>
-                <ons-input ng-model="expFormCtrl.amount" id="expAmt" name="expAmt" modifier="underbar" type="number" style="width:100%"></ons-input>
-            </p>
-            <p> 
-                <label for="expDesc">
-                    Description
-                </label>
-                <ons-input ng-model="expFormCtrl.desc" id="expDesc" name="expDesc" modifier="underbar" type="text" style="width:100%"></ons-input>
-            </p>
-            <p> 
-                <ons-row>
-                    <ons-col width="65%">
-                        <label for="expAcc">
-                            Account 
-                            <span ng-show="expForm.expAcc.$error.required" style="color:red">*</span>
-                        </label>
-                        <ons-select ng-model="expFormCtrl.accid" id="expAcc" name="expAcc" modifier="underbar" style="width:100%" required>
-                            <option value=""></option>
-                            <option value="eqewqe">weqew</option>
-                        </ons-select>
-                    </ons-col>
-                    <ons-col width="35%">
-                        <ons-button modifier="large">Suggest</ons-button>
-                    </ons-col>
-                </ons-row>
-            </p>
-            <ons-button ng-model="expFormCtrl.addBtn" id="expAdd" name="expAdd" modifier="large" style="margin-top:20px">Add</ons-button>
-            
-        </form>
-    </div>
-</ons-page>
+<p>
+    <label for="transdate">
+        Date
+    </label><br/>
+    <ons-input ng-model="transsubmitted.transdate" name="transdate" type="date" modifier="underbar" id="transdate" style="width:100%" required></ons-input>
+</p>
+
+<p>
+    <label for="transcategory">
+        Category
+        <span ng-show="{{transFormName}}.transcategory.$error.required" style="color:red">*</span>
+    </label><br/>
+    <select class="select-input select-input--underbar" id="transcategory" name="transcategory" ng-model="transsubmitted.transcategory" ng-options="x as y.label for (x,y) in expensecategories" style="width:100%" required></select>
+</p>
+
+<p>
+    <label for="transamount">Amount $</label><br/>
+    <ons-input id="transamount" ng-model="transsubmitted.transamount" type="number" modifier="underbar" name="transamount" style="width:100%"></ons-input>
+</p>
+
+<p>
+    <label for="transdesc">Description</label><br/>
+    <ons-input id="transdesc" ng-model="transsubmitted.transdesc" type="text" modifier="underbar" name="transdesc" style="width:100%"></ons-input>
+</p>
+
+<p>
+    <ons-row>
+        <ons-col width="60%">
+            <label for="transacc">
+                Account
+                <span ng-show="{{transFormName}}.transacc.$error.required" style="color:red">*</span>
+            </label><br/>
+            <select class="select-input select-input--underbar" name="transacc" id="transacc" ng-model="transsubmitted.transacc" ng-options="x.accid as x.accname for x in AccountsList" style="width:100%" required></select>
+        </ons-col>
+        <ons-col width="40%">
+            <ons-button modifier="large">Suggest</ons-button>
+        </ons-col>
+    </ons-row>
+</p>

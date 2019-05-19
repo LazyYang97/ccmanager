@@ -1,28 +1,30 @@
-<ons-list-item>
+<ons-list-item modifier="nodivider">
     <div class="left">
-        {{transaction.transcategory}} 
+        <small>{{transaction.transcategory}}</small>
     </div>
     <div class="center">
         <span class="list-item__title">
-            {{transaction.desc}}
+            {{transaction.transdesc}}
         </span>
         <span class="list-item__subtitle">
-            {{transaction.accid}}
+            {{transaction.transacc}}
         </span> 
     </div>
+
     <div class="right">
         <ons-row style="width:150px;text-align:right">
             <ons-col>
             </ons-col>
             <ons-col>
                 <span style="color:blue" ng-if="transaction.transgroup!='expense'">
-                   $ {{transaction.amount}}
+                   $ {{transaction.transamount}}
                 </span>
                 <span style="color:red" ng-if="transaction.transgroup=='expense'">
-                   $ {{transaction.amount}}
+                   $ {{transaction.transamount}}
                 </span>
 
             </ons-col> 
         </ons-row>
     </div>
 </ons-list-item>
+

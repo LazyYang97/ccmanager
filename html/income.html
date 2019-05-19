@@ -1,46 +1,31 @@
-<ons-page> 
-    <div class="content" style="width:90%;margin:0 auto"> 
-        <form name="incForm">
-            <p> 
-                <label for="incDate">
-                    Date
-                </label>
-                <ons-input ng-model="incFormCtrl.date" id="incDate" name="incDate" modifier="underbar" type="date" style="width:100%" required></ons-input>
-            </p>
-            <p> 
-                 <label for="incAcc">
-                      Account 
-                        <span ng-show="incForm.incAcc.$error.required" style="color:red">*</span>
-                 </label>
-                 <ons-select ng-model="incFormCtrl.accid" id="incAcc" name="incAcc" modifier="underbar" style="width:100%" required>
-                     <option value=""></option>
-                     <option value="eqewqe">weqew</option>
-                 </ons-select>
-            </p>
-            <p> 
-                <label for="incCat">
-                    Category
-                    <span ng-show="incForm.incCat.$invalid" style="color:red">*</span>
-                </label>
-                <ons-select ng-model="incFormCtrl.category" id="incCat" name="incCat" modifier="underbar" style="width:100%" required>
-                    <option value=""></option>
-                    <option value="testing">Testing</option>
-                </ons-select>
-            </p>
-            <p> 
-                <label for="incAmt">
-                    Amount $
-                </label>
-                <ons-input ng-model="incFormCtrl.amount" id="incAmt" name="incAmt" modifier="underbar" type="number" style="width:100%"></ons-input>
-            </p>
-            <p> 
-                <label for="incDesc">
-                    Description
-                </label>
-                <ons-input ng-model="incFormCtrl.desc" id="incDesc" name="incDesc" modifier="underbar" type="text" style="width:100%"></ons-input>
-            </p>
-            <ons-button ng-model="incFormCtrl.addBtn" id="incAdd" name="incAdd" modifier="large" style="margin-top:20px">Add</ons-button>
-            
-        </form>
-    </div>
-</ons-page>
+<p>
+    <label for="transdate">Date</label><br/>
+    <ons-input ng-model="transsubmitted.transdate" type="date" modifier="underbar" name="transdate" id="transdate" style="width:100%"></ons-input>
+</p>
+
+<p>
+    <label for="transacc">
+        Account
+        <span ng-show="{{transFormName}}.transacc.$error.required" style="color:red">*</span>
+    </label><br/>
+    <select class="select-input select-input--underbar" name="transacc" id="transacc" ng-model="transsubmitted.transacc" ng-options="x.accid as x.accname for x in AccountsList" style="width:100%" required></select>
+</p>
+
+<p>
+    <label for="transcategory">
+        Category
+        <span ng-show="{{transFormName}}.transcategory.$error.required" style="color:red">*</span>
+    </label><br/>
+    <select class="select-input select-input--underbar" name="transcategory" id="transcategory" ng-model="transsubmitted.transcategory" ng-options="x as y.label for (x,y) in incomecategories" style="width:100%" required></select>
+</p>
+
+<p>
+    <label for="transamount">Amount $</label><br/>
+    <ons-input id="transamount" ng-model="transsubmitted.transamount" type="number" modifier="underbar" style="width:100%"></ons-input>
+</p>
+
+<p>
+    <label for="transdesc">Description</label><br/>
+    <ons-input id="transdesc" ng-model="transsubmitted.transdesc" type="text" modifier="underbar" style="width:100%"></ons-input>
+</p>
+

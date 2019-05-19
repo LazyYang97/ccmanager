@@ -1,7 +1,7 @@
 <ons-list-item modifier="longdivider" >
     <div class='center'>
         {{account.accname}}
-        <span ng-if="account.accgroup=='debitcard'">
+        <span ng-if="account.accgroup=='debitcard' && account.fourdigits!=''">
             ({{account.fourdigits}})
         </span>
     </div>
