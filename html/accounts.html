@@ -1,4 +1,4 @@
-<ons-page ng-init="accountsInit()" ons-show="updateAccTransTitle('Accounts')">
+<ons-page ons-show="updateAccTransTitle('Accounts');showAllAccounts()">
     <ons-fab position="bottom right" >
         <ons-icon icon="md-plus" ng-click="acctransNavigator.pushPage('html/newacc.html',{animation:'slide'})"></ons-icon>
     </ons-fab>
@@ -15,11 +15,11 @@
         <div class="right" style="width:150px;text-align:right">
             <ons-row>
                 <ons-col width="50%">
-                    testing<br/>
-                    <span>$ 100</span>
+                    Due Amt<br/>
+                    <span>$ </span>
                 </ons-col>
                 <ons-col width="50%">
-                    testing<br/>
+                    Oustd.<br/>
                     <span>$ {{showAccGroupsTotalBalance('creditcard')}}</span>
                 </ons-col>
             </ons-row>
@@ -37,7 +37,8 @@
         <div class="right">
             <ons-row style="width:150px;text-align:right">
                 <ons-col></ons-col>
-                <ons-col style="color:blue">$ {{showAccGroupsTotalBalance('debitcard')}}</ons-col>
+                <ons-col ng-if="showAccGroupsTotalBalance('debitcard')>=0" style="color:blue">$ {{showAccGroupsTotalBalance('debitcard')}}</ons-col>
+                <ons-col ng-if="showAccGroupsTotalBalance('debitcard')<0" style="color:red">$ {{showAccGroupsTotalBalance('debitcard')}}</ons-col>
             </ons-row>
         </div>
     </ons-list-item>
@@ -53,7 +54,8 @@
         <div class="right">
             <ons-row style="width:150px;text-align:right">
                 <ons-col></ons-col>
-                <ons-col style="color:blue">$ {{showAccGroupsTotalBalance('cash')}}</ons-col>
+                <ons-col ng-if="showAccGroupsTotalBalance('cash')>=0" style="color:blue">$ {{showAccGroupsTotalBalance('cash')}}</ons-col>
+                <ons-col ng-if="showAccGroupsTotalBalance('cash')<0" style="color:red">$ {{showAccGroupsTotalBalance('cash')}}</ons-col>
             </ons-row>
         </div>
     </ons-list-item>

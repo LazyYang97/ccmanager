@@ -368,12 +368,17 @@ app.service('appService',['$webSql',function($webSql){
     vm.updateSelectedTransactions = function(id,data){
         if(data.selectedTransGroup == 'transfer')
             data.transcategory = "Transfer";
+        var amount = 0;
+        if(data.selectedTransGroup == "expense")
+            amount = -Math.abs(data.transamount);
+        else if(data.selectedTransGroup == "income")
+            amount = Math.abs(data.transamount);
 
         vm.db.update('transactions',{
            "transgroup":data.selectedTransGroup,
            "transcategory":data.transcategory,
            "transdate":data.transdate,
-           "transamount":data.transamount,
+           "transamount":amount,
            "transacc":data.transacc,
            "fromtransacc":data.fromtransacc,
            "totransacc":data.totransacc,
@@ -381,7 +386,72 @@ app.service('appService',['$webSql',function($webSql){
        },{"transid":id})
     }
 
+    //DELETE Transaction
+    vm.deleteTransaction = function(id){
+        vm.db.del("transactions",{"transid":id});
+    }
+
+    //UPDATE Account Balance After Added Transaction(Expense, Income)
+    vm.updateAccBalance = function(type,trans,newtrans){
+        var tempBalance = 0;
+        var prevTransAmount = 0;
+        for(var i in tempAccList){
+            tempBalance = 0;
+            prevTransAmount = 0;
+            tempBalance = tempAccList[i].balance;
+            console.log(tempBalance);
+        if(type=="createtrans"){
+                if(tempAccList[i].accid == trans.transacc){
+                    tempBalance = tempBalance + trans.transamount;
+                    console.log(trans);
+                    vm.db.update("accounts",{"balance":tempBalance},{
+                "accid":tempAccList[i].accid});
+                    break;
+                }
+        }else if(type=="edittrans"){
+            for(var j in tempTransList){
+                if(tempTransList[j].transid == trans.transid){
+                    prevTransAmount = tempTransList[j].transamount;
+                    }
+                }
+                if(tempAccList[i].accid == trans.transacc){
+                    tempBalance -= prevTransAmount;
+                    tempBalance += newtrans.transamount;
+                    vm.db.update("accounts",{"balance":tempBalance},{
+                "accid":tempAccList[i].accid});
+                    break;
+                }
+        }else if(type=="deletetrans"){
+            for(var j in tempTransList){
+                if(tempTransList[j].transid == trans.transid){
+                    prevTransAmount = tempTransList[j].transamount;
+                }
+            }if(tempAccList[i].accid == trans.transacc){
+                    tempBalance -= prevTransAmount;
+                    vm.db.update("accounts",{"balance":tempBalance},{
+                "accid":tempAccList[i].accid});
+                    break;
+                    }
+                }
+            }
+        }
+        //UPDATE Account Balance for Transfer
+        vm.updateAccBalanceForTransfer = function(from,to,amount){
+            var frombalance = 0;
+            var tobalance = 0;
+            for(var i=0;i<tempAccList.length;i++){
+                if(tempAccList[i].accid == from){
+                    frombalance = tempAccList[i].balance;
+                }else if(tempAccList[i].accid == to){
+                    tobalance = tempAccList[i].balance;
+                }
+            }
+            frombalance = frombalance - amount;
+            tobalance += amount;
+            vm.db.update("accounts",{"balance":frombalance},{"accid":from});
+            vm.db.update("accounts",{"balance":tobalance},{"accid":to});
 
 
+        }
 
 }])

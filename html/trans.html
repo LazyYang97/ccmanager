@@ -2,6 +2,7 @@
     <ons-fab position="bottom right">
         <ons-icon icon="md-plus" ng-click="mainTab.setActiveTab(0,{animation:'slide'})"></ons-icon> 
     </ons-fab>
-    <div style="margin-bottom:70px;" ng-include="'html/transcontents.html'"> 
+    <div ng-init="isTransPage = true" style="margin-bottom:70px;" ng-include="'html/transcontents.html'"> 
     </div>
 </ons-page>
+

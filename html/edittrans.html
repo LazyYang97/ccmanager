@@ -1,4 +1,4 @@
-<ons-page ng-init="setDefaultTransForms(acctransNavigator.topPage.data.trans.transgroup,'editTransForm',acctransNavigator.topPage.data.trans)">
+<ons-page ng-init="setDefaultEditTransForms(acctransNavigator.topPage.data.trans.transgroup,acctransNavigator.topPage.data.trans)">
 
     <ons-toolbar>
         <div class="left">
@@ -7,41 +7,45 @@
         <div class="center">
             <b>Edit Transaction</b>
         </div>
+        <div class="right">
+            <ons-toolbar-button icon="md-delete" ng-click="deleteSeletedTrans(acctransNavigator.topPage.data.trans)"></ons-toolbar-button> 
+        </div>
     </ons-toolbar>
-
-    <form  style="width:90%;margin:0 auto;" name="{{transFormName}}">
+    <div class="content" style="width:90%;margin:0 auto;" >
+    <form name="editTransForm">
 
         <div style="width:100%;text-align:center;margin:10px 0px;">
          <div class="segment" style="width: 80%; margin:0 auto;">
            <div class="segment__item">
-               <input type="radio" ng-model="transsubmitted.selectedTransGroup" value="expense" class="segment__input" name="segment-a" checked>
+               <input type="radio" ng-model="transeditsubmitted.selectedTransGroup" value="expense" class="segment__input" name="segment-a" checked>
              <div class="segment__button"><b>Expense</b></div>
            </div>
            <div class="segment__item">
-               <input type="radio" class="segment__input" ng-model="transsubmitted.selectedTransGroup" value="income" name="segment-a">
+               <input type="radio" class="segment__input" ng-model="transeditsubmitted.selectedTransGroup" value="income" name="segment-a">
              <div class="segment__button"><b>Income</b></div>
            </div>
            <div class="segment__item">
-               <input type="radio" class="segment__input" ng-model="transsubmitted.selectedTransGroup" value="transfer" name="segment-a">
+               <input type="radio" class="segment__input" ng-model="transeditsubmitted.selectedTransGroup" value="transfer" name="segment-a">
              <div class="segment__button"><b>Transfer</b></div>
            </div>
          </div>
         </div>
         
-        <div ng-switch="transsubmitted.selectedTransGroup" class="content">
-            <div ng-init="setDefaultTransForms('expense','editTransForm',acctransNavigator.topPage.data.trans)" ng-switch-when="expense">
-                <div ng-include="'html/expense.html'"></div> 
+        <div ng-switch="transeditsubmitted.selectedTransGroup" class="content">
+            <div ng-init="setDefaultEditTransForms('expense',acctransNavigator.topPage.data.trans)" ng-switch-when="expense">
+                <div ng-include="'html/editexpense.html'"></div> 
             </div>
-            <div ng-init="setDefaultTransForms('income','editTransForm',acctransNavigator.topPage.data.trans)" ng-switch-when="income">
-                <div ng-include="'html/income.html'"></div> 
+            <div ng-init="setDefaultEditTransForms('income',acctransNavigator.topPage.data.trans)" ng-switch-when="income">
+                <div ng-include="'html/editincome.html'"></div> 
             </div>
-            <div ng-init="setDefaultTransForms('transfer','editTransForm',acctransNavigator.topPage.data.trans)" ng-switch-when="transfer">
-                <div ng-include="'html/transfer.html'"></div> 
+            <div ng-init="setDefaultEditTransForms('transfer',acctransNavigator.topPage.data.trans)" ng-switch-when="transfer">
+                <div ng-include="'html/edittransfer.html'"></div> 
             </div>
         </div>
 
-        <ons-button modifier="large" ng-disabled="{{transFormName}}.$invalid" ng-click="editSelectedAccount(acctransNavigator.topPage.data.trans.transid)">Save</ons-button> 
+        <ons-button modifier="large" ng-disabled="editTransForm.$invalid" ng-click="editSelectedTrans(acctransNavigator.topPage.data.trans)">Save</ons-button> 
 
     </form> 
-
+    </div>
 </ons-page>
+

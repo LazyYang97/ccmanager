@@ -1,14 +1,14 @@
 <ons-list-item modifier="longdivider">
-    <div class="center">
+    <div class="center" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">
         {{account.accname}}
         <span ng-if="account.fourdigits!=''">({{account.fourdigits}})</span>
     </div>
     <div class="right">
         <ons-row style="width:150px;text-align:right">
-            <ons-col>
+            <ons-col width="50%">
                 $ {{account.due_amount}}
             </ons-col>
-            <ons-col style="color:blue">
+            <ons-col width="50%" style="color:blue">
                 $ {{account.outstd_amount}}
             </ons-col>
         </ons-row>

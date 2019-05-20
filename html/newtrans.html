@@ -1,4 +1,4 @@
-<ons-navigator swipeable var="newTransNavigator" ons-show="setDefaultTransForms('expense','addTransForm','')">
+<ons-navigator swipeable var="newTransNavigator" ons-show="setDefaultTransForms('expense')">
 
     <ons-page>
 
@@ -8,7 +8,7 @@
         </div>
     </ons-toolbar>
 
-    <form  style="width:90%;margin:0 auto;" name="{{transFormName}}">
+    <form  style="width:90%;margin:0 auto;" name="addTransForm">
 
         <div style="width:100%;text-align:center;margin:10px 0px;">
          <div class="segment" style="width: 80%; margin:0 auto;">
@@ -28,13 +28,13 @@
         </div>
         
         <div ng-switch="transsubmitted.selectedTransGroup" class="content">
-            <div ng-init="setDefaultTransForms('expense','addTransForm','')" ng-switch-when="expense">
+            <div ng-init="setDefaultTransForms('expense')" ng-switch-when="expense">
                 <div ng-include="'html/expense.html'"></div> 
             </div>
-            <div ng-init="setDefaultTransForms('income','addTransForm','')" ng-switch-when="income">
+            <div ng-init="setDefaultTransForms('income')" ng-switch-when="income">
                 <div ng-include="'html/income.html'"></div> 
             </div>
-            <div ng-init="setDefaultTransForms('transfer','addTransForm','')" ng-switch-when="transfer">
+            <div  ng-init="setDefaultTransForms('transfer')" ng-switch-when="transfer">
                 <div ng-include="'html/transfer.html'"></div> 
             </div>
         </div>

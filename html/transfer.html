@@ -6,7 +6,7 @@
 <p>
     <label for="fromtransacc">
         From
-        <span ng-show="{{transFormName}}.fromtransacc.$error.required" style="color:red">*</span>
+        <span ng-show="addTransForm.fromtransacc.$error.required" style="color:red">*</span>
     </label><br/>
     <select class="select-input select-input--underbar" name="fromtransacc" id="fromtransacc" ng-model="transsubmitted.fromtransacc" ng-options="x.accid as x.accname for x in AccountsList" style="width:100%" required></select>
 </p>
@@ -14,7 +14,7 @@
 <p>
     <label for="totransacc">
         To
-        <span ng-show="{{transFormName}}.totransacc.$error.required" style="color:red">*</span>
+        <span ng-show="addTransForm.totransacc.$error.required" style="color:red">*</span>
     </label><br/>
     <select class="select-input select-input--underbar" name="totransacc" id="totransacc" ng-model="transsubmitted.totransacc" ng-options="x.accid as x.accname for x in AccountsList" style="width:100%" required></select>
 </p>

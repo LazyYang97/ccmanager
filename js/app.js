@@ -5,8 +5,12 @@ app.controller('MainController',function($scope,$webSql,appService){
     $scope.checkAlertDialog = false;
     $scope.alertDialogBtnClicked = false;
 
+    $scope.AccountsList = []
+    $scope.TransList = [];
     app.accountsController($scope,$webSql,appService);
     app.transactionController($scope,$webSql,appService);
+    app.promotionController($scope,$webSql,appService);
+
     ons.disableAutoStyling();
 
     //Update Accounts & Transactions Toolbar Title

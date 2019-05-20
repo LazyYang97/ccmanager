@@ -1,0 +1,31 @@
+<p>
+    <label for="transdate">Date</label><br/>
+    <ons-input ng-model="transeditsubmitted.transdate" type="date" modifier="underbar" name="transdate" id="transdate" style="width:100%"></ons-input>
+</p>
+
+<p>
+    <label for="transacc">
+        Account
+        <span ng-show="editTransForm.transacc.$error.required" style="color:red">*</span>
+    </label><br/>
+    <select class="select-input select-input--underbar" name="transacc" id="transacc" ng-model="transeditsubmitted.transacc" ng-options="x.accid as x.accname for x in AccountsList" style="width:100%" required></select>
+</p>
+
+<p>
+    <label for="transcategory">
+        Category
+        <span ng-show="editTransForm.transcategory.$error.required" style="color:red">*</span>
+    </label><br/>
+    <select class="select-input select-input--underbar" name="transcategory" id="transcategory" ng-model="transeditsubmitted.transcategory" ng-options="x as y.label for (x,y) in incomecategories" style="width:100%" required></select>
+</p>
+
+<p>
+    <label for="transamount">Amount $</label><br/>
+    <ons-input id="transamount" ng-model="transeditsubmitted.transamount" type="number" modifier="underbar" style="width:100%"></ons-input>
+</p>
+
+<p>
+    <label for="transdesc">Description</label><br/>
+    <ons-input id="transdesc" ng-model="transeditsubmitted.transdesc" type="text" modifier="underbar" style="width:100%"></ons-input>
+</p>
+

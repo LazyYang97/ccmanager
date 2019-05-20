@@ -3,7 +3,7 @@
        <div class="left">
            <ons-back-button ng-click="acctransNavigator.popPage()"></ons-back-button>
        </div>
-       <div class="center">
+       <div class="center" style="overflow:hidden;text-overflow:ellipsis">
            <b>{{selectedAcc[0].accname}} {{selectedAcc[0].fourdigits}}</b>
        </div>
        <div class="right">
@@ -53,7 +53,7 @@
            <div ng-include="'html/creditcarddetails.html'"></div>
        </div>
        <div ng-switch-when="false">
-           <div ng-include="'html/transcontents.html'"></div>
+           <div ng-init="viewSelectedAccTrans = selectedAcc[0].accid" ng-include="'html/transcontents.html'"></div>
        </div>
    </div>
 </ons-page>
@@ -68,4 +68,3 @@
                 <button class="alert-dialog-button" ng-click="deleteSelectedAccount(selectedAcc[0])">Yes..</button>
             </div>
 </ons-alert-dialog>
-

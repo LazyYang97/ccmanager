@@ -83,6 +83,10 @@ app.accountsController = function($scope,$webSql,appService){
 
     }
 
+    $scope.showAllAccounts = function(){
+        $scope.AccountsList = appService.getAllAccounts();
+    }
+
     //SHOW Selected Account in Account Profile
     $scope.showSelectedAcc = function(id){
         $scope.selectedAcc = appService.getOneAcc(id);

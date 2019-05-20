@@ -8,7 +8,7 @@
 <p>
     <label for="transcategory">
         Category
-        <span ng-show="{{transFormName}}.transcategory.$error.required" style="color:red">*</span>
+        <span ng-show="addTransForm.transcategory.$error.required" style="color:red">*</span>
     </label><br/>
     <select class="select-input select-input--underbar" id="transcategory" name="transcategory" ng-model="transsubmitted.transcategory" ng-options="x as y.label for (x,y) in expensecategories" style="width:100%" required></select>
 </p>
@@ -28,7 +28,7 @@
         <ons-col width="60%">
             <label for="transacc">
                 Account
-                <span ng-show="{{transFormName}}.transacc.$error.required" style="color:red">*</span>
+                <span ng-show="addTransForm.transacc.$error.required" style="color:red">*</span>
             </label><br/>
             <select class="select-input select-input--underbar" name="transacc" id="transacc" ng-model="transsubmitted.transacc" ng-options="x.accid as x.accname for x in AccountsList" style="width:100%" required></select>
         </ons-col>

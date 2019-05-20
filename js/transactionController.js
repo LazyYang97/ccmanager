@@ -1,8 +1,7 @@
 app.transactionController = function($scope,$webSql,appService){
 
     $scope.transsubmitted = {}
-    $scope.transFormName = '';
-    $scope.TransList = [];
+    $scope.transeditsubmitted = {}
     transInit();
 
     //Transactions Initialization
@@ -10,52 +9,47 @@ app.transactionController = function($scope,$webSql,appService){
         $scope.expensecategories = appService.getExpenseCategories();
         $scope.incomecategories = appService.getIncomeCategories();
         $scope.TransList = appService.getAllTransactions();
-        console.log($scope.TransList);
+        $scope.currentMonthYear = new Date().toString("MMM yyyy");
 
     }
 
-    //SET the New Transaction Form and Edit Transaction Form to Default
-    $scope.setDefaultTransForms = function(current,formname,selectedtrans){
-        if(formname=='addTransForm'){
-            $scope.transFormName = formname;
-            $scope.transsubmitted = angular.copy(appService.getDefaultNewTransForm());
-            $scope.transsubmitted.selectedTransGroup = current;
+    //SET the New Transaction Form to Default
+    $scope.setDefaultTransForms = function(current){
+        $scope.transsubmitted = angular.copy(appService.getDefaultNewTransForm());
+        $scope.transsubmitted.selectedTransGroup = current;
 
-        }else if(formname=='editTransForm'){
-            $scope.transFormName = formname;
-            console.log($scope.transFormName);
-            var tempTransForm = {};
-            if(current == selectedtrans.accgroup){
-                tempTransForm = {
-                    "selectedTransGroup":current,
-                    "transcategory":selectedtrans.transcategory,
-                    "transdate":selectedtrans.transdate,
-                    "transamount":selectedtrans.transamount,
-                    "transacc":selectedtrans.transacc,
-                    "fromtransacc":selectedtrans.fromtransacc,
-                    "totransaccs":selectedtrans.totransaccs,
-                    "transdesc":selectedtrans.transdesc
-                }
-            }else{
-                tempTransForm = {
-                    "selectedTransGroup":current,
-                    "transcategory":"",
-                    "transdate":selectedtrans.transdate,
-                    "transamount":selectedtrans.transamount,
-                    "transacc":"",
-                    "fromtransacc":"",
-                    "totransaccs":"",
-                    "transdesc":selectedtrans.transacc
-                }
-            }
-            $scope.transsubmitted = angular.copy(tempTransForm);
-        }
+    }
+
+    //SET the Edit Transaction Form to Default
+    $scope.setDefaultEditTransForms = function(current, selectedtrans){
+         var tempForm = {
+            "transdate":selectedtrans.transdate,
+            "selectedTransGroup":current,
+            "transamount":0,
+            "transcategory":"",
+            "transdesc":selectedtrans.transdesc,
+            "transacc":"",
+            "fromtransacc":"",
+             "totransacc":""
+
+         }
+        $scope.transeditsubmitted = angular.copy(tempForm);
     }
 
     //CREATE New Transaction
     $scope.createNewTransaction = function(){
         var newTrans = [];
+        if($scope.transsubmitted.selectedTransGroup == "expense"){
+                $scope.transsubmitted.transamount = -Math.abs($scope.transsubmitted.transamount);
+        }else if($scope.transsubmitted.selectedTransGroup == "income"){
+                $scope.transsubmitted.selectedTransGroup == Math.abs($scope.transsubmitted.transamount);
+        }
         newTrans.push($scope.transsubmitted);
+        if($scope.transsubmitted.selectedTransGroup == "transfer"){
+            appService.updateAccBalanceForTransfer(newTrans[0].fromtransacc,newTrans[0].totransacc,newTrans[0].transamount);
+        }else{
+            appService.updateAccBalance("createtrans",newTrans[0]);
+        }
         appService.insertIntoTransactions(newTrans[0]);
         transInit();
         $scope.toastmsg = "Added Transaction ("+ newTrans[0].transdesc +")";
@@ -68,18 +62,91 @@ app.transactionController = function($scope,$webSql,appService){
 
     //Formatting Date for Transaction List
     $scope.formatTransListDate = function(date){
-        var formatted = new Date(date).toString("dd MMM");
+        var formatted = new Date(date).toString("dd MMM yyyy");
         return formatted;
     }
 
-    $scope.editSelectedAccount = function(id){
+    //EDIT Selected Transactions
+    $scope.editSelectedTrans = function(data){
         var editTrans = [];
-        editTrans.push($scope.transsubmitted);
-        appService.updateSelectedTransactions(id,editTrans[0]);
+        editTrans.push($scope.transeditsubmitted);
+        appService.updateAccBalance("edittrans",data,editTrans[0]);
+        appService.updateSelectedTransactions(data.transid,editTrans[0]);
         transInit();
-        $scope.toastmsg = "Edited";
+        $scope.toastmsg = "Saved";
         toast.show();
         acctransNavigator.popPage();
+    }
+
+    //DELETE Selected Transaction
+    $scope.deleteSeletedTrans = function(data){
+        ons.notification.confirm({message: "Are you sure you want to delete this transaction?",callback:function(idx){
+            switch(idx){
+                case 0:
+                    ons.notification.confirm.hide();
+                    break;
+                case 1:
+                    appService.updateAccBalance("deletetrans",data);
+                    appService.deleteTransaction(data.transid);
+                    transInit();
+                    acctransNavigator.popPage();
+                    $scope.toastmsg = "Deleted";
+                    toast.show();
+                    break;
+            }
+        }});
+    }
+
+    //Control to show the Next/Previous Month
+    $scope.displayTransListControl = function(action){
+        if(action == 'prev')
+            $scope.currentMonthYear = new Date($scope.currentMonthYear).addMonths(-1).toString("MMM yyyy");
+        else if(action == 'next')
+            $scope.currentMonthYear = new Date($scope.currentMonthYear).addMonths(1).toString("MMM yyyy");
+
+    }
+
+    //Display the transaction list by Month
+    $scope.displayTransListData = function(key){
+        var formatted = new Date(key).toString("MMM yyyy");
+        if(formatted == $scope.currentMonthYear)
+            return true;
+        else
+            return false;
+    }
+
+    //GET total expenses by day
+    $scope.getTotalExpenseByDay = function(value){
+        var sum = 0;
+        for(var i in value){
+            if(value[i].transgroup == 'expense')
+                sum += value[i].transamount;
+        }
+        return sum;
+    }
+
+    //GET total income by day
+    $scope.getTotalIncomeByDay = function(value){
+        var sum = 0;
+        for(var i in value){
+            if(value[i].transgroup == 'income')
+                sum += value[i].transamount;
+        }
+        return sum;
+    }
+
+    //GET Related Account Name
+    $scope.getTransAccName = function(id){
+        var name = '';
+        for(var i in $scope.AccountsList){
+            if(id == $scope.AccountsList[i].accid){
+                name = $scope.AccountsList[i].accname;
+            }
+        }
+        return name;
+    }
+    $scope.transListItemInit = function(data){
+
     }
 }
 
@@ -89,7 +156,10 @@ app.directive('transactionsListItem',function(){
     directive.template = '<ng-include src="getTemplateUrl()">';
     directive.restrict = 'EA';
     directive.scope = {
-        transaction : "=data"
+        transaction : "=data",
+        relatedaccname : "=relatedacc",
+        fromaccname : "=fromacc",
+        toaccname : "=toacc"
     };
     directive.controller=function($scope){
         $scope.getTemplateUrl = function(){

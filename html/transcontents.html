@@ -3,30 +3,33 @@
         <div class="center">
             <ons-row>
                 <ons-col style="text-align:center">
-                    <ons-icon size="20px" icon="md-arrow-left"></ons-icon>
+                    <ons-icon size="20px" icon="md-arrow-left" ng-click="displayTransListControl('prev')"></ons-icon>
                 </ons-col>
                 <ons-col style="text-align:center">
-                    Month Year
+                    <b>{{currentMonthYear}}</b>
                 </ons-col>
                 <ons-col style="text-align:center">
-                    <ons-icon size="20px" icon="md-arrow-right"></ons-icon>
+                    <ons-icon size="20px" icon="md-arrow-right" ng-click="displayTransListControl('next')"></ons-icon>
                 </ons-col>
             </ons-row>
         </div>
     </ons-list-item>
 </ons-list>
 
-<ons-list modifier="inset" style="margin-bottom:10px;" ng-repeat="(key,value) in TransList | groupBy:'transdate'">
-    <ons-list-item>
+<ons-list  modifier="inset" ng-show="displayTransListData(key)==true" style="margin-bottom:10px;" ng-repeat="(key,value) in TransList | groupBy:'transdate'">
+    <ons-list-item modifier="longdivider">
         <div class="center">
             {{formatTransListDate(key)}}
         </div>
         <div class="right">
             <ons-row style="width:150px;text-align:right">
-                <ons-col style="color:blue">$0</ons-col>
-                <ons-col style="color:red">$0</ons-col>
+                <ons-col width="50%" style="color:blue">$ {{getTotalIncomeByDay(value)}}</ons-col>
+                <ons-col width="50%" style="color:red">$ {{getTotalExpenseByDay(value)}}</ons-col>
             </ons-row>
         </div>
     </ons-list-item>
-    <transactions-list-item ng-click="acctransNavigator.pushPage('html/edittrans.html',{animation:'slide',data:{trans:transaction}})" ng-repeat="transaction in value" data="transaction"></transactions-list-item>
+
+    <transactions-list-item ng-if="(!isTransPage && transaction.transacc == viewSelectedAccTrans)||isTransPage" ng-init="relatedaccname = getTransAccName(transaction.transacc);fromaccname=getTransAccName(transaction.fromtransacc);toaccname=getTransAccName(transaction.totransacc)" ng-click="acctransNavigator.pushPage('html/edittrans.html',{animation:'slide',data:{trans:transaction}})" ng-repeat="transaction in value" data="transaction" relatedacc="relatedaccname" fromacc="fromaccname"
+        toacc="toaccname"></transactions-list-item>
+
 </ons-list>

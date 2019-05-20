@@ -8,7 +8,10 @@
     <div class='right'>
         <ons-row style='width:150px;text-align:right'>
             <ons-col></ons-col>
-            <ons-col style='color:blue'>
+            <ons-col style='color:blue' ng-if="account.balance >= 0">
+                $ {{account.balance}}
+            </ons-col>
+            <ons-col style='color:red' ng-if="account.balance < 0">
                 $ {{account.balance}}
             </ons-col>
         </ons-row>
