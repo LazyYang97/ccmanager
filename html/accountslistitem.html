@@ -1,0 +1,39 @@
+<ons-list-item tappable modifier="longdivider">
+    <div class="center" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">
+        <span class="list-item__title">
+        {{account.accname}}
+            <span ng-if="account.fourdigits!=''&&account.accgroup!='cash'">
+            ({{account.fourdigits}})
+            </span>
+        </span>
+        <span ng-if="account.accgroup=='creditcard'" class="list-item__subtitle">
+            <span ng-if="account.settlestatus==0" style="color:red">
+                Not Settled
+            </span>
+            <span ng-if="account.settlestatus==1" style="color:blue">
+                Settled
+            </span>
+        </span>
+    </div>
+    <div class="right">
+        <ons-row style="width:150px;text-align:right">
+            <ons-col ng-if="account.accgroup=='creditcard'" width="50%">
+                $ {{account.due_amount}}
+            </ons-col>
+            <ons-col ng-if="account.accgroup=='creditcard'&&account.outstd_amount>0" width="50%" style="color:red">
+                $ {{account.outstd_amount}}
+            </ons-col>
+            <ons-col ng-if="account.accgroup=='creditcard'&&account.outstd_amount<=0" width="50%" style="color:blue">
+                $ {{account.outstd_amount}}
+            </ons-col>
+            <ons-col ng-if="accgroup!='creditcard'"></ons-col>
+            <ons-col style='color:blue' ng-if="account.balance >= 0 && account.accgroup!='creditcard'">
+                $ {{account.balance}}
+            </ons-col>
+            <ons-col style='color:red' ng-if="account.balance < 0 && account.accgroup!='creditcard'">
+                $ {{account.balance}}
+            </ons-col>
+        </ons-row>
+    </div>
+</ons-list-item>
+

@@ -5,20 +5,20 @@
         <label for="fourdigits">
             Last 4 Digits
         </label><br/>
-        <ons-input ng-model="submitted.fourdigits" placeholder="XXXX" name="fourdigits" input-id="fourdigits" modifier="underbar" type="text" maxlength="4" pattern="\d{4}" style="width:90%"></ons-input>
+        <ons-input ng-model="newaccsubmitted.fourdigits" placeholder="XXXX" name="fourdigits" input-id="fourdigits" modifier="underbar" type="text" maxlength="4" pattern="\d{4}" style="width:90%"></ons-input>
     </ons-col>
     <ons-col>
         <label for="expiry">
             Expiry
-            <span ng-show="{{accFormName}}.expirymonth.$error.required || {{accFormName}}.expiryyear.$error.required" style="color:red">*</span>
+            <span ng-show="addAccForm.expirymonth.$error.required || addAccForm.expiryyear.$error.required" style="color:red">*</span>
         </label><br/>
         <span>
-            <select class="select-input select-input--underbar" ng-model="submitted.expirymonth" name="expirymonth" input-id="expirymonth" modifier="underbar" ng-options="n for n in [] | range:1:12" style="width:45%" required>
+            <select class="select-input select-input--underbar" ng-model="newaccsubmitted.expirymonth" name="expirymonth" input-id="expirymonth" modifier="underbar" ng-options="n for n in [] | range:1:12" style="width:45%" required>
                 <option value="" disabled>MM</option> 
             </select></span>
         <span>/</span>
         <span>
-        <select ng-model="submitted.expiryyear" class="select-input select-input--underbar" name="expiryyear" input-id="expiryyear" modifier="underbar" style="width:45%" ng-options="n for n in [] | range:21:30" required>
+        <select ng-model="newaccsubmitted.expiryyear" class="select-input select-input--underbar" name="expiryyear" input-id="expiryyear" modifier="underbar" style="width:45%" ng-options="n for n in [] | range:21:30" required>
             <option value="" disabled>YY</option> 
         </select> 
         </span>
@@ -28,26 +28,26 @@
 <p>
     <label for="accname">
         Card Name
-            <span ng-show="addaccForm.accname.$error.required" style="color:red">*</span>
+            <span ng-show="addAccForm.accname.$error.required" style="color:red">*</span>
     </label><br/>
-    <ons-input ng-model="submitted.accname" name="accname" input-id="accname" modifier="underbar" type="text" style="width:100%" required></ons-input>
+    <ons-input ng-model="newaccsubmitted.accname" name="accname" input-id="accname" modifier="underbar" type="text" style="width:100%" required></ons-input>
 </p>
 <p> 
 <ons-row>
     <ons-col>
         <label for="selectedCardType">
             Type
-            <span ng-show="{{accFormName}}.selectedCardType.$error.required" style="color:red">*</span>
+            <span ng-show="addAccForm.selectedCardType.$error.required" style="color:red">*</span>
         </label><br/>
-        <select id="selectedCardType" class="select-input select-input--underbar" ng-model="submitted.selectedCardType" name="selectedCardType" modifier="underbar" style="width:90%" ng-options="x.type as x.label for x in cardtypes" required> 
+        <select id="selectedCardType" class="select-input select-input--underbar" ng-model="newaccsubmitted.selectedCardType" name="selectedCardType" modifier="underbar" style="width:90%" ng-options="x as y.label for (x,y) in cardtypes" required> 
         </select>
     </ons-col>
     <ons-col>
         <label for="bank">
             Bank
-            <span ng-show="{{accFormName}}.bank.$error.required" style="color:red">*</span>
+            <span ng-show="addAccForm.bank.$error.required" style="color:red">*</span>
         </label><br/>
-        <ons-input type="text" ng-model="submitted.bank" name="bank" id="bank" modifier="underbar" style="width:90%" required>
+        <ons-input type="text" ng-model="newaccsubmitted.bank" name="bank" id="bank" modifier="underbar" style="width:90%" required>
         </ons-input>
     </ons-col>
 </ons-row>
@@ -56,5 +56,5 @@
     <label for="balance">
         Balance
     </label>
-    <ons-input ng-model="submitted.balance" name="balance" input-id="balance" modifier="underbar" type="number" min="0" style="width:100%" required></ons-input>
+    <ons-input ng-model="newaccsubmitted.balance" name="balance" input-id="balance" modifier="underbar" type="number" min="0" style="width:100%" required></ons-input>
 </p>

@@ -1,0 +1,22 @@
+<form name="relatedAccForm">
+<p>
+    <b>Choose Related Account(s)</b>
+</p>
+<ons-list>
+    <ons-list-item ng-repeat="account in tempAccList">
+        <label class="left">
+            <ons-checkbox value="{{account.accid}}" id="{{account.accid}}" ng-checked="relatedAcc.indexOf(account.accid)>-1" ng-click="toggleRelatedAccSelection(account.accid)"></ons-checkbox>
+        </label>
+        <label for="{{account.accid}}" class="center">{{account.accname}} {{account.fourdigits}}({{account.accgroup}})</label>
+    </ons-list-item>
+</ons-list>
+</form>
+
+<ons-row style="width:100%;margin:20px 0px;position:">
+    <ons-col width="50%">
+        <ons-button modifier="large quiet" ng-click="showNewPromoPage(1);">Prev</ons-button>
+    </ons-col>
+    <ons-col width="50%">
+        <ons-button modifier="large" ng-disabled="relatedAcc.length==0" ng-click="showNewPromoPage(3);">Next</ons-button>
+    </ons-col>
+</ons-row>

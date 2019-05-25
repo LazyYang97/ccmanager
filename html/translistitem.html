@@ -1,16 +1,16 @@
-<ons-list-item modifier="nodivider">
-    <div class="left" style="overflow:hidden;text-overflow:ellipsis">
+<ons-list-item modifier="nodivider" tappable>
+    <div class="left" style="width:70px;overflow:hidden;text-overflow:ellipsis">
         <small>{{transaction.transcategory}}</small>
     </div>
 
-    <div class="center" style="overflow:hidden;text-overflow:ellipsis">
+    <div class="center" style="width:130px;overflow:hidden;text-overflow:ellipsis">
         <span class="list-item__title">
             {{transaction.transdesc}}
         </span>
         <span ng-show="transaction.transgroup!='transfer'" class="list-item__subtitle">
             {{relatedaccname}}
-        </span> 
-        <span ng-show="transaction.transgroup=='transfer'" class="list-item__subtitle">
+        </span>
+        <span ng-show="transaction.transgroup=='transfer'||transaction.transgroup=='payment'" class="list-item__subtitle">
             {{fromaccname}} > {{toaccname}}
         </span>
     </div>
@@ -26,6 +26,8 @@
                 <span ng-show="transaction.transgroup=='transfer'">
                     $ {{transaction.transamount}}
                 </span>
-
+                <span ng-show="transaction.transgroup=='payment'">
+                    $ {{transaction.transamount}}
+                </span>
     </div>
 </ons-list-item>

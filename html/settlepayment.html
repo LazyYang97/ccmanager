@@ -1,0 +1,27 @@
+<ons-page>
+    <ons-toolbar>
+        <div class="left">
+            <ons-back-button ng-click="acctransNavigator.popPage()"></ons-back-button>
+        </div>
+        <div class="center">Pay {{paymenttitle}} Amount</div>
+    </ons-toolbar>
+    <div class="content" style="width:90%;margin:0 auto">
+        <form name="settlePaymentForm">
+            <p>
+            <label>
+                Choose Account to Pay
+                <span ng-show="settlePaymentForm.paymentacc.$error.required" style="color:red">*</span>
+            </label><br/>
+            <select class="select-input select-input--underbar" name="paymentacc" id="paymentacc" ng-model="payment.paymentacc" ng-options="x.accid as x.accname +' '+x.fourdigits+'('+x.accgroup+')' for x in tempAccList" style="width:100%" required></select>
+            </p>
+            <p>
+            <label>
+                Amount $
+                <span ng-show="settlePaymentForm.payamount.$error.required" style="color:red">*</span>
+            </label>
+                <ons-input id="payamount" min="0" ng-model="payment.payamount" type="number" modifier="underbar" name="payamount" style="width:100%" required></ons-input>
+            </p>
+            <ons-button modifier="large" ng-click="settlePayment(acctransNavigator.topPage.data.selectedacc)">Settle</ons-button>
+        </form>
+    </div>
+</ons-page>

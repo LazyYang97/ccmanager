@@ -1,0 +1,17 @@
+<p><b>Choose Related Expense Categories</b></p>
+<ons-list>
+    <ons-list-item ng-repeat="(key,name) in expensecategories">
+        <label class="left">
+            <ons-checkbox value="{{key}}" id="{{key}}" ng-checked="relatedExpCategories.indexOf(key)>-1" ng-click="toggleExpSelection(key)"></ons-checkbox>
+        </label>
+        <label for="{{name.label}}" class="center">{{name.label}}</label>
+    </ons-list-item>
+</ons-list>
+<ons-row style="width:100%;margin:20px 0px;position:">
+    <ons-col width="50%">
+        <ons-button modifier="large quiet" ng-click="showNewPromoPage(2);">Prev</ons-button>
+    </ons-col>
+    <ons-col width="50%">
+        <ons-button modifier="large" ng-disabled="relatedExpCategories.length==0" ng-click="showNewPromoPage(4);">Next</ons-button>
+    </ons-col>
+</ons-row>

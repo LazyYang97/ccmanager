@@ -1,14 +1,11 @@
 <ons-navigator swipeable var="promosNavigator">
-<ons-page>
+    <ons-page ng-init="init();showAllPromos()">
     <ons-fab position="bottom right">
-        <ons-icon icon="md-plus" onclick="promosNavigator.pushPage('html/newpromos.html',{animation:'slide'})"></ons-icon>
+        <ons-icon icon="md-plus" ng-click="promosNavigator.pushPage('html/newpromos.html',{animation:'slide'})"></ons-icon>
     </ons-fab>
     <ons-toolbar>
        <div class="center">
-           Promotions
-       </div>
-       <div class="right">
-            <ons-toolbar-button icon="md-filter-list" onclick="promosNavigator.pushPage('html/promosfilters.html',{animation:'fade'})"></ons-toolbar-button>
+           <b>Promotions</b>
        </div>
     </ons-toolbar>
     <div ng-include="'html/promoscontents.html'"></div>

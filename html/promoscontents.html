@@ -1,28 +1,40 @@
 <ons-list>
-    <ons-list-item expandable>
+    <ons-list-item  ng-repeat="(key,value) in promotionJoined | groupBy:'promoid'" expandable>
         <div class="center">
-            <span class="list-item__title">
-                Promotion Title
-            </span>
-            <span class="list-item__subtitle">
-                Description
-            </span>
-        </div>
-        <div class="expandable-content">
-            More Details
-        </div>
-    </ons-list-item>
-    <ons-list-item expandable>
-        <div class="center">
-            <span class="list-item__title">
-                Promotion Title
-            </span>
-            <span class="list-item__subtitle">
-                Description
+            <span class="list-item__title" ng-repeat="(x,y) in value | groupBy:'promotitle'"><b>{{x}}</b></span>
+            <span class="list-item__subtitle" >
+                <ons-icon icon="fa-tags"></ons-icon>&nbsp;
+                <span ng-repeat="(a,b) in value | groupBy:'rewardtype'">
+                    {{a}} 
+                </span>
             </span>
         </div>
-        <div class="expandable-content">
-            More Details
+        <div class="right">
+            <ons-button modifier="quiet" ng-click="deletePromo(key,value.promotitle)">Delete</ons-button>
         </div>
+      <div class="expandable-content">
+          <div>
+              <small>
+                  <ons-icon icon="fa-shopping-cart"></ons-icon>&nbsp;
+                  <span ng-repeat="(c,d) in value|groupBy:'category'">{{c}} </span> 
+              </small>
+          </div>
+          <div>
+              <small>
+                  <ons-icon icon="fa-dollar-sign"></ons-icon>&nbsp;
+                  <span ng-repeat="(j,k) in value|groupBy:'minspend'">Min: {{j}} </span> 
+              </small>
+          </div>
+          <div>
+              <ons-icon icon="fa-credit-card"></ons-icon>
+              <small ng-repeat="(e,f) in value|groupBy:'accid'">
+                <span ng-repeat="(g,h) in f | groupBy:'accname'">
+                    <span ng-if="g=='undefined'"></span>
+                    <span ng-if="g!='undefined'">{{g}}</span>
+                    <span ng-if="g!='undefined'" ng-repeat="(v,w) in h|groupBy:'fourdigits'">({{v}})</span>
+                </span> 
+              </small>
+          </div>
+      </div>
     </ons-list-item>
 </ons-list>

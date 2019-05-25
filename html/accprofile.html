@@ -1,4 +1,4 @@
-<ons-page ons-show="showSelectedAcc(acctransNavigator.topPage.data.accountdetails.accid);">
+<ons-page>
    <ons-toolbar>
        <div class="left">
            <ons-back-button ng-click="acctransNavigator.popPage()"></ons-back-button>
@@ -7,8 +7,8 @@
            <b>{{selectedAcc[0].accname}} {{selectedAcc[0].fourdigits}}</b>
        </div>
        <div class="right">
-           <ons-toolbar-button icon="md-delete" ng-click="deleteAlertDialog.show()"></ons-toolbar-button>
-           <ons-toolbar-button icon="md-edit" ng-click="acctransNavigator.pushPage('html/editacc.html',{animation:'slide',data:{selectedacc:selectedAcc[0]}})"></ons-toolbar-button>
+           <ons-toolbar-button icon="fa-pen" ng-click="acctransNavigator.pushPage('html/editacc.html',{animation:'slide',data:{selectedacc:selectedAcc[0]},callback:setDefaultEditAccForm(selectedAcc[0])})"></ons-toolbar-button>
+           <ons-toolbar-button icon="fa-trash-alt" ng-click="deleteSelectedAccount(selectedAcc[0])"></ons-toolbar-button>
 
        </div>
    </ons-toolbar>
@@ -29,12 +29,13 @@
                     </span>
                 </div>
                 <div class="right">
-                    <img src="img/visacardicon.png" ng-if="selectedAcc[0].cardtype=='visa'" width="48px"/>
-                    <img src="img/mastercardicon.png" ng-if="selectedAcc[0].cardtype=='master'" width="48px"/>
+                    <img src="img/visacardicon.png" ng-if="selectedAcc[0].cardtype=='Visa'" width="48px"/>
+                    <img src="img/mastercardicon.png" ng-if="selectedAcc[0].cardtype=='Master'" width="48px"/>
                 </div>
             </ons-list-item>
         </ons-list> 
    </div>
+
    <div style="width:100%;text-align:center;margin:10px 0px">
        <div class="segment" style="width: 250px; margin: 0 auto;">
            <div class="segment__item" ng-show="showCreditCardDetails(selectedAcc[0].accgroup)">
@@ -53,18 +54,8 @@
            <div ng-include="'html/creditcarddetails.html'"></div>
        </div>
        <div ng-switch-when="false">
-           <div ng-init="viewSelectedAccTrans = selectedAcc[0].accid" ng-include="'html/transcontents.html'"></div>
+           <div ng-include="'html/acctranscontents.html'"></div>
        </div>
    </div>
 </ons-page>
 
-<ons-alert-dialog var="deleteAlertDialog">
-    <div class="alert-dialog-title">Delete {{selectedAcc[0].accname}}</div>
-            <div class="alert-dialog-content">
-                Are you sure?
-            </div>
-            <div class="alert-dialog-footer">
-                <button class="alert-dialog-button" ng-click="deleteAlertDialog.hide()">NO!!</button>
-                <button class="alert-dialog-button" ng-click="deleteSelectedAccount(selectedAcc[0])">Yes..</button>
-            </div>
-</ons-alert-dialog>

@@ -1,0 +1,23 @@
+<p><b>Rewards</b></p>
+<ons-list>
+    <ons-list-item ng-repeat="(key,name) in rewardscategories">
+        <label class="left">
+            <ons-checkbox value="{{key}}" id="{{key}}" ng-checked="selectedRewards.indexOf(key)>-1" ng-click="toggleRewardsSelection(key)"></ons-checkbox>
+        </label>
+        <label for="{{name.label}}" class="center">
+            {{name.label}}
+        </label>
+    </ons-list-item>
+</ons-list>
+<div ng-repeat="reward in selectedRewards">
+    {{reward}} is selected
+</div>
+
+<ons-row style="width:100%;margin:20px 0px;position:">
+    <ons-col width="50%">
+        <ons-button modifier="large quiet" ng-click="showNewPromoPage(3);">Prev</ons-button>
+    </ons-col>
+    <ons-col width="50%">
+        <ons-button modifier="large" ng-disabled="selectedRewards.length==0" ng-click="submitNewPromo()">Submit</ons-button>
+    </ons-col>
+</ons-row>

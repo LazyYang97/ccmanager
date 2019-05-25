@@ -1,0 +1,21 @@
+<form name="newPromoForm">
+<p>
+    <label>
+        <b>Give This Promotion a Title</b>
+        <span ng-show="newPromoForm.promotitle.$error.required" style="color:red">*</span>
+    </label><br/> 
+    <ons-input type="text" ng-model="newpromo.promotitle" name="promotitle" placeholder="Title" modifier="underbar" style="width:100%" required></ons-input> 
+</p>
+<p>
+    <label>
+        <b>Minimum Spend</b>
+    </label><br/> 
+    <ons-input type="number" min="0" ng-model="newpromo.minspend" name="minspend" placeholder="0" modifier="underbar" style="width:100%"></ons-input> 
+</p>
+</form>
+<ons-row style="width:100%;margin:20px 0px;position:">
+    <ons-col width="50%"></ons-col>
+    <ons-col width="50%">
+        <ons-button modifier="large" ng-disabled="newPromoForm.$invalid" ng-click="showNewPromoPage(2);">Next</ons-button>
+    </ons-col>
+</ons-row>

@@ -1,4 +1,4 @@
-<ons-page ng-init="setDefaultAccForms('','addaccForm')">
+<ons-page ng-init="setDefaultAccForms('')">
 
 <ons-toolbar>
     <div class="left">
@@ -7,41 +7,41 @@
 
     <div class="center">Add Account</div>
 
-    <div class="right" ng-if="submitted.selectedAccGroup=='creditcard'||submitted.selectedAccGroup=='debitcard'">
-        <ons-toolbar-button icon="md-camera"></ons-toolbar-button>      
+    <div class="right" ng-if="newaccsubmitted.selectedAccGroup=='creditcard'||newaccsubmitted.selectedAccGroup=='debitcard'">
+        <ons-toolbar-button icon="fa-camera"></ons-toolbar-button>      
     </div>
 
 </ons-toolbar>
 
 <!--New Account Contents-->
-<form name="{{accFormName}}">
+<form name="addAccForm">
 
 <div class="content" style="width:90%;margin:0 auto">
 
 <p>
  <label for="selectedAccGroup">Group</label><br/>
- <select class="select-input select-input--underbar" id="selectedAccGroup" ng-model="submitted.selectedAccGroup" ng-options="x as y.label for (x,y) in accgroups" modifier="underbar" style="width:100%">
+ <select class="select-input select-input--underbar" id="selectedAccGroup" ng-model="newaccsubmitted.selectedAccGroup" ng-options="x as y.label for (x,y) in accgroups" modifier="underbar" style="width:100%">
  </select>
 </p>
 
 <!--Include Credit Card Fields -->
-<div ng-switch="submitted.selectedAccGroup">
-    <div ng-init="setDefaultAccForms('creditcard','addaccForm','')" ng-switch-when="creditcard" >
+<div ng-switch="newaccsubmitted.selectedAccGroup">
+    <div ng-init="setDefaultNewAccForms('creditcard')" ng-switch-when="creditcard" >
         <div ng-include="'html/creditcardfields.html'"></div>
     </div>
 
 <!--Include Debit Card Fields -->
-    <div ng-init="setDefaultAccForms('debitcard','addaccForm','')" ng-switch-when="debitcard">
+    <div ng-init="setDefaultNewAccForms('debitcard')" ng-switch-when="debitcard">
         <div ng-include="'html/debitcardfields.html'"></div>
     </div>
 
 <!--Include Cash Fields -->
-    <div ng-init="setDefaultAccForms('cash','addaccForm','')" ng-switch-when="cash">
+    <div ng-init="setDefaultNewAccForms('cash')" ng-switch-when="cash">
         <div ng-include="'html/cashfields.html'"></div>
     </div>
 </div>
 
-<ons-button type="submit"  ng-click="createNewAccount()" modifier="large" ng-hide="!submitted.selectedAccGroup" ng-disabled="addaccForm.$invalid" style="margin-bottom:20px">Add</ons-button>
+<ons-button type="submit"  ng-click="createNewAccount()" modifier="large" ng-hide="!newaccsubmitted.selectedAccGroup" ng-disabled="addaccForm.$invalid" style="margin-bottom:20px">Add</ons-button>
 
 </div>
 </form>

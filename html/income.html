@@ -1,31 +1,49 @@
-<p>
-    <label for="transdate">Date</label><br/>
-    <ons-input ng-model="transsubmitted.transdate" type="date" modifier="underbar" name="transdate" id="transdate" style="width:100%"></ons-input>
-</p>
+<ons-page>
+<div class="content" style="width:100%">
 
-<p>
-    <label for="transacc">
-        Account
-        <span ng-show="addTransForm.transacc.$error.required" style="color:red">*</span>
-    </label><br/>
-    <select class="select-input select-input--underbar" name="transacc" id="transacc" ng-model="transsubmitted.transacc" ng-options="x.accid as x.accname for x in AccountsList" style="width:100%" required></select>
-</p>
+<ons-list modifier="nodivider">
+<form name="addIncomeForm">
 
-<p>
-    <label for="transcategory">
-        Category
-        <span ng-show="addTransForm.transcategory.$error.required" style="color:red">*</span>
-    </label><br/>
-    <select class="select-input select-input--underbar" name="transcategory" id="transcategory" ng-model="transsubmitted.transcategory" ng-options="x as y.label for (x,y) in incomecategories" style="width:100%" required></select>
-</p>
+<ons-list-item tappable>
+    Date
+    <ons-input ng-init="transsubmitted.transdate = cvtTodayDate" ng-model="transsubmitted.transdate" name="transdate" type="date" modifier="underbar" id="transdate" style="width:100%" required></ons-input>
+</ons-list-item>
 
-<p>
-    <label for="transamount">Amount $</label><br/>
-    <ons-input id="transamount" ng-model="transsubmitted.transamount" type="number" modifier="underbar" style="width:100%"></ons-input>
-</p>
+<ons-list-item tappable>
+    Account
+    <span ng-show="addIncomeForm.transacc.$error.required" style="color:red">*</span>
+    <select class="select-input select-input--underbar" name="transacc" id="transacc" ng-model="transsubmitted.transacc" ng-options="x.accid as x.accname +' '+x.fourdigits+'('+x.accgroup+')' for x in tempAccList" style="width:100%" required></select>
+</ons-list-item>
 
-<p>
-    <label for="transdesc">Description</label><br/>
-    <ons-input id="transdesc" ng-model="transsubmitted.transdesc" type="text" modifier="underbar" style="width:100%"></ons-input>
-</p>
+<ons-list-item tappable>
+    Category
+    <span ng-show="addIncomeForm.transcategory.$error.required" style="color:red">*</span>
+    <select class="select-input select-input--underbar" id="transcategory" name="transcategory" ng-model="transsubmitted.transcategory" ng-options="x as y.label for (x,y) in incomecategories" style="width:100%" required>
+        <option value=""></option>
+    </select>
+</ons-list-item>
 
+<ons-list-item tappable>
+    Amount $
+    <ons-input id="transamount" ng-model="transsubmitted.transamount" type="number" modifier="underbar" name="transamount" style="width:100%"></ons-input>
+</ons-list-item>
+
+<ons-list-item tappable>
+    Contents
+    <ons-input ng-init="transsubmitted.transdesc=''" id="transdesc" ng-model="transsubmitted.transdesc" type="text" modifier="underbar" name="transdesc" style="width:100%"></ons-input>
+</ons-list-item>
+
+
+<ons-list-item tappable>
+    Notes
+    <ons-input id="transnotes" ng-init="transsubmitted.transnotes=''" ng-model="transsubmitted.transnotes" type="text" modifier="underbar" name="transnotes" style="width:100%"></ons-input>
+</ons-list-item>
+
+<ons-list-item tappable>
+<ons-button modifier="large" ng-disabled="addIncomeForm.$invalid" ng-click="createNewTransaction('income')">Add</ons-button> 
+</ons-list-item>
+
+</form>
+</ons-list>
+</div>
+</ons-page>

@@ -1,48 +1,16 @@
-<ons-navigator swipeable var="newTransNavigator" ons-show="setDefaultTransForms('expense')">
-
+<ons-navigator swipeable var="newTransNavigator">
     <ons-page>
-
     <ons-toolbar>
         <div class="center">
             <b>Add Transaction</b>
         </div>
     </ons-toolbar>
 
-    <form  style="width:90%;margin:0 auto;" name="addTransForm">
-
-        <div style="width:100%;text-align:center;margin:10px 0px;">
-         <div class="segment" style="width: 80%; margin:0 auto;">
-           <div class="segment__item">
-               <input type="radio" ng-model="transsubmitted.selectedTransGroup" value="expense" class="segment__input" name="segment-a" checked>
-             <div class="segment__button"><b>Expense</b></div>
-           </div>
-           <div class="segment__item">
-               <input type="radio" class="segment__input" ng-model="transsubmitted.selectedTransGroup" value="income" name="segment-a">
-             <div class="segment__button"><b>Income</b></div>
-           </div>
-           <div class="segment__item">
-               <input type="radio" class="segment__input" ng-model="transsubmitted.selectedTransGroup" value="transfer" name="segment-a">
-             <div class="segment__button"><b>Transfer</b></div>
-           </div>
-         </div>
-        </div>
-        
-        <div ng-switch="transsubmitted.selectedTransGroup" class="content">
-            <div ng-init="setDefaultTransForms('expense')" ng-switch-when="expense">
-                <div ng-include="'html/expense.html'"></div> 
-            </div>
-            <div ng-init="setDefaultTransForms('income')" ng-switch-when="income">
-                <div ng-include="'html/income.html'"></div> 
-            </div>
-            <div  ng-init="setDefaultTransForms('transfer')" ng-switch-when="transfer">
-                <div ng-include="'html/transfer.html'"></div> 
-            </div>
-        </div>
-
-        <ons-button modifier="large" ng-disabled="addTransForm.$invalid" ng-click="createNewTransaction()">Add</ons-button> 
-
-    </form> 
-
+    <ons-tabbar var="newTransTab" swipeable position="top">
+        <ons-tab page="html/expense.html" label="Expense" active></ons-tab>
+        <ons-tab page="html/income.html" label="Income"></ons-tab>
+        <ons-tab page="html/transfer.html" label="Transfer"></ons-tab>
+    </ons-tabbar>
 
     </ons-page>
 </ons-navigator>

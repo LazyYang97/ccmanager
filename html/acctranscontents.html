@@ -23,12 +23,12 @@
         </div>
         <div class="right">
             <ons-row style="width:150px;text-align:right">
-                <ons-col width="50%" style="color:blue">$ {{getTotalIncByDay(value,0)}}</ons-col>
-                <ons-col width="50%" style="color:red">$ {{getTotalExpByDay(value,0)}}</ons-col>
+                <ons-col width="50%" style="color:blue">$ {{getTotalIncByDay(value,1)}}</ons-col>
+                <ons-col ng-if="value" width="50%" style="color:red">$ {{getTotalExpByDay(value,1)}}</ons-col>
             </ons-row>
         </div>
     </ons-list-item>
 
-    <transactions-list-item ng-init="relatedaccname = convertAccIDToName(transaction.transacc);fromaccname=convertAccIDToName(transaction.fromtransacc);toaccname=convertAccIDToName(transaction.totransacc)" ng-click="acctransNavigator.pushPage('html/previewtrans.html',{animation:'slide',data:{trans:transaction},callback:showSelectedTransaction(transaction)})" ng-repeat="transaction in value" data="transaction" relatedacc="relatedaccname" fromacc="fromaccname" toacc="toaccname"></transactions-list-item>
+    <transactions-list-item ng-init="relatedaccname = convertAccIDToName(transaction.transacc) ; fromaccname = convertAccIDToName(transaction.fromtransacc) ; toaccname=convertAccIDToName(transaction.totransacc)" ng-click="acctransNavigator.pushPage('html/previewtrans.html',{animation:'slide',data:{trans:transaction},callback:showSelectedTransaction(transaction)})" ng-repeat="transaction in value" ng-if="transaction.transacc == selectedAcc[0].accid || transaction.fromtransacc==selectedAcc[0].accid ||transaction.totransacc==selectedAcc[0].accid" data="transaction" relatedacc="relatedaccname" fromacc="fromaccname" toacc="toaccname"></transactions-list-item>
 
 </ons-list>

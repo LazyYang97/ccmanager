@@ -1,0 +1,60 @@
+<!--Debit Card Fields-->
+<p> 
+<ons-row>
+    <ons-col>
+        <label for="fourdigits">
+            Last 4 Digits
+        </label><br/>
+        <ons-input ng-model="editaccsubmitted.fourdigits" placeholder="XXXX" name="fourdigits" input-id="fourdigits" modifier="underbar" type="text" maxlength="4" pattern="\d{4}" style="width:90%"></ons-input>
+    </ons-col>
+    <ons-col>
+        <label for="expiry">
+            Expiry
+            <span ng-show="editAccForm.expirymonth.$error.required || editAccForm.expiryyear.$error.required" style="color:red">*</span>
+        </label><br/>
+        <span>
+            <select class="select-input select-input--underbar" ng-model="editaccsubmitted.expirymonth" name="expirymonth" input-id="expirymonth" modifier="underbar" ng-options="n for n in [] | range:1:12" style="width:45%" required>
+                <option value="" disabled>MM</option> 
+            </select></span>
+        <span>/</span>
+        <span>
+        <select ng-model="editaccsubmitted.expiryyear" class="select-input select-input--underbar" name="expiryyear" input-id="expiryyear" modifier="underbar" style="width:45%" ng-options="n for n in [] | range:21:30" required>
+            <option value="" disabled>YY</option> 
+        </select> 
+        </span>
+    </ons-col>
+</ons-row>
+</p>
+<p>
+    <label for="accname">
+        Card Name
+        <span ng-show="editAccForm.accname.$error.required" style="color:red">*</span>
+    </label><br/>
+    <ons-input ng-model="editaccsubmitted.accname" name="accname" input-id="accname" modifier="underbar" type="text" style="width:100%" required></ons-input>
+</p>
+<p> 
+<ons-row>
+    <ons-col>
+        <label for="selectedCardType">
+            Type
+            <span ng-show="editAccForm.selectedCardType.$error.required" style="color:red">*</span>
+        </label><br/>
+        <select id="selectedCardType" class="select-input select-input--underbar" ng-model="editaccsubmitted.selectedCardType" name="selectedCardType" modifier="underbar" style="width:90%" ng-options="x as y.label for (x,y) in cardtypes" required> 
+        </select>
+    </ons-col>
+    <ons-col>
+        <label for="bank">
+            Bank
+            <span ng-show="editAccForm.bank.$error.required" style="color:red">*</span>
+        </label><br/>
+        <ons-input type="text" ng-model="editaccsubmitted.bank" name="bank" id="bank" modifier="underbar" style="width:90%" required>
+        </ons-input>
+    </ons-col>
+</ons-row>
+</p>
+<p>
+    <label for="balance">
+        Balance
+    </label>
+    <ons-input ng-model="editaccsubmitted.balance" name="balance" input-id="balance" modifier="underbar" type="number" min="0" style="width:100%" required></ons-input>
+</p>

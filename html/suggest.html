@@ -1,18 +1,32 @@
 <ons-page>
     <ons-toolbar>
         <div class="left">
-            <ons-back-button ng-click="myNavigator.popPage()"></ons-back-button>
+            <ons-back-button ng-click="newTransNavigator.popPage()"></ons-back-button>
         </div>
-        <div class="center">Suggest Accounts</div>
+        <div class="center"><b>Recommended Accounts</b></div>
     </ons-toolbar>
     <ons-list>
-        <ons-list-item>
+        <ons-list-item ng-repeat="(key,value) in suggestAccList|groupBy:'accid'">
             <div class="center">
-                <span class="list-item__title">Card 1</span>
-                <span class="list-item__subtitle">Description</span>
+                <span class="list-item__title">
+                    <b ng-repeat="(x,y) in value|groupBy:'accname'">
+                        {{x}}
+                    </b>
+                    <b ng-repeat="(c,d) in value|groupBy:'fourdigits'">
+                        ({{c}})
+                    </b>
+                </span>
+                <b style="color:red"ng-repeat="(g,h) in value|groupBy:'suggest'">
+                    <small>{{g}}</small>
+                </b>
+                <span class="list-item__subtitle">
+                    <span ng-repeat="(a,b) in value|groupBy:'rewards'">
+                        {{a}} 
+                    </span>
+                </span>
             </div>
             <div class="right">
-                <ons-button>select</ons-button> 
+                <ons-button modifier="quiet" ng-click="selectSuggestedAccount(key)">Select</ons-button> 
             </div>
         </ons-list-item>
     </ons-list>

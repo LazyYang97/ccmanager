@@ -1,64 +1,53 @@
-<ons-page ons-show="updateAccTransTitle('Accounts');showAllAccounts()">
+<ons-page ons-show="init();updateAllAccBalance();">
     <ons-fab position="bottom right" >
         <ons-icon icon="md-plus" ng-click="acctransNavigator.pushPage('html/newacc.html',{animation:'slide'})"></ons-icon>
     </ons-fab>
     <div class="content" style="margin-bottom:70px;">
-        <div ng-show="AccountsList.length==0" style="text-align:center;margin-top:30px;">
+        <div ng-show="tempAccList.length==0" style="text-align:center;margin-top:30px;">
             <em>It's empty. Add a new one....</em> 
         </div>
-    <!--Credit Card-->
-    <ons-list modifier="longdivider" ng-if="checkAccGroupCount('creditcard')!=0">
-        <ons-list-item style="font-weight:bold;background:#eeeeee">
-        <div class="center" >
-                Credit Cards
-        </div>
-        <div class="right" style="width:150px;text-align:right">
-            <ons-row>
-                <ons-col width="50%">
-                    Due Amt<br/>
-                    <span>$ </span>
-                </ons-col>
-                <ons-col width="50%">
-                    Oustd.<br/>
-                    <span>$ {{showAccGroupsTotalBalance('creditcard')}}</span>
-                </ons-col>
-            </ons-row>
-        </div>
-    </ons-list-item>
-    <account-list-item ng-repeat="account in AccountsList" modifier="longdivider" ng-if="account.accgroup=='creditcard'"  ng-click="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide',data:{accountdetails:account}})"  data="account"></account-list-item>
-    </ons-list>
 
-    <!--Debit Card-->
-    <ons-list modifier="longdivider" ng-if="checkAccGroupCount('debitcard')!=0">
-        <ons-list-item modifier="longdivider" style="font-weight:bold;background:#eeeeee">
-        <div class="center" >
-        Debit Cards
-        </div>
-        <div class="right">
-            <ons-row style="width:150px;text-align:right">
-                <ons-col></ons-col>
-                <ons-col ng-if="showAccGroupsTotalBalance('debitcard')>=0" style="color:blue">$ {{showAccGroupsTotalBalance('debitcard')}}</ons-col>
-                <ons-col ng-if="showAccGroupsTotalBalance('debitcard')<0" style="color:red">$ {{showAccGroupsTotalBalance('debitcard')}}</ons-col>
-            </ons-row>
-        </div>
-    </ons-list-item>
-    <account-list-item ng-repeat="account in AccountsList" data="account" ng-click="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide',data:{accountdetails:account}})" ng-if="account.accgroup=='debitcard'"></account-list-item>
-    </ons-list>
+    <!--Accounts List-->
+    <ons-list modifier="longdivider" ng-repeat="(key,value) in tempAccList | groupBy:'accgroup'">
 
-    <!--Cash-->
-    <ons-list modifier="longdivider" ng-if="checkAccGroupCount('cash')!=0">
     <ons-list-item modifier="longdivider" style="font-weight:bold;background:#eeeeee">
         <div class="center">
-            Cash
+            <ons-icon icon="fa-credit-card" ng-if="key!='cash'"></ons-icon>
+            <ons-icon icon="fa-money-bill" ng-if="key=='cash'"></ons-icon>
+            &nbsp;
+            {{convertAccTypeLabel(key)}}
         </div>
         <div class="right">
-            <ons-row style="width:150px;text-align:right">
-                <ons-col></ons-col>
-                <ons-col ng-if="showAccGroupsTotalBalance('cash')>=0" style="color:blue">$ {{showAccGroupsTotalBalance('cash')}}</ons-col>
-                <ons-col ng-if="showAccGroupsTotalBalance('cash')<0" style="color:red">$ {{showAccGroupsTotalBalance('cash')}}</ons-col>
+            <ons-row ng-if="key=='creditcard'"   style="width:150px;text-align:right">
+                <ons-col style="color:red">
+                    <small>Due</small><br/>
+                    $ {{getTotalPayableAmount()}}
+                </ons-col>
+                <ons-col style="color:red" ng-if="getTotalOutstdAmount()>0">
+                    <small>Outstd</small><br/>
+                    $ {{getTotalOutstdAmount()}}
+                </ons-col>
+                <ons-col style="color:blue" ng-if="getTotalOutstdAmount()<=0">
+                    <small>Outstd</small><br/>
+                    $ {{getTotalOutstdAmount()}}
+                </ons-col>
+            </ons-row>
+            <ons-row ng-if="key=='debitcard' && getDebitTotalBalance()>=0"   style="width:150px;text-align:right">
+                <ons-col style="color:blue">$  {{getDebitTotalBalance()}}</ons-col>
+            </ons-row>
+            <ons-row ng-if="key=='cash' && getCashTotalBalance()>=0"   style="width:150px;text-align:right">
+                <ons-col style="color:blue">$  {{getCashTotalBalance()}}</ons-col>
+            </ons-row>
+            <ons-row ng-if="key=='debitcard' && getDebitTotalBalance()<0"   style="width:150px;text-align:right">
+                <ons-col style="color:red">$  {{getDebitTotalBalance()}}</ons-col>
+            </ons-row>
+            <ons-row ng-if="key=='cash' && getCashTotalBalance()<0"   style="width:150px;text-align:right">
+                <ons-col style="color:red">$  {{getCashTotalBalance()}}</ons-col>
             </ons-row>
         </div>
     </ons-list-item>
-    <account-list-item ng-repeat="account in AccountsList" data="account" ng-click="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide',data:{accountdetails:account}})" ng-if="account.accgroup=='cash'"></account-list-item>
+
+    <account-list-item ng-repeat="account in value" data="account" ng-click="acctransNavigator.pushPage('html/accprofile.html',{animation:'slide',data:{accountdetails:account},callback:showSelectedAcc(account)})"></account-list-item>
+
     </ons-list>
 </ons-page>

@@ -1,51 +1,61 @@
-<ons-page ng-init="setDefaultEditTransForms(acctransNavigator.topPage.data.trans.transgroup,acctransNavigator.topPage.data.trans)">
-
-    <ons-toolbar>
+<ons-page>
+    <ons-toolbar> 
         <div class="left">
-        <ons-back-button ng-click="acctransNavigator.popPage()"></ons-back-button>
-        </div>
+            <ons-back-button ng-click="acctransNavigator.popPage()"></ons-back-button>
+        </div> 
         <div class="center">
             <b>Edit Transaction</b>
-        </div>
-        <div class="right">
-            <ons-toolbar-button icon="md-delete" ng-click="deleteSeletedTrans(acctransNavigator.topPage.data.trans)"></ons-toolbar-button> 
-        </div>
+        </div> 
     </ons-toolbar>
-    <div class="content" style="width:90%;margin:0 auto;" >
-    <form name="editTransForm">
 
-        <div style="width:100%;text-align:center;margin:10px 0px;">
-         <div class="segment" style="width: 80%; margin:0 auto;">
-           <div class="segment__item">
-               <input type="radio" ng-model="transeditsubmitted.selectedTransGroup" value="expense" class="segment__input" name="segment-a" checked>
-             <div class="segment__button"><b>Expense</b></div>
-           </div>
-           <div class="segment__item">
-               <input type="radio" class="segment__input" ng-model="transeditsubmitted.selectedTransGroup" value="income" name="segment-a">
-             <div class="segment__button"><b>Income</b></div>
-           </div>
-           <div class="segment__item">
-               <input type="radio" class="segment__input" ng-model="transeditsubmitted.selectedTransGroup" value="transfer" name="segment-a">
-             <div class="segment__button"><b>Transfer</b></div>
-           </div>
-         </div>
-        </div>
-        
-        <div ng-switch="transeditsubmitted.selectedTransGroup" class="content">
-            <div ng-init="setDefaultEditTransForms('expense',acctransNavigator.topPage.data.trans)" ng-switch-when="expense">
-                <div ng-include="'html/editexpense.html'"></div> 
-            </div>
-            <div ng-init="setDefaultEditTransForms('income',acctransNavigator.topPage.data.trans)" ng-switch-when="income">
-                <div ng-include="'html/editincome.html'"></div> 
-            </div>
-            <div ng-init="setDefaultEditTransForms('transfer',acctransNavigator.topPage.data.trans)" ng-switch-when="transfer">
-                <div ng-include="'html/edittransfer.html'"></div> 
-            </div>
-        </div>
+<div class="content" style="width:100%">
+<ons-list modifier="nodivider">
+<form name="editTransForm">
 
-        <ons-button modifier="large" ng-disabled="editTransForm.$invalid" ng-click="editSelectedTrans(acctransNavigator.topPage.data.trans)">Save</ons-button> 
+<ons-list-item tappable>
+    Date
+    <ons-input ng-model="edittrans.transdate" name="transdate" type="date" modifier="underbar" id="transdate" style="width:100%" required></ons-input>
+</ons-list-item>
 
-    </form> 
+<ons-list-item tappable>
+    Type
+    <span ng-show="editTransForm.transgroup.$error.required" style="color:red">*</span>
+    <select class="select-input select-input--underbar" id="transgroup" name="transgroup" ng-model="edittrans.transgroup" style="width:100%" required>
+        <option value=""></option>
+        <option value="expense">Expense</option>
+        <option value="income">Income</option>
+        <option value="transfer">Transfer</option>
+    </select>
+</ons-list-item>
+
+<div ng-switch="edittrans.transgroup" class="content">
+    <div ng-switch-when="expense">
+        <div ng-include="'html/editexpense.html'"></div> 
     </div>
-</ons-page>
+    <div ng-switch-when="income">
+        <div ng-include="'html/editincome.html'"></div> 
+    </div>
+    <div  ng-switch-when="transfer">
+        <div ng-include="'html/edittransfer.html'"></div> 
+    </div>
+</div>
 
+<ons-list-item tappable>
+    Contents
+    <ons-input id="transdesc" ng-model="edittrans.transdesc" type="text" modifier="underbar" name="transdesc" style="width:100%"></ons-input>
+</ons-list-item>
+
+
+<ons-list-item tappable>
+    Notes
+    <ons-input id="transnotes" ng-model="edittrans.transnotes" type="text" modifier="underbar" name="transnotes" style="width:100%"></ons-input>
+</ons-list-item>
+
+<ons-list-item tappable>
+    <ons-button modifier="large" ng-click="editSelectedTransaction(selectedTrans[0])" ng-disabled="editTransForm.$invalid" ng-click="">Save</ons-button> 
+</ons-list-item>
+
+</form>
+</ons-list>
+</div>
+</ons-page>

@@ -1,40 +1,40 @@
-<ons-page ng-init="setDefaultAccForms(acctransNavigator.topPage.data.selectedacc.accgroup,'editaccForm',acctransNavigator.topPage.data.selectedacc)">
+<ons-page>
 <ons-toolbar>
     <div class="left">
         <ons-back-button ng-click="acctransNavigator.popPage()"></ons-back-button>
     </div>
     <div class="center">Edit Account</div>
-    <div class="right" ng-if="submitted.selectedAccGroup=='creditcard'||submitted.selectedAccGroup=='debitcard'">
+    <div class="right" ng-if="editaccsubmitted.selectedAccGroup=='creditcard'||editaccsubmitted.selectedAccGroup=='debitcard'">
         <ons-toolbar-button icon="md-camera"></ons-toolbar-button>      
     </div>
 </ons-toolbar>
 
 <!--New Account Contents-->
-<form name="{{accFormName}}">
+<form name="editAccForm">
 <div class="content" style="width:90%;margin:0 auto">
 <p>
  <label for="selectedAccGroup">Group</label><br/>
- <select class="select-input select-input--underbar" id="selectedAccGroup" ng-model="submitted.selectedAccGroup" ng-options="x as y.label for (x,y) in accgroups" modifier="underbar" style="width:100%">
+ <select class="select-input select-input--underbar" id="selectedAccGroup" ng-model="editaccsubmitted.selectedAccGroup" ng-options="x as y.label for (x,y) in accgroups" modifier="underbar" style="width:100%">
  </select>
 </p>
 
 <!--Include Credit Card Fields -->
-<div ng-switch="submitted.selectedAccGroup">
-    <div ng-init="setDefaultAccForms('creditcard','editaccForm',acctransNavigator.topPage.data.selectedacc)" ng-switch-when="creditcard" >
-    <div ng-include="'html/creditcardfields.html'"></div>
+<div ng-switch="editaccsubmitted.selectedAccGroup">
+    <div ng-switch-when="creditcard" >
+    <div ng-include="'html/editcreditcardfields.html'"></div>
 </div>
 
 <!--Include Debit Card Fields -->
-<div ng-init="setDefaultAccForms('debitcard','editaccForm',acctransNavigator.topPage.data.selectedacc)" ng-switch-when="debitcard">
-    <div ng-include="'html/debitcardfields.html'"></div>
+<div ng-switch-when="debitcard">
+    <div ng-include="'html/editdebitcardfields.html'"></div>
 </div>
 
 <!--Include Cash Fields -->
-<div ng-init="setDefaultAccForms('cash','editaccForm',acctransNavigator.topPage.data.selectedacc)" ng-switch-when="cash">
-    <div ng-include="'html/cashfields.html'"></div>
+<div ng-switch-when="cash">
+    <div ng-include="'html/editcashfields.html'"></div>
 </div>
 </div>
-<ons-button type="submit"  ng-click="editSelectedAccount(acctransNavigator.topPage.data.selectedacc)" modifier="large" ng-hide="!submitted.selectedAccGroup" ng-disabled="!{{accFormName}}.$pristine && {{accFormName}}.$invalid" style="margin-bottom:20px">Save</ons-button>
+<ons-button type="submit"  ng-click="editSelectedAccount(selectedAcc[0])" modifier="large" ng-hide="!editaccsubmitted.selectedAccGroup" ng-disabled="!editAccForm.$pristine && editAccForm.$invalid" style="margin-bottom:20px">Save</ons-button>
 </div>
 </form>
 </ons-page>

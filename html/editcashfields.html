@@ -1,0 +1,12 @@
+<!--Cash Fields-->
+<p>
+    <label for="accname">
+        Account Name
+        <span ng-show="editAccForm.accname.$error.required" style="color:red">*</span>
+    </label><br/>
+    <ons-input ng-model="editaccsubmitted.accname" name="accname" input-id="accname" modifier="underbar" type="text" style="width:100%" required></ons-input>
+</p>
+<p>
+    <label for="balance">Balance</label>
+    <ons-input ng-model="editaccsubmitted.balance" name="name" input-id="balance" modifier="underbar" min="0" type="number" style="width:100%" required></ons-input>
+</p>

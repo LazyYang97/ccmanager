@@ -15,16 +15,20 @@
         <script src="js/angular-filter.min.js"></script>
         <script src="js/angular-websql.min.js"></script>
         <script src="js/date.js"></script>
+        <script src="js/lodash.js"></script>
+        <script src="js/lodash-joins.min.js"></script>
         <script src="js/app.js"></script>
         <script src="js/appService.js"></script>
+        <script src="js/databaseController.js"></script>
         <script src="js/accountsController.js"></script>
-        <script src="js/transactionController.js"></script>
+        <script src="js/transactionsController.js"></script>
+        <script src="js/promotionsController.js"></script>
         
         <title>CCManager</title>
     </head>
     <body ng-app="myApp" ng-controller="MainController as mc">
         <ons-page>
-            <ons-tabbar var="mainTab" swipeable position="bottom">
+            <ons-tabbar var="mainTab"  swipeable position="bottom">
 
                 <!--New Transactions-->
                 <ons-tab page="html/newtrans.html" active label="New Trans" icon="fa-plus-square"></ons-tab>

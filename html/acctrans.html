@@ -1,4 +1,4 @@
-<ons-navigator swipeable var="acctransNavigator">
+<ons-navigator ons-prepush="init()"swipeable var="acctransNavigator">
     <ons-page>
         <ons-toolbar>
             <div class="center">
@@ -10,7 +10,7 @@
         </ons-toolbar> 
 
 <!--Transactions Tabs-->
-        <ons-tabbar var="acctransTabbar" id="acctransTabbar" position="top">
+        <ons-tabbar var="acctransTabbar" ons-prechange="updateAccountBalance()" id="acctransTabbar" position="top">
             <ons-tab page="html/accounts.html" label="Accounts" active></ons-tab>
             <ons-tab page="html/trans.html" label="Transactions"></ons-tab>
         </ons-tabbar>

@@ -1,14 +1,41 @@
 <ons-page>
-    
-    <ons-fab position="bottom right">
-        <ons-icon icon="md-plus" ng-click="mainTab.setActiveTab(0,{animation:'slide'})"></ons-icon> 
-    </ons-fab>
     <ons-toolbar>
         <div class="left">
-            <ons-back-button ng-click="myNavigator.popPage()"></ons-back-button>
+            <ons-back-button ng-click="acctransNavigator.popPage()"></ons-back-button>
         </div>
-        <div class="center">Transactions</div>
+        <div class="center">
+            <b>{{selectedTrans[0].transdesc}}</b>
+        </div> 
+        <div class="right">
+            <ons-toolbar-button icon="fa-pen" ng-click="acctransNavigator.pushPage('html/edittrans.html',{animation:'slide',callback:setDefEditTransForm(selectedTrans[0])})"></ons-toolbar-button>
+            <ons-toolbar-button icon="fa-trash-alt" ng-click="deleteSelectedTrans(selectedTrans[0])"></ons-toolbar-button>
+        </div>
     </ons-toolbar>
-    <div ng-include="'html/transcontents.html'"> 
-    </div>
+    <ons-list>
+
+        <ons-list-header>Date</ons-list-header>
+        <ons-list-item>{{convertTransDateFormat(selectedTrans[0].transdate)}}</ons-list-item>
+
+        <ons-list-header>Type</ons-list-header>
+        <ons-list-item>{{selectedTrans[0].transgroup}}</ons-list-item>
+
+        <ons-list-header>Category</ons-list-header>
+        <ons-list-item>{{selectedTrans[0].transcategory}}</ons-list-item>
+
+        <ons-list-header ng-if="selectedTrans[0].transacc!='undefined'||selectedTrans[0].transacc!=''">Account</ons-list-header>
+        <ons-list-item ng-if="selectedTrans[0].transacc!='undefined'||selectedTrans[0].transacc!=''">{{convertAccIDToName(selectedTrans[0].transacc)}}</ons-list-item>
+
+        <ons-list-header ng-if="selectedTrans[0].fromtransacc!=''">From</ons-list-header>
+        <ons-list-item ng-if="selectedTrans[0].fromtransacc!=''">{{convertAccIDToName(selectedTrans[0].fromtransacc)}}</ons-list-item>
+
+        <ons-list-header ng-if="selectedTrans[0].totransacc!=''">To</ons-list-header>
+        <ons-list-item ng-if="selectedTrans[0].totransacc!=''">{{convertAccIDToName(selectedTrans[0].totransacc)}}</ons-list-item>
+
+        <ons-list-header>Amount</ons-list-header>
+        <ons-list-item>$ {{selectedTrans[0].transamount}}</ons-list-item>
+
+        <ons-list-header>Notes</ons-list-header>
+        <ons-list-item>{{selectedTrans[0].transnotes}}</ons-list-item>
+    </ons-list>
+    
 </ons-page>

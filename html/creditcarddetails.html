@@ -2,15 +2,15 @@
             <ons-list-item>
                 <div lass="center">
                     Status:
-                    <span ng-if="selectedAcc[0].status==1">
+                    <span ng-if="selectedAcc[0].settlestatus==1" style="color:blue">
                         Settled
                     </span>
-                    <span ng-if="selectedAcc[0].status==0">
-                        Unsettled
+                    <span ng-if="selectedAcc[0].settlestatus==0" style="color:red">
+                        Not Settled
                     </span>
                 </div>
                 <div class="right">
-                    <ons-switch ng-model="selectedAcc[0].status"></ons-switch>
+                    <ons-button modifier="quiet" ng-click="setSettled(selectedAcc[0])">Mark Settled</ons-button>
                 </div>
             </ons-list-item>
             <ons-list-item>
@@ -25,22 +25,22 @@
             </ons-list-item>
             <ons-list-item>
                 <div class="center">
-                    Statement Date: {{selectedAcc[0].statement_date}} 
+                    Statement Date: {{selectedAcc[0].statement_date}} ({{calculateDaysLeft(selectedAcc[0].statement_date)}}) 
                 </div>
             </ons-list-item>
             <ons-list-item>
                 <div class="center">
-                    Due Date: {{selectedAcc[0].payment_due_date}}   
+                    Due Date: {{selectedAcc[0].payment_due_date}} ({{calculateDaysLeft(selectedAcc[0].payment_due_date)}})
                 </div>
             </ons-list-item>
             <ons-list-item>
                 <div class="center">
-                    Cut off Date: {{selectedAcc[0].cut_off_date}} 
+                    Cut off Date: {{selectedAcc[0].cut_off_date}} ({{calculateDaysLeft(selectedAcc[0].cut_off_date)}})
                 </div>
             </ons-list-item>
             <ons-list-item>
                 <div class="center">
-                    Next Due Date: {{selectedAcc[0].next_due_date}} 
+                    Next Due Date: {{selectedAcc[0].next_due_date}} ({{calculateDaysLeft(selectedAcc[0].next_due_date)}})
                 </div>
             </ons-list-item>
             <ons-list-item>
@@ -56,5 +56,7 @@
             </ons-list-item>
 </ons-list>
 <div style="width:90%;margin:0 auto;padding:10px 0px">
-<ons-button modifier="large">Settle Outstanding Amount</ons-button> 
+    <ons-button modifier="large" ng-click="acctransNavigator.pushPage('html/settlepayment.html',{animation:'slide',data:{selectedacc:selectedAcc[0]},callback:setSettlePaymentForm('outstanding')})">Settle Outstanding Amount</ons-button> 
+
+    <ons-button modifier="large" style="margin-top:10px" ng-click="acctransNavigator.pushPage('html/settlepayment.html',{animation:'slide',data:{selectedacc:selectedAcc[0]},callback:setSettlePaymentForm('due')})">Settle Due Amount</ons-button> 
 </div>
