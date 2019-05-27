@@ -21,7 +21,7 @@
             </label>
                 <ons-input id="payamount" min="0" ng-model="payment.payamount" type="number" modifier="underbar" name="payamount" style="width:100%" required></ons-input>
             </p>
-            <ons-button modifier="large" ng-click="settlePayment(acctransNavigator.topPage.data.selectedacc)">Settle</ons-button>
+            <ons-button modifier="large" ng-disabled="settlePaymentForm.$error.required" ng-click="settlePayment(acctransNavigator.topPage.data.selectedacc)">Settle</ons-button>
         </form>
     </div>
 </ons-page>

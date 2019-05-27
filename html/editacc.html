@@ -35,7 +35,7 @@
     <div ng-include="'html/editcashfields.html'"></div>
 </div>
 </div>
-<ons-button type="submit"  ng-click="editSelectedAccount(selectedAcc[0])" modifier="large" ng-hide="!editaccsubmitted.selectedAccGroup" ng-disabled="!editAccForm.$pristine && editAccForm.$invalid" style="margin-bottom:20px">Save</ons-button>
+<ons-button type="submit"  ng-click="editSelectedAccount(selectedAcc[0])" modifier="large" ng-hide="!editaccsubmitted.selectedAccGroup" ng-disabled="editAccForm.$error.required" style="margin-bottom:20px">Save</ons-button>
 </div>
 </form>
 </ons-page>

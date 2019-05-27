@@ -52,7 +52,7 @@
 </ons-list-item>
 
 <ons-list-item tappable>
-    <ons-button modifier="large" ng-click="editSelectedTransaction(selectedTrans[0])" ng-disabled="editTransForm.$invalid" ng-click="">Save</ons-button> 
+    <ons-button modifier="large" ng-click="editSelectedTransaction(selectedTrans[0])" ng-disabled="editTransForm.$error.required" ng-click="">Save</ons-button> 
 </ons-list-item>
 
 </form>

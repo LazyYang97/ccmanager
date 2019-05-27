@@ -48,7 +48,7 @@
 </ons-list-item>
 
 <ons-list-item tappable>
-<ons-button modifier="large" ng-disabled="addExpenseForm.$invalid" ng-click="createNewTransaction('expense')">Add</ons-button> 
+    <ons-button modifier="large" ng-disabled="addExpenseForm.$error.required" ng-click="createNewTransaction('expense')">Add</ons-button> 
 </ons-list-item>
 
 </form>

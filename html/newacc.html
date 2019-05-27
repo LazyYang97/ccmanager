@@ -41,7 +41,7 @@
     </div>
 </div>
 
-<ons-button type="submit"  ng-click="createNewAccount()" modifier="large" ng-hide="!newaccsubmitted.selectedAccGroup" ng-disabled="addaccForm.$invalid" style="margin-bottom:20px">Add</ons-button>
+<ons-button type="submit"  ng-click="createNewAccount()" modifier="large" ng-hide="!newaccsubmitted.selectedAccGroup" ng-disabled="addAccForm.$error.required" style="margin-bottom:20px">Add</ons-button>
 
 </div>
 </form>

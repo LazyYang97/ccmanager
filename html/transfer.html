@@ -40,7 +40,7 @@
 </ons-list-item>
 
 <ons-list-item tappable>
-<ons-button modifier="large" ng-disabled="addTransferForm.$invalid" ng-click="createNewTransaction('transfer')">Add</ons-button> 
+    <ons-button modifier="large" ng-disabled="addTransferForm.$error.required" ng-click="createNewTransaction('transfer')">Add</ons-button> 
 </ons-list-item>
 
 </form>
