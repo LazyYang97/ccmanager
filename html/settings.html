@@ -1,4 +1,5 @@
 <ons-page>
+     
     <ons-toolbar>
         <div class="center">
             Settings
@@ -6,8 +7,32 @@
     </ons-toolbar>
     <div class="content">
         <ons-list>
-            <ons-list-item>
-                Backup All Data
+            <ons-list-item onclick="backupacc()">
+                Backup Accounts Data
+            </ons-list-item>
+            <ons-list-item onclick="backuptran()">
+                Backup Transactions Data
+            </ons-list-item>
+            <ons-list-item onclick="backuppromo()">
+                Backup Promotions Data
+            </ons-list-item>
+            <ons-list-item onclick="readbackupacc()">
+                Import Accounts Data
+            </ons-list-item>
+            <ons-list-item onclick="readbackuptran()">
+                Import Transactions Data
+            </ons-list-item>
+            <ons-list-item onclick="readbackuppromo()">
+                Import Promotions Data
+            </ons-list-item>
+            <ons-list-item onclick="deletebackup()">
+                Delete Backup Files
+            </ons-list-item>
+            <ons-list-item onclick="dropdata()">
+                Drop Data
+            </ons-list-item>
+            <ons-list-item onclick="listDir(cordova.file.dataDirectory)">
+                List Data Directory
             </ons-list-item>
         </ons-list>
     </div>

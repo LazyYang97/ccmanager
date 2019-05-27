@@ -4,9 +4,10 @@
         <ons-back-button ng-click="acctransNavigator.popPage()"></ons-back-button>
     </div>
     <div class="center">Edit Account</div>
-    <div class="right" ng-if="editaccsubmitted.selectedAccGroup=='creditcard'||editaccsubmitted.selectedAccGroup=='debitcard'">
-        <ons-toolbar-button icon="md-camera"></ons-toolbar-button>      
+    <div class="right" ng-if="editaccsubmitted.selectedAccGroup=='creditcard'||editaccsubmitted.selectedAccGroup=='debitcard'" onclick="scan()">
+        <ons-toolbar-button icon="fa-camera-retro"></ons-toolbar-button>      
     </div>
+     
 </ons-toolbar>
 
 <!--New Account Contents-->

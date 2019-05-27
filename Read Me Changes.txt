@@ -1,0 +1,17 @@
+Files affected:
+index.html:
+-include websqldump.js
+-include cordova.js
+
+newacc.html & editacc.html:
+-added script for calling Card IO on camera icon
+
+settings.html:
+-9 new buttons for calling 9 respective functions
+-backup buttons call cordova file plugin write to sql
+-import button call cordova file plugin filereader and db executesql
+-delete backup data call cordova file plugin remove all backup sql files
+-drop data calls executesql for deleting all rows from tables
+-list data directory will list all the files created from backup buttons to console on google chrome
+
+Note: tested on note 4 mobile device, browser can backup files but cannot import them
