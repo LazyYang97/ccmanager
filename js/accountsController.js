@@ -96,7 +96,7 @@ app.accountsController = function($scope,$webSql,appService){
     //Show Credit Card Details if Selected Account is Credit Card
     $scope.showCreditCardDetails = function(data){
         if(data == 'creditcard'){
-            $scope.showDetails = true;
+            $scope.showDetails = false;
             return true;
         }else{
             $scope.showDetails = false;

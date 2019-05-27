@@ -38,17 +38,21 @@
 
    <div style="width:100%;text-align:center;margin:10px 0px">
        <div class="segment" style="width: 250px; margin: 0 auto;">
+           <div class="segment__item">
+                <input type="radio" ng-model="showDetails" class="segment__input" name="segment-a" ng-value="false">
+                <div class="segment__button">
+                    <b>Transactions</b>
+                </div>
+           </div>
            <div class="segment__item" ng-show="showCreditCardDetails(selectedAcc[0].accgroup)">
-          <input type="radio" ng-model="showDetails" class="segment__input" ng-value="true" name="segment-a">
-          <div class="segment__button">Details</div>
-      </div>
-      <div class="segment__item">
-          <input type="radio" ng-model="showDetails" class="segment__input" name="segment-a" ng-value="false">
-          <div class="segment__button">Transactions</div>
-      </div>
-    </div>
-
+                <input type="radio" ng-model="showDetails" class="segment__input" ng-value="true" name="segment-a">
+                <div class="segment__button">
+                    <b>Card Details</b>
+                </div>
+           </div>
+        </div>
    </div>
+
    <div ng-switch="showDetails">
        <div ng-switch-when="true">
            <div ng-include="'html/creditcarddetails.html'"></div>
